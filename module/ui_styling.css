@@ -1,0 +1,15 @@
+.required {
+}
+
+.required-label {
+  color: red;
+}
+.orange {
+  background-color: orange;
+}
+.required-readonly {
+  color: #B2B2B2;
+}
+.required-readonly-label {
+  color: red;
+}

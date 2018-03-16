@@ -1,0 +1,436 @@
+<?xml version='1.0' encoding='utf-8'?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:jr="http://openrosa.org/javarosa" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>FILL THIS IN</h:title>
+    <model>
+      <instance>
+        <faims id="FILL_THIS_IN">
+          <!--START: Style-->
+          <style>
+            <orientation>
+              <orientation/>
+            </orientation>
+            <even>
+              <layout_weight/>
+            </even>
+            <large>
+              <layout_weight/>
+            </large>
+          </style>
+          <!--END: Style-->
+          <Login>
+            <User_List>
+              <Users/>
+            </User_List>
+          </Login>
+          <Control>
+            <Control>
+              <New_Feature/>
+              <New_Photolog/>
+              <List_of_Existing_Features/>
+            </Control>
+            <Defaults>
+              <Next_Feature_ID/>
+            </Defaults>
+            <Search>
+              <Colgroup_0>
+                <Col_0>
+                  <Search_Term/>
+                </Col_0>
+                <Col_1>
+                  <Search_Button/>
+                </Col_1>
+              </Colgroup_0>
+              <Colgroup_1>
+                <Col_0>
+                  <Entity_Types/>
+                </Col_0>
+                <Col_1>
+                  <Select_User/>
+                </Col_1>
+                <Col_2>
+                  <Feature_Type/>
+                </Col_2>
+              </Colgroup_1>
+              <Entity_List/>
+            </Search>
+          </Control>
+          <Feature>
+            <Feature>
+              <CHECK_FOR_MISSING_DATA/>
+              <Feature_ID/>
+              <Colgroup_1>
+                <Col_1>
+                  <Feature_author/>
+                </Col_1>
+                <Col_2>
+                  <Feature_timestamp/>
+                </Col_2>
+              </Colgroup_1>
+              <Attach_Photo/>
+              <Attach_Photo_Button_1/>
+              <Colgroup_2>
+                <Col_1>
+                  <Latitude/>
+                </Col_1>
+                <Col_2>
+                  <Longitude/>
+                </Col_2>
+              </Colgroup_2>
+              <Colgroup_3>
+                <Col_1>
+                  <Northing/>
+                </Col_1>
+                <Col_2>
+                  <Easting/>
+                </Col_2>
+                <Col_3>
+                  <Accuracy/>
+                </Col_3>
+              </Colgroup_3>
+              <Take_From_GPS_1/>
+              <Feature_Type/>
+              <Description/>
+              <Photo_of_Sketch/>
+              <Photo_of_Sketch_Button_1/>
+              <Length_m/>
+              <Width_m/>
+              <Height_m/>
+              <Other_Dimension_Annotation/>
+              <Feature_Identification_Certainty/>
+              <Recommendation/>
+              <Tag_Name/>
+            </Feature>
+            <Associated_Material>
+              <Associated_Feature_Type/>
+              <Associated_Material/>
+              <Asociated_Material_Notes/>
+              <Picture_of_Associated_Material/>
+              <Picture_of_Associated_Material_Button_1/>
+            </Associated_Material>
+            <External_Photos>
+              <IDs_of_Pictures_from_External_Camera/>
+              <External_Photo_Notes/>
+            </External_Photos>
+          </Feature>
+          <Photolog>
+            <Photolog>
+              <Photographed_Feature_ID/>
+              <IDs_of_Picture_from_External_Camera/>
+              <External_Photo_Notes/>
+              <Photolog_timestamp/>
+            </Photolog>
+          </Photolog>
+        </faims>
+      </instance>
+      <bind nodeset="/faims/Control/Defaults/Next_Feature_ID" type="decimal"/>
+      <bind nodeset="/faims/Feature/Feature/Length_m" type="decimal"/>
+      <bind nodeset="/faims/Feature/Feature/Width_m" type="decimal"/>
+      <bind nodeset="/faims/Feature/Feature/Height_m" type="decimal"/>
+      <bind nodeset="/faims/Feature/Feature/Other_Dimension_Annotation" type="decimal"/>
+    </model>
+  </h:head>
+  <h:body>
+    <!--START: Style-->
+    <group ref="style">
+      <label/>
+      <group ref="orientation">
+        <label/>
+        <input ref="orientation">
+          <label>horizontal</label>
+        </input>
+      </group>
+      <group ref="even">
+        <label/>
+        <input ref="layout_weight">
+          <label>1</label>
+        </input>
+      </group>
+      <group ref="large">
+        <label/>
+        <input ref="layout_weight">
+          <label>3</label>
+        </input>
+      </group>
+    </group>
+    <!--END: Style-->
+    <group ref="Login">
+      <label>{Login}</label>
+      <group ref="User_List" faims_scrollable="false">
+        <label>{User_List}</label>
+        <select1 appearance="compact" ref="Users">
+          <label/>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select1>
+      </group>
+    </group>
+    <group ref="Control">
+      <label>{Control}</label>
+      <group ref="Control" faims_scrollable="false">
+        <label>{Control}</label>
+        <trigger ref="New_Feature">
+          <label>{New_Feature}</label>
+        </trigger>
+        <trigger ref="New_Photolog">
+          <label>{New_Photolog}</label>
+        </trigger>
+        <select1 appearance="compact" ref="List_of_Existing_Features">
+          <label>{List_of_Existing_Features}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select1>
+      </group>
+      <group ref="Defaults">
+        <label>{Defaults}</label>
+        <input ref="Next_Feature_ID" faims_style_class="required">
+          <label>{Next_Feature_ID}</label>
+        </input>
+      </group>
+      <group ref="Search" faims_scrollable="false">
+        <label>{Search}</label>
+        <group ref="Colgroup_0" faims_style="orientation">
+          <label/>
+          <group ref="Col_0" faims_style="even">
+            <label/>
+            <input ref="Search_Term">
+              <label>{Search_Term}</label>
+            </input>
+          </group>
+          <group ref="Col_1" faims_style="large">
+            <label/>
+            <trigger ref="Search_Button">
+              <label>{Search}</label>
+            </trigger>
+          </group>
+        </group>
+        <group ref="Colgroup_1" faims_style="orientation">
+          <label/>
+          <group ref="Col_0" faims_style="even">
+            <label/>
+            <select1 ref="Entity_Types">
+              <label>{Entity_Types}</label>
+              <item>
+                <label>Options not loaded</label>
+                <value>Options not loaded</value>
+              </item>
+            </select1>
+          </group>
+          <group ref="Col_1" faims_style="even">
+            <label/>
+            <select1 ref="Select_User">
+              <label>{Select_User}</label>
+              <item>
+                <label>Options not loaded</label>
+                <value>Options not loaded</value>
+              </item>
+            </select1>
+          </group>
+          <group ref="Col_2" faims_style="even">
+            <label/>
+            <select1 ref="Feature_Type">
+              <label>{Feature_Type}</label>
+              <item>
+                <label>Options not loaded</label>
+                <value>Options not loaded</value>
+              </item>
+            </select1>
+          </group>
+        </group>
+        <select1 appearance="compact" ref="Entity_List">
+          <label>{Entity_List}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select1>
+      </group>
+    </group>
+    <group ref="Feature" faims_archent_type="Feature">
+      <label>{Feature}</label>
+      <group ref="Feature">
+        <label>{Feature}</label>
+        <trigger ref="CHECK_FOR_MISSING_DATA" faims_style_class="orange">
+          <label>{CHECK_FOR_MISSING_DATA}</label>
+        </trigger>
+        <input faims_attribute_name="Feature ID" faims_attribute_type="measure" ref="Feature_ID" faims_style_class="required-readonly" faims_annotation="false" faims_certainty="false">
+          <label>{Feature_ID}</label>
+        </input>
+        <group ref="Colgroup_1" faims_style="orientation">
+          <label/>
+          <group ref="Col_1" faims_style="even">
+            <label/>
+            <input faims_attribute_name="Feature author" faims_attribute_type="measure" ref="Feature_author" faims_read_only="true">
+              <label>{Author}</label>
+            </input>
+          </group>
+          <group ref="Col_2" faims_style="even">
+            <label/>
+            <input faims_attribute_name="Feature timestamp" faims_attribute_type="measure" ref="Feature_timestamp" faims_read_only="true">
+              <label>{Timestamp}</label>
+            </input>
+          </group>
+        </group>
+        <select faims_sync="true" type="camera" faims_attribute_name="Attach Photo" faims_attribute_type="measure" ref="Attach_Photo">
+          <label>{Attach_Photo}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select>
+        <trigger ref="Attach_Photo_Button_1">
+          <label>{Attach_Photo}</label>
+        </trigger>
+        <group ref="Colgroup_2" faims_style="orientation">
+          <label/>
+          <group ref="Col_1" faims_style="even">
+            <label/>
+            <input faims_attribute_name="Latitude" faims_attribute_type="measure" ref="Latitude" faims_read_only="true">
+              <label>{Latitude}</label>
+            </input>
+          </group>
+          <group ref="Col_2" faims_style="even">
+            <label/>
+            <input faims_attribute_name="Longitude" faims_attribute_type="measure" ref="Longitude" faims_read_only="true">
+              <label>{Longitude}</label>
+            </input>
+          </group>
+        </group>
+        <group ref="Colgroup_3" faims_style="orientation">
+          <label/>
+          <group ref="Col_1" faims_style="even">
+            <label/>
+            <input faims_attribute_name="Northing" faims_attribute_type="measure" ref="Northing" faims_read_only="true">
+              <label>{Northing}</label>
+            </input>
+          </group>
+          <group ref="Col_2" faims_style="even">
+            <label/>
+            <input faims_attribute_name="Easting" faims_attribute_type="measure" ref="Easting" faims_read_only="true">
+              <label>{Easting}</label>
+            </input>
+          </group>
+          <group ref="Col_3" faims_style="even">
+            <label/>
+            <input faims_attribute_name="Accuracy" faims_attribute_type="measure" ref="Accuracy" faims_read_only="true">
+              <label>{Accuracy}</label>
+            </input>
+          </group>
+        </group>
+        <trigger ref="Take_From_GPS_1">
+          <label>{Take_From_GPS}</label>
+        </trigger>
+        <select1 faims_attribute_name="Feature Type" faims_attribute_type="vocab" ref="Feature_Type" faims_style_class="required">
+          <label>{Feature_Type}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select1>
+        <input faims_attribute_name="Description" faims_attribute_type="measure" ref="Description">
+          <label>{Description}</label>
+        </input>
+        <select faims_sync="true" type="camera" faims_attribute_name="Photo of Sketch" faims_attribute_type="measure" ref="Photo_of_Sketch">
+          <label>{Photo_of_Sketch}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select>
+        <trigger ref="Photo_of_Sketch_Button_1">
+          <label>{Photo_of_Sketch}</label>
+        </trigger>
+        <input faims_attribute_name="Length m" faims_attribute_type="measure" ref="Length_m">
+          <label>{Length__m_}</label>
+        </input>
+        <input faims_attribute_name="Width m" faims_attribute_type="measure" ref="Width_m">
+          <label>{Width__m_}</label>
+        </input>
+        <input faims_attribute_name="Height m" faims_attribute_type="measure" ref="Height_m">
+          <label>{Height__m_}</label>
+        </input>
+        <input faims_attribute_name="Other Dimension Annotation" faims_attribute_type="measure" ref="Other_Dimension_Annotation">
+          <label>{Other_Dimension___Annotation}</label>
+        </input>
+        <select1 appearance="full" faims_attribute_name="Feature Identification Certainty" faims_attribute_type="vocab" ref="Feature_Identification_Certainty" faims_style_class="required">
+          <label>{Feature_Identification_Certainty}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select1>
+        <select1 appearance="full" faims_attribute_name="Recommendation" faims_attribute_type="vocab" ref="Recommendation">
+          <label>{Recommendation}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select1>
+        <input faims_attribute_name="Tag Name" faims_attribute_type="measure" ref="Tag_Name">
+          <label>{Tag_Name}</label>
+        </input>
+      </group>
+      <group ref="Associated_Material">
+        <label>{Associated_Material}</label>
+        <select faims_attribute_name="Associated Feature Type" faims_attribute_type="vocab" ref="Associated_Feature_Type">
+          <label>{Associated_Feature_Type}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select>
+        <select faims_attribute_name="Associated Material" faims_attribute_type="vocab" ref="Associated_Material">
+          <label>{Associated_Material}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select>
+        <input faims_attribute_name="Asociated Material Notes" faims_attribute_type="measure" ref="Asociated_Material_Notes">
+          <label>{Asociated_Material_Notes}</label>
+        </input>
+        <select faims_sync="true" type="camera" faims_attribute_name="Picture of Associated Material" faims_attribute_type="measure" ref="Picture_of_Associated_Material">
+          <label>{Picture_of_Associated_Material}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select>
+        <trigger ref="Picture_of_Associated_Material_Button_1">
+          <label>{Picture_of_Associated_Material}</label>
+        </trigger>
+      </group>
+      <group ref="External_Photos">
+        <label>{External_Photos}</label>
+        <input faims_attribute_name="IDs of Pictures from External Camera" faims_attribute_type="measure" ref="IDs_of_Pictures_from_External_Camera">
+          <label>{IDs_of_Pictures_from_External_Camera}</label>
+        </input>
+        <input faims_attribute_name="External Photo Notes" faims_attribute_type="measure" ref="External_Photo_Notes">
+          <label>{External_Photo_Notes}</label>
+        </input>
+      </group>
+    </group>
+    <group ref="Photolog" faims_archent_type="Photolog">
+      <label>{Photolog}</label>
+      <group ref="Photolog">
+        <label>{Photolog}</label>
+        <input faims_attribute_name="Photographed Feature ID" faims_attribute_type="measure" ref="Photographed_Feature_ID" faims_style_class="required-readonly">
+          <label>{Photographed_Feature_ID}</label>
+        </input>
+        <input faims_attribute_name="IDs of Picture from External Camera" faims_attribute_type="measure" ref="IDs_of_Picture_from_External_Camera">
+          <label>{IDs_of_Picture_from_External_Camera}</label>
+        </input>
+        <input faims_attribute_name="External Photo Notes" faims_attribute_type="measure" ref="External_Photo_Notes" faims_style_class="required">
+          <label>{External_Photo_Notes}</label>
+        </input>
+        <input faims_attribute_name="Photolog timestamp" faims_attribute_type="measure" ref="Photolog_timestamp" faims_read_only="true">
+          <label>{Created_at}</label>
+        </input>
+      </group>
+    </group>
+  </h:body>
+</h:html>

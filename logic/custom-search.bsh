@@ -1,0 +1,91 @@
+/******************************* CUSTOM SEARCH ********************************/
+final String REF_SEARCH_TAB = "Control/Search";
+final String REF_FEATURE_FEATURE_TYPE = "Feature/Feature/Feature_Type";
+final String _REF_SEARCH_FEATURE_TYPE = REF_SEARCH_TAB + "/" +
+    getGuiElementRef(REF_FEATURE_FEATURE_TYPE);
+
+void populateSelectUser(){
+  String refSearchUsers = REF_SEARCH_TAB + "/Select_User";
+  String getNonDeletedUsersQuery = "SELECT userid, fname || ' ' || lname "+
+                                   "  FROM user "+
+                                   " WHERE userdeleted is null "+
+                                   " UNION " +
+                                   "SELECT -1, '{All}'";
+                                   "ORDER BY userid";
+
+  fetchAll(getNonDeletedUsersQuery, new FetchCallback() {
+    onFetch(result) {
+      populateDropDown(refSearchUsers, result, false);
+    }
+  });
+}
+
+void populateSearchFeatureType() {
+  List menuEntries = getMenuEntries(getAttributeName(REF_FEATURE_FEATURE_TYPE));
+  menuEntries = new ArrayList(menuEntries);
+
+  // Add 'All' option to start of list
+  List menuEntry = new ArrayList();
+  menuEntry.add("-1");
+  menuEntry.add("{All}");
+  menuEntry.add("");
+
+  menuEntries.add(0, menuEntry);
+
+  boolean hasNull = false;
+
+  populateDropDown(
+      REF_SEARCH_TAB + "/" + getGuiElementRef(REF_FEATURE_FEATURE_TYPE),
+      menuEntries,
+      hasNull
+  );
+}
+
+void clearSearchResults() {
+  populateCursorList(
+      REF_SEARCH_TAB + "/Entity_List",
+      "SELECT 0 WHERE 0 = 1 LIMIT ? OFFSET ?",
+      25
+  );
+}
+
+void search(){
+  String refEntityList  = REF_SEARCH_TAB + "/Entity_List";
+  String refSearchTerm  = REF_SEARCH_TAB + "/Search_Term";
+  String refEntityTypes = REF_SEARCH_TAB + "/Entity_Types";
+  String refSelectUser  = REF_SEARCH_TAB + "/Select_User";
+
+  String type = getFieldValue(refEntityTypes);
+  String term = getFieldValue(refSearchTerm);
+  String user = getFieldValue(refSelectUser);
+  String feat = getFieldValue(_REF_SEARCH_FEATURE_TYPE);
+  String searchQuery = "SELECT uuid, response "+
+                       "  FROM latestNonDeletedArchEntFormattedIdentifiers " +
+                       " WHERE uuid IN (SELECT uuid "+
+                       "                  FROM latestNonDeletedArchEntIdentifiers " +
+                       "                 WHERE measure LIKE {term}||'%' "+
+                       "                   AND {type} IN ('', aenttypename )" +
+                       "                   AND {user} IN (-1, userid)" +
+                       "                )  "+
+                       "   AND uuid IN (SELECT uuid "+
+                       "                  FROM latestNonDeletedArchEntIdentifiers " +
+                       "                 WHERE {feature_type} IN (-1, vocabid)" +
+                       "                )  "+
+                       " ORDER BY response "+
+                       " LIMIT ? "+
+                       "OFFSET ? ";
+  searchQuery = dbReplaceFirst(searchQuery, "{term}", term);
+  searchQuery = dbReplaceFirst(searchQuery, "{type}", type);
+  searchQuery =   replaceFirst(searchQuery, "{user}", user);
+  searchQuery =   replaceFirst(searchQuery, "{feature_type}", feat);
+
+  populateCursorList(refEntityList, searchQuery, 25);
+
+  Log.d("Module", "Search query: " + searchQuery);
+}
+
+addOnEvent(REF_SEARCH_TAB, "show", "populateSelectUser()");
+addOnEvent("module", "load", "populateSearchFeatureType()");
+addOnEvent("module", "load", "clearSearchResults()");
+delOnEvent(REF_SEARCH_TAB, "show", "search()");
+delOnEvent(REF_SEARCH_TAB + "/Entity_Types"  , "click" , "search()");

@@ -1,0 +1,119 @@
+<!--@POSTPROC: ./postproc.sh-->
+<module>
+
+<Login f="nodata">
+  <User_List f="noscroll">
+    <Users f="nolabel user" l="Control"/>
+  </User_List>
+</Login>
+
+<Control f="nodata">
+  <Control f="noscroll">
+    <New_Feature l="Feature"/>
+    <New_Photolog l="Photolog"/>
+    <List_of_Existing_Features e="Feature"/>
+  </Control>
+  <Defaults>
+    <autonum/>
+  </Defaults>
+  <search/>
+</Control>
+
+<Feature>
+  <fmt>{{Feature_ID}} {{author}} {{Feature_Type}}</fmt>
+  <Feature>
+    <CHECK_FOR_MISSING_DATA t="button" c="orange"/>
+    <Feature_ID f="autonum noannotation nocertainty notnull">
+      <!--Styled using @POSTPROC-->
+    </Feature_ID>
+    <cols>
+      <author/>
+      <timestamp/>
+    </cols>
+    <Attach_Photo t="camera"/>
+    <gps/>
+    <Feature_Type f="notnull">
+      <desc>Select the appropriate feature type</desc>
+      <opts>
+        <opt>Modified stone</opt>
+        <opt>Artefact scatter</opt>
+        <opt>Metal feature</opt>
+        <opt>Fire dog</opt>
+        <opt>Hearth</opt>
+        <opt>Unknown</opt>
+      </opts>
+    </Feature_Type>
+    <Description/>
+    <Photo_of_Sketch t="camera"/>
+    <Length_m b="decimal">
+      Length (m)
+      <desc>Measure the length in metres</desc>
+    </Length_m>
+    <Width_m b="decimal">
+      Width (m)
+      <desc>Measure the width in metres</desc>
+    </Width_m>
+    <Height_m b="decimal">
+      Height (m)
+      <desc>Measure the height in metres</desc>
+    </Height_m>
+    <Other_Dimension_Annotation b="decimal">Other Dimension &gt; Annotation</Other_Dimension_Annotation>
+    <Feature_Identification_Certainty t="radio" f="notnull">
+      <opts>
+        <opt>Feature certain</opt>
+        <opt>Feature uncertain</opt>
+        <opt>Investigation recommended</opt>
+      </opts>
+    </Feature_Identification_Certainty>
+    <Recommendation t="radio">
+      <desc>Select relevant recommendation</desc>
+      <opts>
+        <opt>Option 1</opt>
+      </opts>
+    </Recommendation>
+    <Tag_Name/>
+  </Feature>
+  <Associated_Material>
+    <Associated_Feature_Type t="checkbox">
+      <opts>
+        <opt>Artefact scatter</opt>
+        <opt>Metal feature or implement</opt>
+        <opt>Hearth</opt>
+        <opt>Masonry or Stone Circle</opt>
+        <opt>Other</opt>
+      </opts>
+    </Associated_Feature_Type>
+    <Associated_Material t="checkbox">
+      <opts>
+        <opt>Ceramic</opt>
+        <opt>Glass</opt>
+        <opt>Metal</opt>
+        <opt>Stone</opt>
+        <opt>Organic</opt>
+        <opt>Other</opt>
+      </opts>
+    </Associated_Material>
+    <Asociated_Material_Notes/>
+    <Picture_of_Associated_Material t="camera"/>
+  </Associated_Material>
+  <External_Photos>
+    <IDs_of_Pictures_from_External_Camera/>
+    <External_Photo_Notes/>
+  </External_Photos>
+</Feature>
+
+<Photolog>
+  <fmt>{{Photographed_Feature_ID}}</fmt>
+  <Photolog>
+    <Photographed_Feature_ID f="notnull"/>
+    <IDs_of_Picture_from_External_Camera/>
+    <External_Photo_Notes f="notnull"/>
+    <timestamp>Created at</timestamp>
+  </Photolog>
+</Photolog>
+
+<logic><![CDATA[
+<!--@SOURCE: logic/custom-search.bsh-->
+]]></logic>
+
+</module>
