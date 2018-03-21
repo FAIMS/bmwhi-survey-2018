@@ -116,6 +116,10 @@
       <lookup>
         <term>{Option_1}
 <description></description></term>
+        <term>{Option_2}
+<description></description></term>
+        <term>{Option_3}
+<description></description></term>
       </lookup>
     </property>
     <property name="Tag Name" type="measure">

@@ -69,6 +69,8 @@
       <desc>Select relevant recommendation</desc>
       <opts>
         <opt>Option 1</opt>
+        <opt>Option 2</opt>
+        <opt>Option 3</opt>
       </opts>
     </Recommendation>
     <Tag_Name/>
