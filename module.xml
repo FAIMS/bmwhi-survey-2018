@@ -116,6 +116,7 @@
 
 <logic><![CDATA[
 <!--@SOURCE: logic/custom-search.bsh-->
+<!--@SOURCE: logic/validation-button.bsh-->
 ]]></logic>
 
 </module>

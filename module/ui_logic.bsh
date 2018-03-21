@@ -4131,6 +4131,12 @@ addOnEvent("module", "load", "populateSearchFeatureType()");
 addOnEvent("module", "load", "clearSearchResults()");
 delOnEvent(REF_SEARCH_TAB, "show", "search()");
 delOnEvent(REF_SEARCH_TAB + "/Entity_Types"  , "click" , "search()");
+/***************************** VALIDATION BUTTON ******************************/
+addOnEvent(
+    "Feature/Feature/CHECK_FOR_MISSING_DATA",
+    "click",
+    "validateFeature()"
+);
 
 
 /******************************************************************************/
