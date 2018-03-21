@@ -32,6 +32,38 @@
             <Defaults>
               <Next_Feature_ID/>
             </Defaults>
+            <Tracklog>
+              <internalExternalGPS/>
+              <Colgroup_1>
+                <Col_1>
+                  <refreshText/>
+                </Col_1>
+                <Col_2>
+                  <startGPSButton/>
+                  <stopGPSButton/>
+                </Col_2>
+              </Colgroup_1>
+              <Colgroup_2>
+                <Col_1>
+                  <trackdistText/>
+                </Col_1>
+                <Col_2>
+                  <trackdistButton/>
+                </Col_2>
+              </Colgroup_2>
+              <Colgroup_3>
+                <Col_1>
+                  <tracktimeText/>
+                </Col_1>
+                <Col_2>
+                  <tracktimeButton/>
+                </Col_2>
+              </Colgroup_3>
+              <trackOffButton/>
+              <trackStatus/>
+              <SyncOn/>
+              <SyncOff/>
+            </Tracklog>
             <Search>
               <Colgroup_0>
                 <Col_0>
@@ -121,9 +153,19 @@
               <Photolog_timestamp/>
             </Photolog>
           </Photolog>
+          <Tracklog>
+            <Tracklog/>
+          </Tracklog>
+          <Transect_Point>
+            <Transect_Point/>
+          </Transect_Point>
         </faims>
       </instance>
       <bind nodeset="/faims/Control/Defaults/Next_Feature_ID" type="decimal"/>
+      <bind nodeset="/faims/Control/Tracklog/Colgroup_1/Col_1/refreshText" type="decimal"/>
+      <bind nodeset="/faims/Control/Tracklog/Colgroup_2/Col_1/trackdistText" type="decimal"/>
+      <bind nodeset="/faims/Control/Tracklog/Colgroup_3/Col_1/tracktimeText" type="decimal"/>
+      <bind nodeset="/faims/Control/Tracklog/trackStatus" type="string"/>
       <bind nodeset="/faims/Feature/Feature/Length_m" type="decimal"/>
       <bind nodeset="/faims/Feature/Feature/Width_m" type="decimal"/>
       <bind nodeset="/faims/Feature/Feature/Height_m" type="decimal"/>
@@ -190,6 +232,76 @@
         <input ref="Next_Feature_ID" faims_style_class="required">
           <label>{Next_Feature_ID}</label>
         </input>
+      </group>
+      <group ref="Tracklog">
+        <label>{Tracklog}</label>
+        <select1 appearance="full" ref="internalExternalGPS">
+          <label>{Choose_which_GPS_to_connect_to_}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select1>
+        <group ref="Colgroup_1" faims_style="orientation">
+          <label/>
+          <group ref="Col_1" faims_style="even">
+            <label/>
+            <input ref="refreshText">
+              <label>{GPS_Refresh_Rate__s_}</label>
+            </input>
+          </group>
+          <group ref="Col_2" faims_style="even">
+            <label/>
+            <trigger ref="startGPSButton">
+              <label>{Enable_GPS}</label>
+            </trigger>
+            <trigger ref="stopGPSButton">
+              <label>{Disable_GPS}</label>
+            </trigger>
+          </group>
+        </group>
+        <group ref="Colgroup_2" faims_style="orientation">
+          <label/>
+          <group ref="Col_1" faims_style="even">
+            <label/>
+            <input ref="trackdistText">
+              <label>{Tracklog_Distance_Interval__m_}</label>
+            </input>
+          </group>
+          <group ref="Col_2" faims_style="even">
+            <label/>
+            <trigger ref="trackdistButton">
+              <label>{Set_Tracklog_Distance_Interval}</label>
+            </trigger>
+          </group>
+        </group>
+        <group ref="Colgroup_3" faims_style="orientation">
+          <label/>
+          <group ref="Col_1" faims_style="even">
+            <label/>
+            <input ref="tracktimeText">
+              <label>{Tracklog_Time_interval__s_}</label>
+            </input>
+          </group>
+          <group ref="Col_2" faims_style="even">
+            <label/>
+            <trigger ref="tracktimeButton">
+              <label>{Set_Tracklog_Time_Interval}</label>
+            </trigger>
+          </group>
+        </group>
+        <trigger ref="trackOffButton">
+          <label>{Tracklog_Off}</label>
+        </trigger>
+        <input ref="trackStatus" faims_read_only="true">
+          <label>{Tracklog_Status}</label>
+        </input>
+        <trigger ref="SyncOn">
+          <label>{Sync_On}</label>
+        </trigger>
+        <trigger ref="SyncOff">
+          <label>{Sync_Off}</label>
+        </trigger>
       </group>
       <group ref="Search" faims_scrollable="false">
         <label>{Search}</label>
@@ -430,6 +542,18 @@
         <input faims_attribute_name="Photolog timestamp" faims_attribute_type="measure" ref="Photolog_timestamp" faims_read_only="true">
           <label>{Created_at}</label>
         </input>
+      </group>
+    </group>
+    <group ref="Tracklog" faims_archent_type="Tracklog">
+      <label>{Tracklog}</label>
+      <group ref="Tracklog">
+        <label>{Tracklog}</label>
+      </group>
+    </group>
+    <group ref="Transect_Point" faims_archent_type="Transect Point">
+      <label>{Transect_Point}</label>
+      <group ref="Transect_Point">
+        <label>{Transect_Point}</label>
       </group>
     </group>
   </h:body>

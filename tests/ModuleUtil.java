@@ -61,6 +61,15 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: tab
+        Ref:  Control/Tracklog
+     */
+    public static View get_Control_Tracklog(Solo solo) {
+        String ref = "Control/Tracklog";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: tab
         Ref:  Feature/Associated_Material
      */
     public static View get_Feature_AssociatedMaterial(Solo solo) {
@@ -127,6 +136,69 @@ public class ModuleUtil extends ModuleHelper {
      */
     public static View get_Control_Search_SearchButton(Solo solo) {
         String ref = "Control/Search/Search_Button";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
+        Ref:  Control/Tracklog/SyncOff
+     */
+    public static View get_Control_Tracklog_SyncOff(Solo solo) {
+        String ref = "Control/Tracklog/SyncOff";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
+        Ref:  Control/Tracklog/SyncOn
+     */
+    public static View get_Control_Tracklog_SyncOn(Solo solo) {
+        String ref = "Control/Tracklog/SyncOn";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
+        Ref:  Control/Tracklog/startGPSButton
+     */
+    public static View get_Control_Tracklog_startGPSButton(Solo solo) {
+        String ref = "Control/Tracklog/startGPSButton";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
+        Ref:  Control/Tracklog/stopGPSButton
+     */
+    public static View get_Control_Tracklog_stopGPSButton(Solo solo) {
+        String ref = "Control/Tracklog/stopGPSButton";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
+        Ref:  Control/Tracklog/trackOffButton
+     */
+    public static View get_Control_Tracklog_trackOffButton(Solo solo) {
+        String ref = "Control/Tracklog/trackOffButton";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
+        Ref:  Control/Tracklog/trackdistButton
+     */
+    public static View get_Control_Tracklog_trackdistButton(Solo solo) {
+        String ref = "Control/Tracklog/trackdistButton";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
+        Ref:  Control/Tracklog/tracktimeButton
+     */
+    public static View get_Control_Tracklog_tracktimeButton(Solo solo) {
+        String ref = "Control/Tracklog/tracktimeButton";
         return (android.view.View) solo.getView((Object) ref);
     }
 
@@ -253,6 +325,42 @@ public class ModuleUtil extends ModuleHelper {
      */
     public static EditText get_Control_Search_SearchTerm(Solo solo) {
         String ref = "Control/Search/Search_Term";
+        return (android.widget.EditText) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: input
+        Ref:  Control/Tracklog/refreshText
+     */
+    public static EditText get_Control_Tracklog_refreshText(Solo solo) {
+        String ref = "Control/Tracklog/refreshText";
+        return (android.widget.EditText) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: input
+        Ref:  Control/Tracklog/trackStatus
+     */
+    public static View get_Control_Tracklog_trackStatus(Solo solo) {
+        String ref = "Control/Tracklog/trackStatus";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: input
+        Ref:  Control/Tracklog/trackdistText
+     */
+    public static EditText get_Control_Tracklog_trackdistText(Solo solo) {
+        String ref = "Control/Tracklog/trackdistText";
+        return (android.widget.EditText) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: input
+        Ref:  Control/Tracklog/tracktimeText
+     */
+    public static EditText get_Control_Tracklog_tracktimeText(Solo solo) {
+        String ref = "Control/Tracklog/tracktimeText";
         return (android.widget.EditText) solo.getView((Object) ref);
     }
 
@@ -442,6 +550,15 @@ public class ModuleUtil extends ModuleHelper {
      */
     public static View get_Login_UserList_Users(Solo solo) {
         String ref = "Login/User_List/Users";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: radio
+        Ref:  Control/Tracklog/internalExternalGPS
+     */
+    public static View get_Control_Tracklog_internalExternalGPS(Solo solo) {
+        String ref = "Control/Tracklog/internalExternalGPS";
         return (android.view.View) solo.getView((Object) ref);
     }
 

@@ -279,6 +279,18 @@ REF_TO_TYPE.put("Control/Control/New_Feature", "button");
 REF_TO_TYPE.put("Control/Control/New_Photolog", "button");
 REF_TO_TYPE.put("Control/Control/List_of_Existing_Features", "list");
 REF_TO_TYPE.put("Control/Defaults/Next_Feature_ID", "input");
+REF_TO_TYPE.put("Control/Tracklog/internalExternalGPS", "radio");
+REF_TO_TYPE.put("Control/Tracklog/refreshText", "input");
+REF_TO_TYPE.put("Control/Tracklog/startGPSButton", "button");
+REF_TO_TYPE.put("Control/Tracklog/stopGPSButton", "button");
+REF_TO_TYPE.put("Control/Tracklog/trackdistText", "input");
+REF_TO_TYPE.put("Control/Tracklog/trackdistButton", "button");
+REF_TO_TYPE.put("Control/Tracklog/tracktimeText", "input");
+REF_TO_TYPE.put("Control/Tracklog/tracktimeButton", "button");
+REF_TO_TYPE.put("Control/Tracklog/trackOffButton", "button");
+REF_TO_TYPE.put("Control/Tracklog/trackStatus", "input");
+REF_TO_TYPE.put("Control/Tracklog/SyncOn", "button");
+REF_TO_TYPE.put("Control/Tracklog/SyncOff", "button");
 REF_TO_TYPE.put("Control/Search/Search_Term", "input");
 REF_TO_TYPE.put("Control/Search/Search_Button", "button");
 REF_TO_TYPE.put("Control/Search/Entity_Types", "dropdown");
@@ -317,14 +329,30 @@ REF_TO_TYPE.put("Photolog/Photolog/Photographed_Feature_ID", "input");
 REF_TO_TYPE.put("Photolog/Photolog/IDs_of_Picture_from_External_Camera", "input");
 REF_TO_TYPE.put("Photolog/Photolog/External_Photo_Notes", "input");
 REF_TO_TYPE.put("Photolog/Photolog/Photolog_timestamp", "input");
+REF_TO_TYPE.put("Tracklog/Tracklog/Timestamp", "");
+REF_TO_TYPE.put("Tracklog/Tracklog/TracklogTeam", "");
+REF_TO_TYPE.put("Tracklog/Tracklog/Latitude", "");
+REF_TO_TYPE.put("Tracklog/Tracklog/Longitude", "");
+REF_TO_TYPE.put("Tracklog/Tracklog/Heading", "");
+REF_TO_TYPE.put("Tracklog/Tracklog/Accuracy", "");
+REF_TO_TYPE.put("Transect_Point/Transect_Point/Timestamp", "");
+REF_TO_TYPE.put("Transect_Point/Transect_Point/TracklogTeam", "");
+REF_TO_TYPE.put("Transect_Point/Transect_Point/State", "");
+REF_TO_TYPE.put("Transect_Point/Transect_Point/Latitude", "");
+REF_TO_TYPE.put("Transect_Point/Transect_Point/Longitude", "");
+REF_TO_TYPE.put("Transect_Point/Transect_Point/Heading", "");
+REF_TO_TYPE.put("Transect_Point/Transect_Point/Accuracy", "");
 REF_TO_TYPE.put("Login/User_List", "tab");
 REF_TO_TYPE.put("Control/Control", "tab");
 REF_TO_TYPE.put("Control/Defaults", "tab");
+REF_TO_TYPE.put("Control/Tracklog", "tab");
 REF_TO_TYPE.put("Control/Search", "tab");
 REF_TO_TYPE.put("Feature/Feature", "tab");
 REF_TO_TYPE.put("Feature/Associated_Material", "tab");
 REF_TO_TYPE.put("Feature/External_Photos", "tab");
 REF_TO_TYPE.put("Photolog/Photolog", "tab");
+REF_TO_TYPE.put("Tracklog/Tracklog", "tab");
+REF_TO_TYPE.put("Transect_Point/Transect_Point", "tab");
 
 DATA_REFS.add("Feature/Feature/Feature_ID");
 DATA_REFS.add("Feature/Feature/Feature_author");
@@ -355,8 +383,35 @@ DATA_REFS.add("Photolog/Photolog/Photographed_Feature_ID");
 DATA_REFS.add("Photolog/Photolog/IDs_of_Picture_from_External_Camera");
 DATA_REFS.add("Photolog/Photolog/External_Photo_Notes");
 DATA_REFS.add("Photolog/Photolog/Photolog_timestamp");
+DATA_REFS.add("Tracklog/Tracklog/Timestamp");
+DATA_REFS.add("Tracklog/Tracklog/TracklogTeam");
+DATA_REFS.add("Tracklog/Tracklog/Latitude");
+DATA_REFS.add("Tracklog/Tracklog/Longitude");
+DATA_REFS.add("Tracklog/Tracklog/Heading");
+DATA_REFS.add("Tracklog/Tracklog/Accuracy");
+DATA_REFS.add("Transect_Point/Transect_Point/Timestamp");
+DATA_REFS.add("Transect_Point/Transect_Point/TracklogTeam");
+DATA_REFS.add("Transect_Point/Transect_Point/State");
+DATA_REFS.add("Transect_Point/Transect_Point/Latitude");
+DATA_REFS.add("Transect_Point/Transect_Point/Longitude");
+DATA_REFS.add("Transect_Point/Transect_Point/Heading");
+DATA_REFS.add("Transect_Point/Transect_Point/Accuracy");
 
-
+NO_UI_REFS.add("Tracklog/Tracklog/Timestamp");
+NO_UI_REFS.add("Tracklog/Tracklog/TracklogTeam");
+NO_UI_REFS.add("Tracklog/Tracklog/Latitude");
+NO_UI_REFS.add("Tracklog/Tracklog/Longitude");
+NO_UI_REFS.add("Tracklog/Tracklog/Heading");
+NO_UI_REFS.add("Tracklog/Tracklog/Accuracy");
+NO_UI_REFS.add("Transect_Point/Transect_Point/Timestamp");
+NO_UI_REFS.add("Transect_Point/Transect_Point/TracklogTeam");
+NO_UI_REFS.add("Transect_Point/Transect_Point/State");
+NO_UI_REFS.add("Transect_Point/Transect_Point/Latitude");
+NO_UI_REFS.add("Transect_Point/Transect_Point/Longitude");
+NO_UI_REFS.add("Transect_Point/Transect_Point/Heading");
+NO_UI_REFS.add("Transect_Point/Transect_Point/Accuracy");
+NO_UI_REFS.add("Tracklog");
+NO_UI_REFS.add("Transect_Point");
 
 
 
@@ -366,15 +421,20 @@ TAB_GROUPS_AS_LIST.add("Login");
 TAB_GROUPS_AS_LIST.add("Control");
 TAB_GROUPS_AS_LIST.add("Feature");
 TAB_GROUPS_AS_LIST.add("Photolog");
+TAB_GROUPS_AS_LIST.add("Tracklog");
+TAB_GROUPS_AS_LIST.add("Transect_Point");
 
 TABS_AS_LIST.add("Login/User_List");
 TABS_AS_LIST.add("Control/Control");
 TABS_AS_LIST.add("Control/Defaults");
+TABS_AS_LIST.add("Control/Tracklog");
 TABS_AS_LIST.add("Control/Search");
 TABS_AS_LIST.add("Feature/Feature");
 TABS_AS_LIST.add("Feature/Associated_Material");
 TABS_AS_LIST.add("Feature/External_Photos");
 TABS_AS_LIST.add("Photolog/Photolog");
+TABS_AS_LIST.add("Tracklog/Tracklog");
+TABS_AS_LIST.add("Transect_Point/Transect_Point");
 
 
 
@@ -2598,7 +2658,8 @@ void addNodataDropdownEntry(String ref, String entryKey, String entryVal) {
   menuEntries.add(menuEntry);
 }
 
-
+addNodataDropdownEntry("Control/Tracklog/internalExternalGPS", "Internal", "{Internal}");
+addNodataDropdownEntry("Control/Tracklog/internalExternalGPS", "External", "{External}");
 
 for (entry : NODATA_DROPDOWNS.entrySet()) {
   String ref = entry.getKey();
@@ -4040,6 +4101,37 @@ addOnEvent("Control/Control/List_of_Existing_Features", "click", "loadEntity()")
 /*                             HANDWRITTEN LOGIC                              */
 /******************************************************************************/
 
+/*********************************** SHARED ***********************************/
+
+int parseInt(String s) {
+  try {
+    return Integer.parseInt(s);
+  } catch (Exception e) {
+    return 0;
+  }
+}
+
+List getTransectTabGroups() {
+  List transectTabGroups = new ArrayList();
+
+  for (tabGroup : getTabGroups()) {
+    if (hasNoUi        (tabGroup)) continue;
+    if (isFlaggedNodata(tabGroup)) continue;
+
+    transectTabGroups.add(tabGroup);
+  }
+
+  return transectTabGroups;
+}
+
+List getTransectArchEntTypes() {
+  List archEntTypes = new ArrayList();
+
+  for (tabGroup : getTransectTabGroups())
+    archEntTypes.add(getArchEntType(tabGroup));
+
+  return archEntTypes;
+}
 /******************************* CUSTOM SEARCH ********************************/
 final String REF_SEARCH_TAB = "Control/Search";
 final String REF_FEATURE_FEATURE_TYPE = "Feature/Feature/Feature_Type";
@@ -4137,6 +4229,321 @@ addOnEvent(
     "click",
     "validateFeature()"
 );
+/********************************** TRACKLOG **********************************/
+import java.util.concurrent.Callable;
+
+String tracklogStatus = "Tracklog is Stopped";
+String tracklogState = "Stop";
+Boolean transectEnabled = false;
+
+numTracklogPoints = 0;
+tracklogCurrentStatus = "";
+numTransectPoints = 0;
+
+void startTrackLog() {
+  setGpsInternalExternal();
+  if (startGPS())
+    startDistTrack();
+}
+
+void setGpsInternalExternal() {
+  setFieldValue("Control/Tracklog/internalExternalGPS", "{Internal}");
+}
+
+void  enableTransect() { transectEnabled = true;  }
+void disableTransect() { transectEnabled = false; }
+
+saveEntitiesToRel(String type, String entity1, String entity2, Callable callback) {
+    if (isNull(entity1) || isNull(entity2)) return;
+    saveRel(null, type, null, null, new SaveCallback() {
+        onSave(rel_id, newRecord) {
+            addReln(entity1, rel_id, null);
+            addReln(entity2, rel_id, null);
+            callback.call();
+        }
+    });
+}
+
+List getTransectButtons() {
+  List btns = new ArrayList();
+  List refs = getRefsMatching("Control/Main/*");
+
+  for (ref : refs)
+    if ("button".equals(getType(ref)))
+      btns.add(ref);
+
+  return btns;
+}
+
+String getSurveyUnitId() {
+  Log.d("getSurveyUnitId()", "" + getUuid());
+  return getUuid();
+}
+
+boolean canMakeTransectPoint() {
+  if (!isTrackingGPS()) {
+    String head = "Cannot Continue";
+    String body = "You must enable the tracklog to continue.";
+
+    showWarning(head, body);
+  }
+
+  return isTrackingGPS();
+}
+
+startTimeTrack() {
+    stopTrack();
+
+    String trackText = getFieldValue("Control/Tracklog/tracktimeText");
+    int    trackInt  = parseInt(trackText);
+
+    if (trackInt <= 0) {
+      showToast("Please enter a positive number in the 'Tracking Distance Interval' field");
+    } else if(isInternalGPSOn() || isExternalGPSOn()) {
+        tracklogState = "Time";
+        showToast("Tracklog enabled. Tracklog time interval set to " + trackText + " seconds.");
+        startTrackingGPS("time", trackInt, "saveGPSTrack(\"\")");
+        updateTrackStatus();
+    } else {
+        showToast("GPS is not turned on.");
+    }
+}
+
+startDistTrack() {
+    stopTrack();
+
+    String trackText = getFieldValue("Control/Tracklog/trackdistText");
+    int    trackInt  = parseInt(trackText);
+
+    if(isInternalGPSOn() || isExternalGPSOn()) {
+        tracklogState = "Distance";
+        showToast("Tracklog enabled. Tracklog distance interval set to " + trackText + " metres.");
+        startTrackingGPS("distance", trackInt, "saveGPSTrack(\"\")");
+        updateTrackStatus();
+    } else {
+        showToast("GPS is not turned on.");
+    }
+
+}
+
+stopTrack() {
+    stopTrackingGPS();
+    numTracklogPoints = 0;
+    numTransectPoints = 0;
+    tracklogState = "Stopped";
+    showToast("Tracklog disabled.");
+    updateTrackStatus();
+    saveGPSTrack("End");
+}
+
+updateTrackStatus() {
+    if (tracklogState.equals("Time"))    
+            tracklogStatus = "Tracklog Started - Time: "+getFieldValue("Control/Tracklog/tracktimeText")+"s";
+    else if (tracklogState.equals("Distance"))
+            tracklogStatus = "Tracklog Started - Distance: "+getFieldValue("Control/Tracklog/trackdistText")+"m";
+    else
+            tracklogStatus = "Tracklog is "+tracklogState;
+    
+    if (numTracklogPoints > 0)
+        tracklogStatus += "\nNumber Tracklog Points collected: "+numTracklogPoints;
+    if (numTransectPoints > 0)
+        tracklogStatus += "\nNumber current transect Points collected: "+numTransectPoints;
+
+    tracklogStatus += "\nCurrent GPS Estimated Accuracy: "+ getGPSEstimatedAccuracy();
+    
+
+    setFieldValue("Control/Tracklog/trackStatus", tracklogStatus);
+}
+
+isGPSOn() {
+    return isInternalGPSOn() || isExternalGPSOn();
+}
+
+saveGPSTrack(String stateAppend) {
+    if (isInUnitTestTime()) {
+      // This function uses the Nutiteq `Point` class, which is difficult to
+      // mock.
+      return;
+    }
+
+    position = getGPSPosition();
+    if (!isGPSOn() || position == null) {
+        tracklogState = "Bad GPS Fix";
+        return;
+    }
+    numTracklogPoints++;
+
+    List attributes = createAttributeList();
+
+    String date = new java.text.SimpleDateFormat("d-MMM-yy HH:MM:ss z").format(new Date());
+    attributes.add(createEntityAttribute("Longitude"    , null , null , "" + position.getLongitude()   , null));
+    attributes.add(createEntityAttribute("Latitude"     , null , null , "" + position.getLatitude()    , null));
+    attributes.add(createEntityAttribute("Heading"      , null , null , "" + getGPSHeading()           , null));
+    attributes.add(createEntityAttribute("Accuracy"     , null , null , "" + getGPSEstimatedAccuracy() , null));
+    attributes.add(createEntityAttribute("Timestamp"    , null , null , "" + date                      , null));
+    attributes.add(createEntityAttribute("TracklogTeam" , null , null , username                       , null));
+
+    positionProj = getGPSPositionProjected();
+    Point p = new Point(new MapPos(positionProj.getLongitude(), positionProj.getLatitude()), null, (PointStyle) null, null);
+    ArrayList l = new ArrayList();
+    l.add(p);
+
+    triggerAutoSave();
+    saveArchEnt(null, "Tracklog", l, attributes, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            if (transectEnabled) {
+                numTransectPoints++;
+                Boolean end = false;
+                if(stateAppend.equals("End")) {
+                    end = true;
+                    transectEnabled = false;
+                }
+                if (!stateAppend.equals("")) {
+                    attributes.add(createEntityAttribute("State", null, null, stateAppend, null));
+                    stateAppend = "";
+                }
+
+                p = new Point(new MapPos(positionProj.getLongitude(), positionProj.getLatitude()), null, (PointStyle) null, null);
+                l = new ArrayList();
+                l.add(p);
+                
+                saveArchEnt(null, "Transect Point", l, attributes, new SaveCallback() {
+                    onSave(uuid, newRecord) {
+                        transect_id = uuid;
+                        Callable callback = new Callable() {
+                            call() {
+                                return;
+                                //if(end) updateCurrentTransect();
+                            }
+                        };
+                        saveEntitiesToRel("TransectSUI", transect_id, getSurveyUnitId(), callback);
+                    }
+                });
+            }
+            updateTrackStatus();
+        }
+    });
+}
+
+boolean startGPS() {
+    Object intext = getFieldValue("Control/Tracklog/internalExternalGPS");
+    if(isNull(intext)) {
+        showWarning("Warning", "Please choose whether you would like to connect to internal or external GPS.");
+        return false;
+    }
+    setGPSUpdateInterval(Integer.parseInt(getFieldValue("Control/Tracklog/refreshText")));
+    showToast("GPS enabled. GPS refresh rate set to " + getFieldValue("Control/Tracklog/refreshText") + ".");
+    if(intext.equals("Internal")) { 
+        if(isExternalGPSOn()) stopGPS();
+        startInternalGPS();
+    }
+    if(intext.equals("External")) {
+        if(isInternalGPSOn()) stopGPS();
+        startExternalGPS();
+    }
+    updateGPSDiagnostics();
+    return true;
+}
+
+stopGPSLogic() {
+    if(isInternalGPSOn() || isExternalGPSOn()) {
+        showToast("GPS disabled.");
+        stopGPS();
+    } else {
+        showToast("GPS is not turned on.");
+    }
+}
+
+reallyDeleteTransectUnit(String tabGroup) {
+    fetchAll("select transect.uuid " +
+            "from " +
+            "(select uuid, relationshipid " +
+            "from (select aenttypeid from aenttype where aenttypename = '" + getArchEntType(tabGroup) + "')  " +
+                    "join latestnondeletedarchent using (aenttypeid) " +
+                    "join latestnondeletedaentreln using (uuid)) surveyUnit  " +
+            "join ((select aenttypeid from aenttype where aenttypename = 'Transect Point')  " +
+                    "join latestnondeletedarchent using (aenttypeid) " +
+                    "join latestnondeletedaentreln using (uuid)) transect using (relationshipid) " +
+            "where surveyUnit.uuid = " + getUuid(tabGroup) + ";", new FetchCallback() {
+                onFetch(transects) {
+                    if(!isNull(transects)) {
+                        for(transect:transects) {
+                            deleteArchEnt(transect.get(0));
+                        }
+                    }
+                }
+            });
+    deleteArchEnt(getUuid(tabGroup), new DeleteCallback() {
+        onDelete(uuid) {
+            cancelTabGroup(tabGroup, false);
+            transectEnabled = false;
+            showTab("control/Start");        
+        }
+    });
+}
+
+removeActionBarItem("internal_gps");
+removeActionBarItem("external_gps");
+addActionBarItem("gps", new ToggleActionButtonCallback() {
+    actionOnLabel() {
+        "{Disable_Internal_GPS}";
+    }
+    actionOn() {
+        stopGPS();
+        showToast("{Internal_GPS_Disabled}");
+        updateGPSDiagnostics();
+    }
+    isActionOff() {
+        isInternalGPSOn();
+    }
+    actionOffLabel() {
+        "{Enable_Internal_GPS}";
+    }
+    actionOff() {
+        if(isExternalGPSOn()) {
+            stopGPS();
+        }
+        startGPS();
+    }
+});
+
+addOnEvent("Control/Tracklog", "show", "setGpsInternalExternal()");
+addOnEvent("Control/Tracklog/startGPSButton", "click", "startGPS();");
+addOnEvent("Control/Tracklog/stopGPSButton", "click", "stopGPSLogic();");
+addOnEvent("Control/Tracklog/trackOffButton", "click", "stopTrack()");
+addOnEvent("Control/Tracklog/trackdistButton", "click", "startDistTrack()");
+addOnEvent("Control/Tracklog/tracktimeButton", "click", "startTimeTrack()");
+
+persistOverSessions("Control/Tracklog/refreshText",   "10");
+persistOverSessions("Control/Tracklog/trackdistText", "20");
+persistOverSessions("Control/Tracklog/tracktimeText", "30");
+
+addOnEvent("Control/Tracklog/trackOffButton", "click", "disableTransect()");
+for (ref : getTransectTabGroups()) {
+  addOnEvent(ref, "create", "enableTransect()", PRECEDENCE_MID+1);
+  addOnEvent(ref, "create", "saveGPSTrack(\"Start\")");
+  addOnEvent(ref, "delete", "disableTransect()");
+  addOnEvent(ref, "delete", "reallyDeleteTransectUnit", new Object[] {ref});
+}
+
+for (ref : getTransectButtons()) {
+  addOnEventCond(ref, "click", "canMakeTransectPoint()");
+}
+/******************************** SYNC DISABLE ********************************/
+addOnEvent("Control/Tracklog/SyncOff", "click", "stopSync()");
+addOnEvent("Control/Tracklog/SyncOn", "click", "startSync()");
+
+startSync() {
+    setSyncEnabled(true);
+    setFileSyncEnabled(true);
+}
+
+stopSync() {
+    setSyncEnabled(false);
+    setFileSyncEnabled(false);
+}
+
+stopSync();
 
 
 /******************************************************************************/

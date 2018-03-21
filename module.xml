@@ -1,6 +1,12 @@
 <!--@POSTPROC: ./postproc.sh-->
 <module>
 
+<rels>
+  <RelationshipElement name="TransectSUI">
+    <description>Defines relationship between Transect and Survey Unit</description>
+  </RelationshipElement>
+</rels>
+
 <Login f="nodata">
   <User_List f="noscroll">
     <Users f="nolabel user" l="Control"/>
@@ -16,6 +22,38 @@
   <Defaults>
     <autonum/>
   </Defaults>
+  <Tracklog>
+    <internalExternalGPS t="radio">
+      Choose which GPS to connect to:
+      <opts>
+        <opt>Internal</opt>
+        <opt>External</opt>
+      </opts>
+    </internalExternalGPS>
+    <cols>
+      <col>
+        <refreshText b="decimal">
+          GPS Refresh Rate (s)
+        </refreshText>
+      </col>
+      <col>
+        <startGPSButton t="button">Enable GPS</startGPSButton>
+        <stopGPSButton  t="button">Disable GPS</stopGPSButton>
+      </col>
+    </cols>
+    <cols>
+      <trackdistText b="decimal">Tracklog Distance Interval (m)</trackdistText>
+      <trackdistButton t="button">Set Tracklog Distance Interval</trackdistButton>
+    </cols>
+    <cols>
+      <tracktimeText b="decimal">Tracklog Time interval (s)</tracktimeText>
+      <tracktimeButton t="button">Set Tracklog Time Interval</tracktimeButton>
+    </cols>
+    <trackOffButton t="button">Tracklog Off</trackOffButton>
+    <trackStatus f="readonly" b="string">Tracklog Status</trackStatus>
+    <SyncOn t="button">Sync On</SyncOn>
+    <SyncOff t="button">Sync Off</SyncOff>
+  </Tracklog>
   <search/>
 </Control>
 
@@ -114,9 +152,37 @@
   </Photolog>
 </Photolog>
 
+<Tracklog f="noui">
+  <fmt>{{TracklogTeam}} {{Timestamp}}</fmt>
+  <Tracklog>
+    <Timestamp/>
+    <TracklogTeam/>
+    <Latitude/>
+    <Longitude/>
+    <Heading/>
+    <Accuracy/>
+  </Tracklog>
+</Tracklog>
+
+<Transect_Point f="noui">
+  <fmt>{{TracklogTeam}} {{Timestamp}}</fmt>
+  <Transect_Point>
+    <Timestamp/>
+    <TracklogTeam/>
+    <State/>
+    <Latitude/>
+    <Longitude/>
+    <Heading/>
+    <Accuracy/>
+  </Transect_Point>
+</Transect_Point>
+
 <logic><![CDATA[
+<!--@SOURCE: logic/shared.bsh-->
 <!--@SOURCE: logic/custom-search.bsh-->
 <!--@SOURCE: logic/validation-button.bsh-->
+<!--@SOURCE: logic/tracklog.bsh-->
+<!--@SOURCE: logic/sync-disable.bsh-->
 ]]></logic>
 
 </module>
