@@ -1488,12 +1488,12 @@ void timedPopulateCursorList(String ref, String q, int limit) {
 
 void setUpTypeHierarchy() {
   //- 
-  //  - Feature
   //  - Photolog
+  //  - Feature
 
   n0 = Tree("", 1);
-  n1 = Tree("Feature", 1);
-  n2 = Tree("Photolog", 1);
+  n1 = Tree("Photolog", 1);
+  n2 = Tree("Feature", 1);
 
   n0.addChild(n1);
   n0.addChild(n2);
@@ -4482,6 +4482,11 @@ reallyDeleteTransectUnit(String tabGroup) {
     });
 }
 
+void initAndPersistOverSessions(String ref, String defaultVal) {
+  setFieldValue(ref, defaultVal);
+  persistOverSessions(ref, defaultVal);
+}
+
 removeActionBarItem("internal_gps");
 removeActionBarItem("external_gps");
 addActionBarItem("gps", new ToggleActionButtonCallback() {
@@ -4503,6 +4508,7 @@ addActionBarItem("gps", new ToggleActionButtonCallback() {
         if(isExternalGPSOn()) {
             stopGPS();
         }
+        setGpsInternalExternal();
         startGPS();
     }
 });
@@ -4514,9 +4520,9 @@ addOnEvent("Control/Tracklog/trackOffButton", "click", "stopTrack()");
 addOnEvent("Control/Tracklog/trackdistButton", "click", "startDistTrack()");
 addOnEvent("Control/Tracklog/tracktimeButton", "click", "startTimeTrack()");
 
-persistOverSessions("Control/Tracklog/refreshText",   "10");
-persistOverSessions("Control/Tracklog/trackdistText", "20");
-persistOverSessions("Control/Tracklog/tracktimeText", "30");
+initAndPersistOverSessions("Control/Tracklog/refreshText",   "10");
+initAndPersistOverSessions("Control/Tracklog/trackdistText", "20");
+initAndPersistOverSessions("Control/Tracklog/tracktimeText", "30");
 
 addOnEvent("Control/Tracklog/trackOffButton", "click", "disableTransect()");
 for (ref : getTransectTabGroups()) {
