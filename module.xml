@@ -43,11 +43,11 @@
     </cols>
     <cols>
       <trackdistText b="decimal">Tracklog Distance Interval (m)</trackdistText>
-      <trackdistButton t="button">Set Tracklog Distance Interval</trackdistButton>
+      <trackdistButton t="button">Enable Tracklog and Set Distance Interval</trackdistButton>
     </cols>
     <cols>
       <tracktimeText b="decimal">Tracklog Time interval (s)</tracktimeText>
-      <tracktimeButton t="button">Set Tracklog Time Interval</tracktimeButton>
+      <tracktimeButton t="button">Enable Tracklog and Set Time Interval</tracktimeButton>
     </cols>
     <trackOffButton t="button">Tracklog Off</trackOffButton>
     <trackStatus f="readonly" b="string">Tracklog Status</trackStatus>

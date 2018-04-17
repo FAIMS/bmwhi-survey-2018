@@ -271,7 +271,7 @@
           <group ref="Col_2" faims_style="even">
             <label/>
             <trigger ref="trackdistButton">
-              <label>{Set_Tracklog_Distance_Interval}</label>
+              <label>{Enable_Tracklog_and_Set_Distance_Interval}</label>
             </trigger>
           </group>
         </group>
@@ -286,7 +286,7 @@
           <group ref="Col_2" faims_style="even">
             <label/>
             <trigger ref="tracktimeButton">
-              <label>{Set_Tracklog_Time_Interval}</label>
+              <label>{Enable_Tracklog_and_Set_Time_Interval}</label>
             </trigger>
           </group>
         </group>
