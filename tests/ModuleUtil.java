@@ -35,6 +35,15 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: tab group
+        Ref:  Measurement
+     */
+    public static View get_Measurement(Solo solo) {
+        String ref = "Measurement";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: tab group
         Ref:  Photolog
      */
     public static View get_Photolog(Solo solo) {
@@ -70,10 +79,10 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: tab
-        Ref:  Feature/Associated_Material
+        Ref:  Feature/Detail
      */
-    public static View get_Feature_AssociatedMaterial(Solo solo) {
-        String ref = "Feature/Associated_Material";
+    public static View get_Feature_Detail(Solo solo) {
+        String ref = "Feature/Detail";
         return (android.view.View) solo.getView((Object) ref);
     }
 
@@ -97,10 +106,28 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: tab
+        Ref:  Feature/Measurement
+     */
+    public static View get_Feature_Measurement(Solo solo) {
+        String ref = "Feature/Measurement";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: tab
         Ref:  Login/User_List
      */
     public static View get_Login_UserList(Solo solo) {
         String ref = "Login/User_List";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: tab
+        Ref:  Measurement/Measurement
+     */
+    public static View get_Measurement_Measurement(Solo solo) {
+        String ref = "Measurement/Measurement";
         return (android.view.View) solo.getView((Object) ref);
     }
 
@@ -204,19 +231,10 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: button
-        Ref:  Feature/Associated_Material/Picture_of_Associated_Material_Button_1
+        Ref:  Feature/Detail/Detail_Photos_Button_1
      */
-    public static View get_Feature_AssociatedMaterial_PictureofAssociatedMaterialButton1(Solo solo) {
-        String ref = "Feature/Associated_Material/Picture_of_Associated_Material_Button_1";
-        return (android.view.View) solo.getView((Object) ref);
-    }
-
-    /*
-        Type: button
-        Ref:  Feature/Feature/Attach_Photo_Button_1
-     */
-    public static View get_Feature_Feature_AttachPhotoButton1(Solo solo) {
-        String ref = "Feature/Feature/Attach_Photo_Button_1";
+    public static View get_Feature_Detail_DetailPhotosButton1(Solo solo) {
+        String ref = "Feature/Detail/Detail_Photos_Button_1";
         return (android.view.View) solo.getView((Object) ref);
     }
 
@@ -226,6 +244,15 @@ public class ModuleUtil extends ModuleHelper {
      */
     public static View get_Feature_Feature_CHECKFORMISSINGDATA(Solo solo) {
         String ref = "Feature/Feature/CHECK_FOR_MISSING_DATA";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
+        Ref:  Feature/Feature/Overview_Photos_Button_1
+     */
+    public static View get_Feature_Feature_OverviewPhotosButton1(Solo solo) {
+        String ref = "Feature/Feature/Overview_Photos_Button_1";
         return (android.view.View) solo.getView((Object) ref);
     }
 
@@ -248,20 +275,29 @@ public class ModuleUtil extends ModuleHelper {
     }
 
     /*
-        Type: camera
-        Ref:  Feature/Associated_Material/Picture_of_Associated_Material
+        Type: button
+        Ref:  Feature/Measurement/Add_Measurement
      */
-    public static View get_Feature_AssociatedMaterial_PictureofAssociatedMaterial(Solo solo) {
-        String ref = "Feature/Associated_Material/Picture_of_Associated_Material";
+    public static View get_Feature_Measurement_AddMeasurement(Solo solo) {
+        String ref = "Feature/Measurement/Add_Measurement";
         return (android.view.View) solo.getView((Object) ref);
     }
 
     /*
         Type: camera
-        Ref:  Feature/Feature/Attach_Photo
+        Ref:  Feature/Detail/Detail_Photos
      */
-    public static View get_Feature_Feature_AttachPhoto(Solo solo) {
-        String ref = "Feature/Feature/Attach_Photo";
+    public static View get_Feature_Detail_DetailPhotos(Solo solo) {
+        String ref = "Feature/Detail/Detail_Photos";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: camera
+        Ref:  Feature/Feature/Overview_Photos
+     */
+    public static View get_Feature_Feature_OverviewPhotos(Solo solo) {
+        String ref = "Feature/Feature/Overview_Photos";
         return (android.view.View) solo.getView((Object) ref);
     }
 
@@ -276,19 +312,10 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: checkbox
-        Ref:  Feature/Associated_Material/Associated_Feature_Type
+        Ref:  Feature/Detail/Material
      */
-    public static View get_Feature_AssociatedMaterial_AssociatedFeatureType(Solo solo) {
-        String ref = "Feature/Associated_Material/Associated_Feature_Type";
-        return (android.view.View) solo.getView((Object) ref);
-    }
-
-    /*
-        Type: checkbox
-        Ref:  Feature/Associated_Material/Associated_Material
-     */
-    public static View get_Feature_AssociatedMaterial_AssociatedMaterial(Solo solo) {
-        String ref = "Feature/Associated_Material/Associated_Material";
+    public static View get_Feature_Detail_Material(Solo solo) {
+        String ref = "Feature/Detail/Material";
         return (android.view.View) solo.getView((Object) ref);
     }
 
@@ -307,6 +334,15 @@ public class ModuleUtil extends ModuleHelper {
      */
     public static View get_Feature_Feature_FeatureType(Solo solo) {
         String ref = "Feature/Feature/Feature_Type";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: dropdown
+        Ref:  Measurement/Measurement/Dimension
+     */
+    public static View get_Measurement_Measurement_Dimension(Solo solo) {
+        String ref = "Measurement/Measurement/Dimension";
         return (android.view.View) solo.getView((Object) ref);
     }
 
@@ -366,10 +402,10 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: input
-        Ref:  Feature/Associated_Material/Asociated_Material_Notes
+        Ref:  Feature/Detail/Asociated_Material_Notes
      */
-    public static EditText get_Feature_AssociatedMaterial_AsociatedMaterialNotes(Solo solo) {
-        String ref = "Feature/Associated_Material/Asociated_Material_Notes";
+    public static EditText get_Feature_Detail_AsociatedMaterialNotes(Solo solo) {
+        String ref = "Feature/Detail/Asociated_Material_Notes";
         return (android.widget.EditText) solo.getView((Object) ref);
     }
 
@@ -402,6 +438,15 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: input
+        Ref:  Feature/Feature/Comments
+     */
+    public static EditText get_Feature_Feature_Comments(Solo solo) {
+        String ref = "Feature/Feature/Comments";
+        return (android.widget.EditText) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: input
         Ref:  Feature/Feature/Description
      */
     public static EditText get_Feature_Feature_Description(Solo solo) {
@@ -429,10 +474,10 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: input
-        Ref:  Feature/Feature/Height_m
+        Ref:  Feature/Feature/Interpretation
      */
-    public static EditText get_Feature_Feature_Heightm(Solo solo) {
-        String ref = "Feature/Feature/Height_m";
+    public static EditText get_Feature_Feature_Interpretation(Solo solo) {
+        String ref = "Feature/Feature/Interpretation";
         return (android.widget.EditText) solo.getView((Object) ref);
     }
 
@@ -443,15 +488,6 @@ public class ModuleUtil extends ModuleHelper {
     public static View get_Feature_Feature_Latitude(Solo solo) {
         String ref = "Feature/Feature/Latitude";
         return (android.view.View) solo.getView((Object) ref);
-    }
-
-    /*
-        Type: input
-        Ref:  Feature/Feature/Length_m
-     */
-    public static EditText get_Feature_Feature_Lengthm(Solo solo) {
-        String ref = "Feature/Feature/Length_m";
-        return (android.widget.EditText) solo.getView((Object) ref);
     }
 
     /*
@@ -474,28 +510,10 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: input
-        Ref:  Feature/Feature/Other_Dimension_Annotation
+        Ref:  Measurement/Measurement/Measurement
      */
-    public static EditText get_Feature_Feature_OtherDimensionAnnotation(Solo solo) {
-        String ref = "Feature/Feature/Other_Dimension_Annotation";
-        return (android.widget.EditText) solo.getView((Object) ref);
-    }
-
-    /*
-        Type: input
-        Ref:  Feature/Feature/Tag_Name
-     */
-    public static EditText get_Feature_Feature_TagName(Solo solo) {
-        String ref = "Feature/Feature/Tag_Name";
-        return (android.widget.EditText) solo.getView((Object) ref);
-    }
-
-    /*
-        Type: input
-        Ref:  Feature/Feature/Width_m
-     */
-    public static EditText get_Feature_Feature_Widthm(Solo solo) {
-        String ref = "Feature/Feature/Width_m";
+    public static EditText get_Measurement_Measurement_Measurement(Solo solo) {
+        String ref = "Measurement/Measurement/Measurement";
         return (android.widget.EditText) solo.getView((Object) ref);
     }
 
@@ -546,6 +564,15 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: list
+        Ref:  Feature/Measurement/List_of_Measurements
+     */
+    public static View get_Feature_Measurement_ListofMeasurements(Solo solo) {
+        String ref = "Feature/Measurement/List_of_Measurements";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: list
         Ref:  Login/User_List/Users
      */
     public static View get_Login_UserList_Users(Solo solo) {
@@ -559,24 +586,6 @@ public class ModuleUtil extends ModuleHelper {
      */
     public static View get_Control_Tracklog_internalExternalGPS(Solo solo) {
         String ref = "Control/Tracklog/internalExternalGPS";
-        return (android.view.View) solo.getView((Object) ref);
-    }
-
-    /*
-        Type: radio
-        Ref:  Feature/Feature/Feature_Identification_Certainty
-     */
-    public static View get_Feature_Feature_FeatureIdentificationCertainty(Solo solo) {
-        String ref = "Feature/Feature/Feature_Identification_Certainty";
-        return (android.view.View) solo.getView((Object) ref);
-    }
-
-    /*
-        Type: radio
-        Ref:  Feature/Feature/Recommendation
-     */
-    public static View get_Feature_Feature_Recommendation(Solo solo) {
-        String ref = "Feature/Feature/Recommendation";
         return (android.view.View) solo.getView((Object) ref);
     }
 }

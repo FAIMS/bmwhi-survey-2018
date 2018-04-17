@@ -99,8 +99,8 @@
                   <Feature_timestamp/>
                 </Col_2>
               </Colgroup_1>
-              <Attach_Photo/>
-              <Attach_Photo_Button_1/>
+              <Overview_Photos/>
+              <Overview_Photos_Button_1/>
               <Colgroup_2>
                 <Col_1>
                   <Latitude/>
@@ -125,26 +125,30 @@
               <Description/>
               <Photo_of_Sketch/>
               <Photo_of_Sketch_Button_1/>
-              <Length_m/>
-              <Width_m/>
-              <Height_m/>
-              <Other_Dimension_Annotation/>
-              <Feature_Identification_Certainty/>
-              <Recommendation/>
-              <Tag_Name/>
+              <Comments/>
+              <Interpretation/>
             </Feature>
-            <Associated_Material>
-              <Associated_Feature_Type/>
-              <Associated_Material/>
+            <Measurement>
+              <Add_Measurement/>
+              <List_of_Measurements/>
+            </Measurement>
+            <Detail>
+              <Material/>
               <Asociated_Material_Notes/>
-              <Picture_of_Associated_Material/>
-              <Picture_of_Associated_Material_Button_1/>
-            </Associated_Material>
+              <Detail_Photos/>
+              <Detail_Photos_Button_1/>
+            </Detail>
             <External_Photos>
               <IDs_of_Pictures_from_External_Camera/>
               <External_Photo_Notes/>
             </External_Photos>
           </Feature>
+          <Measurement>
+            <Measurement>
+              <Dimension/>
+              <Measurement/>
+            </Measurement>
+          </Measurement>
           <Photolog>
             <Photolog>
               <Photographed_Feature_ID/>
@@ -166,10 +170,7 @@
       <bind nodeset="/faims/Control/Tracklog/Colgroup_2/Col_1/trackdistText" type="decimal"/>
       <bind nodeset="/faims/Control/Tracklog/Colgroup_3/Col_1/tracktimeText" type="decimal"/>
       <bind nodeset="/faims/Control/Tracklog/trackStatus" type="string"/>
-      <bind nodeset="/faims/Feature/Feature/Length_m" type="decimal"/>
-      <bind nodeset="/faims/Feature/Feature/Width_m" type="decimal"/>
-      <bind nodeset="/faims/Feature/Feature/Height_m" type="decimal"/>
-      <bind nodeset="/faims/Feature/Feature/Other_Dimension_Annotation" type="decimal"/>
+      <bind nodeset="/faims/Measurement/Measurement/Measurement" type="decimal"/>
     </model>
   </h:head>
   <h:body>
@@ -387,27 +388,27 @@
             </input>
           </group>
         </group>
-        <select faims_sync="true" type="camera" faims_attribute_name="Attach Photo" faims_attribute_type="measure" ref="Attach_Photo">
-          <label>{Attach_Photo}</label>
+        <select faims_sync="true" type="camera" faims_attribute_name="Overview Photos" faims_attribute_type="measure" ref="Overview_Photos" faims_style_class="required">
+          <label>{Overview_Photos}</label>
           <item>
             <label>Options not loaded</label>
             <value>Options not loaded</value>
           </item>
         </select>
-        <trigger ref="Attach_Photo_Button_1">
-          <label>{Attach_Photo}</label>
+        <trigger ref="Overview_Photos_Button_1">
+          <label>{Overview_Photos}</label>
         </trigger>
         <group ref="Colgroup_2" faims_style="orientation">
           <label/>
           <group ref="Col_1" faims_style="even">
             <label/>
-            <input faims_attribute_name="Latitude" faims_attribute_type="measure" ref="Latitude" faims_read_only="true">
+            <input faims_attribute_name="Latitude" faims_attribute_type="measure" ref="Latitude" faims_style_class="required" faims_read_only="true">
               <label>{Latitude}</label>
             </input>
           </group>
           <group ref="Col_2" faims_style="even">
             <label/>
-            <input faims_attribute_name="Longitude" faims_attribute_type="measure" ref="Longitude" faims_read_only="true">
+            <input faims_attribute_name="Longitude" faims_attribute_type="measure" ref="Longitude" faims_style_class="required" faims_read_only="true">
               <label>{Longitude}</label>
             </input>
           </group>
@@ -416,19 +417,19 @@
           <label/>
           <group ref="Col_1" faims_style="even">
             <label/>
-            <input faims_attribute_name="Northing" faims_attribute_type="measure" ref="Northing" faims_read_only="true">
+            <input faims_attribute_name="Northing" faims_attribute_type="measure" ref="Northing" faims_style_class="required" faims_read_only="true">
               <label>{Northing}</label>
             </input>
           </group>
           <group ref="Col_2" faims_style="even">
             <label/>
-            <input faims_attribute_name="Easting" faims_attribute_type="measure" ref="Easting" faims_read_only="true">
+            <input faims_attribute_name="Easting" faims_attribute_type="measure" ref="Easting" faims_style_class="required" faims_read_only="true">
               <label>{Easting}</label>
             </input>
           </group>
           <group ref="Col_3" faims_style="even">
             <label/>
-            <input faims_attribute_name="Accuracy" faims_attribute_type="measure" ref="Accuracy" faims_read_only="true">
+            <input faims_attribute_name="Accuracy" faims_attribute_type="measure" ref="Accuracy" faims_style_class="required" faims_read_only="true">
               <label>{Accuracy}</label>
             </input>
           </group>
@@ -456,47 +457,30 @@
         <trigger ref="Photo_of_Sketch_Button_1">
           <label>{Photo_of_Sketch}</label>
         </trigger>
-        <input faims_attribute_name="Length m" faims_attribute_type="measure" ref="Length_m">
-          <label>{Length__m_}</label>
+        <input faims_attribute_name="Comments" faims_attribute_type="measure" ref="Comments">
+          <label>{Comments}</label>
         </input>
-        <input faims_attribute_name="Width m" faims_attribute_type="measure" ref="Width_m">
-          <label>{Width__m_}</label>
-        </input>
-        <input faims_attribute_name="Height m" faims_attribute_type="measure" ref="Height_m">
-          <label>{Height__m_}</label>
-        </input>
-        <input faims_attribute_name="Other Dimension Annotation" faims_attribute_type="measure" ref="Other_Dimension_Annotation">
-          <label>{Other_Dimension___Annotation}</label>
-        </input>
-        <select1 appearance="full" faims_attribute_name="Feature Identification Certainty" faims_attribute_type="vocab" ref="Feature_Identification_Certainty" faims_style_class="required">
-          <label>{Feature_Identification_Certainty}</label>
-          <item>
-            <label>Options not loaded</label>
-            <value>Options not loaded</value>
-          </item>
-        </select1>
-        <select1 appearance="full" faims_attribute_name="Recommendation" faims_attribute_type="vocab" ref="Recommendation">
-          <label>{Recommendation}</label>
-          <item>
-            <label>Options not loaded</label>
-            <value>Options not loaded</value>
-          </item>
-        </select1>
-        <input faims_attribute_name="Tag Name" faims_attribute_type="measure" ref="Tag_Name">
-          <label>{Tag_Name}</label>
+        <input faims_attribute_name="Interpretation" faims_attribute_type="measure" ref="Interpretation">
+          <label>{Interpretation}</label>
         </input>
       </group>
-      <group ref="Associated_Material">
-        <label>{Associated_Material}</label>
-        <select faims_attribute_name="Associated Feature Type" faims_attribute_type="vocab" ref="Associated_Feature_Type">
-          <label>{Associated_Feature_Type}</label>
+      <group ref="Measurement" faims_scrollable="false">
+        <label>{Measurement}</label>
+        <trigger ref="Add_Measurement">
+          <label>{Add_Measurement}</label>
+        </trigger>
+        <select1 appearance="compact" ref="List_of_Measurements">
+          <label>{List_of_Measurements}</label>
           <item>
             <label>Options not loaded</label>
             <value>Options not loaded</value>
           </item>
-        </select>
-        <select faims_attribute_name="Associated Material" faims_attribute_type="vocab" ref="Associated_Material">
-          <label>{Associated_Material}</label>
+        </select1>
+      </group>
+      <group ref="Detail">
+        <label>{Detail}</label>
+        <select faims_attribute_name="Material" faims_attribute_type="vocab" ref="Material">
+          <label>{Material}</label>
           <item>
             <label>Options not loaded</label>
             <value>Options not loaded</value>
@@ -505,15 +489,15 @@
         <input faims_attribute_name="Asociated Material Notes" faims_attribute_type="measure" ref="Asociated_Material_Notes">
           <label>{Asociated_Material_Notes}</label>
         </input>
-        <select faims_sync="true" type="camera" faims_attribute_name="Picture of Associated Material" faims_attribute_type="measure" ref="Picture_of_Associated_Material">
-          <label>{Picture_of_Associated_Material}</label>
+        <select faims_sync="true" type="camera" faims_attribute_name="Detail Photos" faims_attribute_type="measure" ref="Detail_Photos">
+          <label>{Detail_Photos}</label>
           <item>
             <label>Options not loaded</label>
             <value>Options not loaded</value>
           </item>
         </select>
-        <trigger ref="Picture_of_Associated_Material_Button_1">
-          <label>{Picture_of_Associated_Material}</label>
+        <trigger ref="Detail_Photos_Button_1">
+          <label>{Detail_Photos}</label>
         </trigger>
       </group>
       <group ref="External_Photos">
@@ -523,6 +507,22 @@
         </input>
         <input faims_attribute_name="External Photo Notes" faims_attribute_type="measure" ref="External_Photo_Notes">
           <label>{External_Photo_Notes}</label>
+        </input>
+      </group>
+    </group>
+    <group ref="Measurement" faims_archent_type="Measurement">
+      <label>{Measurement}</label>
+      <group ref="Measurement">
+        <label>{Measurement}</label>
+        <select1 faims_attribute_name="Dimension" faims_attribute_type="vocab" ref="Dimension">
+          <label>{Dimension}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select1>
+        <input faims_attribute_name="Measurement" faims_attribute_type="measure" ref="Measurement">
+          <label>{Measurement}</label>
         </input>
       </group>
     </group>

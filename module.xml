@@ -68,62 +68,32 @@
       <author/>
       <timestamp/>
     </cols>
-    <Attach_Photo t="camera"/>
-    <gps/>
+    <Overview_Photos t="camera" f="notnull"/>
+    <gps f="notnull"/>
     <Feature_Type f="notnull">
       <desc>Select the appropriate feature type</desc>
       <opts>
-        <opt>Modified stone</opt>
         <opt>Artefact scatter</opt>
         <opt>Metal feature</opt>
-        <opt>Fire dog</opt>
         <opt>Hearth</opt>
-        <opt>Unknown</opt>
+        <opt>Other</opt>
+        <opt>Hole drilled in the rock</opt>
+        <opt>Masonry</opt>
+        <opt>Isolated find</opt>
+        <opt>Stone cluster or circle</opt>
       </opts>
     </Feature_Type>
     <Description/>
     <Photo_of_Sketch t="camera"/>
-    <Length_m b="decimal">
-      Length (m)
-      <desc>Measure the length in metres</desc>
-    </Length_m>
-    <Width_m b="decimal">
-      Width (m)
-      <desc>Measure the width in metres</desc>
-    </Width_m>
-    <Height_m b="decimal">
-      Height (m)
-      <desc>Measure the height in metres</desc>
-    </Height_m>
-    <Other_Dimension_Annotation b="decimal">Other Dimension &gt; Annotation</Other_Dimension_Annotation>
-    <Feature_Identification_Certainty t="radio" f="notnull">
-      <opts>
-        <opt>Feature certain</opt>
-        <opt>Feature uncertain</opt>
-        <opt>Investigation recommended</opt>
-      </opts>
-    </Feature_Identification_Certainty>
-    <Recommendation t="radio">
-      <desc>Select relevant recommendation</desc>
-      <opts>
-        <opt>Option 1</opt>
-        <opt>Option 2</opt>
-        <opt>Option 3</opt>
-      </opts>
-    </Recommendation>
-    <Tag_Name/>
+    <Comments/>
+    <Interpretation/>
   </Feature>
-  <Associated_Material>
-    <Associated_Feature_Type t="checkbox">
-      <opts>
-        <opt>Artefact scatter</opt>
-        <opt>Metal feature or implement</opt>
-        <opt>Hearth</opt>
-        <opt>Masonry or Stone Circle</opt>
-        <opt>Other</opt>
-      </opts>
-    </Associated_Feature_Type>
-    <Associated_Material t="checkbox">
+  <Measurement f="noscroll">
+    <Add_Measurement lc="Measurement"/>
+    <List_of_Measurements ec="Measurement"/>
+  </Measurement>
+  <Detail>
+    <Material t="checkbox">
       <opts>
         <opt>Ceramic</opt>
         <opt>Glass</opt>
@@ -132,15 +102,33 @@
         <opt>Organic</opt>
         <opt>Other</opt>
       </opts>
-    </Associated_Material>
+    </Material>
     <Asociated_Material_Notes/>
-    <Picture_of_Associated_Material t="camera"/>
-  </Associated_Material>
+    <Detail_Photos t="camera"/>
+  </Detail>
   <External_Photos>
     <IDs_of_Pictures_from_External_Camera/>
     <External_Photo_Notes/>
   </External_Photos>
 </Feature>
+
+<Measurement>
+  <fmt>{{Dimension}}: {{Measurement}}</fmt>
+  <Measurement>
+    <Dimension t="dropdown">
+      <opts>
+        <opt>Height (m)</opt>
+        <opt>Length (m)</opt>
+        <opt>Width (m)</opt>
+        <opt>Depth (m)</opt>
+        <opt>Diameter (m)</opt>
+        <opt>Area (m&#178;)</opt>
+        <opt>Other</opt>
+      </opts>
+    </Dimension>
+    <Measurement b="decimal"/>
+  </Measurement>
+</Measurement>
 
 <Photolog>
   <fmt>{{Photographed_Feature_ID}}</fmt>
