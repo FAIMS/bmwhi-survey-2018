@@ -61,10 +61,10 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: tab
-        Ref:  Control/Defaults
+        Ref:  Control/Map
      */
-    public static View get_Control_Defaults(Solo solo) {
-        String ref = "Control/Defaults";
+    public static View get_Control_Map(Solo solo) {
+        String ref = "Control/Map";
         return (android.view.View) solo.getView((Object) ref);
     }
 
@@ -154,6 +154,24 @@ public class ModuleUtil extends ModuleHelper {
      */
     public static View get_Control_Control_NewPhotolog(Solo solo) {
         String ref = "Control/Control/New_Photolog";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
+        Ref:  Control/Map/Center_Me_1
+     */
+    public static View get_Control_Map_CenterMe1(Solo solo) {
+        String ref = "Control/Map/Center_Me_1";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
+        Ref:  Control/Map/Save_Map_Settings_1
+     */
+    public static View get_Control_Map_SaveMapSettings1(Solo solo) {
+        String ref = "Control/Map/Save_Map_Settings_1";
         return (android.view.View) solo.getView((Object) ref);
     }
 
@@ -348,19 +366,19 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: input
-        Ref:  Control/Defaults/Next_Feature_ID
+        Ref:  Control/Search/Search_Term
      */
-    public static EditText get_Control_Defaults_NextFeatureID(Solo solo) {
-        String ref = "Control/Defaults/Next_Feature_ID";
+    public static EditText get_Control_Search_SearchTerm(Solo solo) {
+        String ref = "Control/Search/Search_Term";
         return (android.widget.EditText) solo.getView((Object) ref);
     }
 
     /*
         Type: input
-        Ref:  Control/Search/Search_Term
+        Ref:  Control/Tracklog/Next_Feature_ID
      */
-    public static EditText get_Control_Search_SearchTerm(Solo solo) {
-        String ref = "Control/Search/Search_Term";
+    public static EditText get_Control_Tracklog_NextFeatureID(Solo solo) {
+        String ref = "Control/Tracklog/Next_Feature_ID";
         return (android.widget.EditText) solo.getView((Object) ref);
     }
 
@@ -577,6 +595,15 @@ public class ModuleUtil extends ModuleHelper {
      */
     public static View get_Login_UserList_Users(Solo solo) {
         String ref = "Login/User_List/Users";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: map
+        Ref:  Control/Map/Map
+     */
+    public static View get_Control_Map_Map(Solo solo) {
+        String ref = "Control/Map/Map";
         return (android.view.View) solo.getView((Object) ref);
     }
 

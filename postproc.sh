@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+cd data
+tar -hcvzf ../module/data.tar.gz * >/dev/null
+cd ..
 
 cd module
 

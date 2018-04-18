@@ -19,10 +19,9 @@
     <New_Photolog l="Photolog"/>
     <List_of_Existing_Features e="Feature"/>
   </Control>
-  <Defaults>
-    <autonum/>
-  </Defaults>
   <Tracklog>
+    Defaults
+    <autonum/>
     <internalExternalGPS t="radio">
       Choose which GPS to connect to:
       <opts>
@@ -54,6 +53,9 @@
     <SyncOn t="button">Sync On</SyncOn>
     <SyncOff t="button">Sync Off</SyncOff>
   </Tracklog>
+  <Map f="noscroll">
+    <Map t="map" f="nolabel"/>
+  </Map>
   <search/>
 </Control>
 
@@ -74,13 +76,12 @@
       <desc>Select the appropriate feature type</desc>
       <opts>
         <opt>Artefact scatter</opt>
-        <opt>Metal feature</opt>
         <opt>Hearth</opt>
-        <opt>Other</opt>
         <opt>Hole drilled in the rock</opt>
-        <opt>Masonry</opt>
         <opt>Isolated find</opt>
+        <opt>Masonry</opt>
         <opt>Stone cluster or circle</opt>
+        <opt>Other</opt>
       </opts>
     </Feature_Type>
     <Description/>
@@ -171,6 +172,7 @@
 <!--@SOURCE: logic/validation-button.bsh-->
 <!--@SOURCE: logic/tracklog.bsh-->
 <!--@SOURCE: logic/sync-disable.bsh-->
+<!--@SOURCE: logic/map.bsh-->
 ]]></logic>
 
 </module>

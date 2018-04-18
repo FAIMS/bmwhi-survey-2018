@@ -27,19 +27,17 @@
       <lookup>
         <term>{Artefact_scatter}
 <description> </description></term>
-        <term>{Metal_feature}
-<description> </description></term>
         <term>{Hearth}
-<description> </description></term>
-        <term>{Other}
 <description> </description></term>
         <term>{Hole_drilled_in_the_rock}
 <description> </description></term>
-        <term>{Masonry}
-<description> </description></term>
         <term>{Isolated_find}
 <description> </description></term>
+        <term>{Masonry}
+<description> </description></term>
         <term>{Stone_cluster_or_circle}
+<description> </description></term>
+        <term>{Other}
 <description> </description></term>
       </lookup>
     </property>

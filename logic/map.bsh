@@ -1,0 +1,45 @@
+/************************************ MAP *************************************/
+DATA_ENTRY_LAYER = "Data Entry Layer";
+DATA_ENTRY_LAYER_ID = 0;
+
+int  MAP_COLORS_IDX  = 0;
+List MAP_COLORS = new ArrayList();
+MAP_COLORS.add(Color.BLACK);
+MAP_COLORS.add(Color.BLUE);
+MAP_COLORS.add(Color.CYAN);
+MAP_COLORS.add(Color.DKGRAY);
+MAP_COLORS.add(Color.GRAY);
+MAP_COLORS.add(Color.GREEN);
+MAP_COLORS.add(Color.LTGRAY);
+MAP_COLORS.add(Color.MAGENTA);
+MAP_COLORS.add(Color.RED);
+MAP_COLORS.add(Color.WHITE);
+MAP_COLORS.add(Color.YELLOW);
+
+void showMapLayer(String archEntType) {
+  int colorIdx = MAP_COLORS_IDX++ % MAP_COLORS.size();
+  int color = MAP_COLORS.get(colorIdx);
+
+  boolean isEntity = true;
+  String querySQL = "SELECT uuid, aenttimestamp FROM latestNonDeletedArchEnt join aenttype using (aenttypeid) where aenttypename = '" + archEntType + "'";
+  ps = createPointStyle(10, color, 0.2f, 0.5f);
+  ls = createLineStyle(10, color, 0.05f, 0.3f, null);
+  pos = createPolygonStyle(10, color, createLineStyle(10, color, 0.01f, 0.3f, null));
+  ts = createTextStyle(999, color, 30, Typeface.SANS_SERIF);
+  showDatabaseLayer(MAP_REF, archEntType + " Layer", isEntity, archEntType, querySQL, ps, ls, pos, ts);
+}
+
+void initMap() {
+  setMapZoom(MAP_REF, 15.0f);
+
+  DATA_ENTRY_LAYER_ID = createCanvasLayer(MAP_REF, DATA_ENTRY_LAYER);
+
+  showBaseMap(MAP_REF, "Base Layer", "files/data/maps/BM1.tif");
+
+  // Tracklog
+  showMapLayer("Tracklog");
+  showMapLayer("Transect Point");
+  showMapLayer("Feature");
+}
+
+initMap();

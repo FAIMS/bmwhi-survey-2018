@@ -29,10 +29,8 @@
               <New_Photolog/>
               <List_of_Existing_Features/>
             </Control>
-            <Defaults>
-              <Next_Feature_ID/>
-            </Defaults>
             <Tracklog>
+              <Next_Feature_ID/>
               <internalExternalGPS/>
               <Colgroup_1>
                 <Col_1>
@@ -64,6 +62,17 @@
               <SyncOn/>
               <SyncOff/>
             </Tracklog>
+            <Map>
+              <Map/>
+              <Colgroup_1>
+                <Col_1>
+                  <Center_Me_1/>
+                </Col_1>
+                <Col_2>
+                  <Save_Map_Settings_1/>
+                </Col_2>
+              </Colgroup_1>
+            </Map>
             <Search>
               <Colgroup_0>
                 <Col_0>
@@ -165,7 +174,7 @@
           </Transect_Point>
         </faims>
       </instance>
-      <bind nodeset="/faims/Control/Defaults/Next_Feature_ID" type="decimal"/>
+      <bind nodeset="/faims/Control/Tracklog/Next_Feature_ID" type="decimal"/>
       <bind nodeset="/faims/Control/Tracklog/Colgroup_1/Col_1/refreshText" type="decimal"/>
       <bind nodeset="/faims/Control/Tracklog/Colgroup_2/Col_1/trackdistText" type="decimal"/>
       <bind nodeset="/faims/Control/Tracklog/Colgroup_3/Col_1/tracktimeText" type="decimal"/>
@@ -228,14 +237,11 @@
           </item>
         </select1>
       </group>
-      <group ref="Defaults">
+      <group ref="Tracklog">
         <label>{Defaults}</label>
         <input ref="Next_Feature_ID" faims_style_class="required">
           <label>{Next_Feature_ID}</label>
         </input>
-      </group>
-      <group ref="Tracklog">
-        <label>{Tracklog}</label>
         <select1 appearance="full" ref="internalExternalGPS">
           <label>{Choose_which_GPS_to_connect_to_}</label>
           <item>
@@ -303,6 +309,27 @@
         <trigger ref="SyncOff">
           <label>{Sync_Off}</label>
         </trigger>
+      </group>
+      <group ref="Map" faims_scrollable="false">
+        <label>{Map}</label>
+        <input faims_map="true" ref="Map">
+          <label/>
+        </input>
+        <group ref="Colgroup_1" faims_style="orientation">
+          <label/>
+          <group ref="Col_1" faims_style="even">
+            <label/>
+            <trigger ref="Center_Me_1">
+              <label>{Center_Me}</label>
+            </trigger>
+          </group>
+          <group ref="Col_2" faims_style="even">
+            <label/>
+            <trigger ref="Save_Map_Settings_1">
+              <label>{Save_Map_Settings}</label>
+            </trigger>
+          </group>
+        </group>
       </group>
       <group ref="Search" faims_scrollable="false">
         <label>{Search}</label>
