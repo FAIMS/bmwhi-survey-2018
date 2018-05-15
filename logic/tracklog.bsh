@@ -1,13 +1,8 @@
 /********************************** TRACKLOG **********************************/
 import java.util.concurrent.Callable;
 
-String tracklogStatus = "Tracklog is Stopped";
-String tracklogState = "Stop";
-Boolean transectEnabled = false;
-
-numTracklogPoints = 0;
-tracklogCurrentStatus = "";
-numTransectPoints = 0;
+final String REF_DIAG_REF = "Control/Tracklog/Diagnostics";
+int NUM_TRACKLOG_POINTS = 0;
 
 void startTrackLog() {
   setGpsInternalExternal();
@@ -19,18 +14,16 @@ void setGpsInternalExternal() {
   setFieldValue("Control/Tracklog/internalExternalGPS", "{Internal}");
 }
 
-void  enableTransect() { transectEnabled = true;  }
-void disableTransect() { transectEnabled = false; }
-
 saveEntitiesToRel(String type, String entity1, String entity2, Callable callback) {
-    if (isNull(entity1) || isNull(entity2)) return;
-    saveRel(null, type, null, null, new SaveCallback() {
-        onSave(rel_id, newRecord) {
-            addReln(entity1, rel_id, null);
-            addReln(entity2, rel_id, null);
-            callback.call();
-        }
-    });
+  if (isNull(entity1) || isNull(entity2)) return;
+
+  saveRel(null, type, null, null, new SaveCallback() {
+    onSave(rel_id, newRecord) {
+      addReln(entity1, rel_id, null);
+      addReln(entity2, rel_id, null);
+      callback.call();
+    }
+  });
 }
 
 List getTransectButtons() {
@@ -69,10 +62,9 @@ startTimeTrack() {
     if (trackInt <= 0) {
       showToast("Please enter a positive number in the 'Tracking Distance Interval' field");
     } else if(isInternalGPSOn() || isExternalGPSOn()) {
-        tracklogState = "Time";
         showToast("Tracklog enabled. Tracklog time interval set to " + trackText + " seconds.");
         startTrackingGPS("time", trackInt, "saveGPSTrack(\"\")");
-        updateTrackStatus();
+        updateGPSDiagnostics();
     } else {
         showToast("GPS is not turned on.");
     }
@@ -85,10 +77,9 @@ startDistTrack() {
     int    trackInt  = parseInt(trackText);
 
     if(isInternalGPSOn() || isExternalGPSOn()) {
-        tracklogState = "Distance";
         showToast("Tracklog enabled. Tracklog distance interval set to " + trackText + " metres.");
         startTrackingGPS("distance", trackInt, "saveGPSTrack(\"\")");
-        updateTrackStatus();
+        updateGPSDiagnostics();
     } else {
         showToast("GPS is not turned on.");
     }
@@ -97,35 +88,14 @@ startDistTrack() {
 
 stopTrack() {
     stopTrackingGPS();
-    numTracklogPoints = 0;
-    numTransectPoints = 0;
-    tracklogState = "Stopped";
+    NUM_TRACKLOG_POINTS = 0;
     showToast("Tracklog disabled.");
-    updateTrackStatus();
+    updateGPSDiagnostics();
     saveGPSTrack("End");
 }
 
-updateTrackStatus() {
-    if (tracklogState.equals("Time"))    
-            tracklogStatus = "Tracklog Started - Time: "+getFieldValue("Control/Tracklog/tracktimeText")+"s";
-    else if (tracklogState.equals("Distance"))
-            tracklogStatus = "Tracklog Started - Distance: "+getFieldValue("Control/Tracklog/trackdistText")+"m";
-    else
-            tracklogStatus = "Tracklog is "+tracklogState;
-    
-    if (numTracklogPoints > 0)
-        tracklogStatus += "\nNumber Tracklog Points collected: "+numTracklogPoints;
-    if (numTransectPoints > 0)
-        tracklogStatus += "\nNumber current transect Points collected: "+numTransectPoints;
-
-    tracklogStatus += "\nCurrent GPS Estimated Accuracy: "+ getGPSEstimatedAccuracy();
-    
-
-    setFieldValue("Control/Tracklog/trackStatus", tracklogStatus);
-}
-
 isGPSOn() {
-    return isInternalGPSOn() || isExternalGPSOn();
+  return isInternalGPSOn() || isExternalGPSOn();
 }
 
 saveGPSTrack(String stateAppend) {
@@ -137,10 +107,9 @@ saveGPSTrack(String stateAppend) {
 
     position = getGPSPosition();
     if (!isGPSOn() || position == null) {
-        tracklogState = "Bad GPS Fix";
         return;
     }
-    numTracklogPoints++;
+    NUM_TRACKLOG_POINTS++;
 
     List attributes = createAttributeList();
 
@@ -160,36 +129,7 @@ saveGPSTrack(String stateAppend) {
     triggerAutoSave();
     saveArchEnt(null, "Tracklog", l, attributes, new SaveCallback() {
         onSave(uuid, newRecord) {
-            if (transectEnabled) {
-                numTransectPoints++;
-                Boolean end = false;
-                if(stateAppend.equals("End")) {
-                    end = true;
-                    transectEnabled = false;
-                }
-                if (!stateAppend.equals("")) {
-                    attributes.add(createEntityAttribute("State", null, null, stateAppend, null));
-                    stateAppend = "";
-                }
-
-                p = new Point(new MapPos(positionProj.getLongitude(), positionProj.getLatitude()), null, (PointStyle) null, null);
-                l = new ArrayList();
-                l.add(p);
-                
-                saveArchEnt(null, "Transect Point", l, attributes, new SaveCallback() {
-                    onSave(uuid, newRecord) {
-                        transect_id = uuid;
-                        Callable callback = new Callable() {
-                            call() {
-                                return;
-                                //if(end) updateCurrentTransect();
-                            }
-                        };
-                        saveEntitiesToRel("TransectSUI", transect_id, getSurveyUnitId(), callback);
-                    }
-                });
-            }
-            updateTrackStatus();
+            updateGPSDiagnostics();
         }
     });
 }
@@ -218,6 +158,7 @@ stopGPSLogic() {
     if(isInternalGPSOn() || isExternalGPSOn()) {
         showToast("GPS disabled.");
         stopGPS();
+        updateGPSDiagnostics();
     } else {
         showToast("GPS is not turned on.");
     }
@@ -242,11 +183,7 @@ reallyDeleteTransectUnit(String tabGroup) {
                     }
                 }
             });
-    deleteArchEnt(getUuid(tabGroup), new DeleteCallback() {
-        onDelete(uuid) {
-            transectEnabled = false;
-        }
-    });
+    deleteArchEnt(getUuid(tabGroup), null);
 }
 
 void initAndPersistOverSessions(String ref, String defaultVal) {
@@ -280,6 +217,81 @@ addActionBarItem("gps", new ToggleActionButtonCallback() {
     }
 });
 
+String GPS_LAST_GOOD_STATUS = "";
+
+void updateGPSDiagnostics() {
+  if (REF_DIAG_REF.equals("")) {
+    return;
+  }
+
+  String status               = "";
+  String notInitialised       = "{GPS_is_not_initialised}";
+  notInitialised = arch16nSubstituteValues(notInitialised);
+
+  // Check if GPS is initialised or was previously initialised.
+  if (!isExternalGPSOn() && !isInternalGPSOn()) {
+    if (!isNull(GPS_LAST_GOOD_STATUS)) { // previous gps status is some last valid coordinate.
+      String error = "{GPS_is_no_longer_initialised}. {Previous_status}:";
+      error = arch16nSubstituteValues(error);
+
+      status = error + "\n" + GPS_LAST_GOOD_STATUS;
+    } else {
+      status = notInitialised;
+    }
+  } else {
+    status += "{Internal_GPS}: ";
+    if (isInternalGPSOn())
+    {
+      status += "{on}";
+    } else {
+      status += "{off}";
+    }
+    status += "\nExternal GPS: ";
+    if (isExternalGPSOn())
+    {
+      if (isBluetoothConnected()) {
+        status += "{on_and_bluetooth_connected}";
+      } else {
+        status += "{on_and_bluetooth_disconnected}";
+      }
+    } else {
+      status += "{off}";
+    }
+    Object position = getGPSPosition();
+    if (position != null) {
+      Object projPosition = getGPSPositionProjected();
+      status += "\n{Latitude}: " + position.getLatitude();
+      status += "   {Longitude}: " + position.getLongitude();
+      status += "\n{Northing}: " + projPosition.getLatitude();
+      status += "   {Easting}: " + projPosition.getLongitude();
+      status += "\n{Accuracy}: " + getGPSEstimatedAccuracy();
+    } else {
+      status += "\n{Position}: {no_GPS_position_could_be_found}";
+    }
+    GPS_LAST_GOOD_STATUS = status;
+  }
+
+  // Tracklog stuff
+  status += replaceFirst("\n{Tracklog}: {%s}", TRACKING_TYPE);
+
+  String time = getFieldValue("Control/Tracklog/tracktimeText");
+  String dist = getFieldValue("Control/Tracklog/trackdistText");
+
+  switch (TRACKING_TYPE) {
+    case "time":     status += ", " + time + "s"; break;
+    case "distance": status += ", " + dist + "m"; break;
+    default:
+  }
+
+  if (NUM_TRACKLOG_POINTS > 0)
+    status += "\nNumber Tracklog Points collected: " +
+                       NUM_TRACKLOG_POINTS;
+
+  status += "\nCurrent GPS Estimated Accuracy: " +
+                     getGPSEstimatedAccuracy();
+
+  setFieldValue(REF_DIAG_REF, status);
+}
 addOnEvent("Control/Tracklog", "show", "setGpsInternalExternal()");
 addOnEvent("Control/Tracklog/startGPSButton", "click", "startGPS();");
 addOnEvent("Control/Tracklog/stopGPSButton", "click", "stopGPSLogic();");
@@ -291,14 +303,15 @@ initAndPersistOverSessions("Control/Tracklog/refreshText",   "10");
 initAndPersistOverSessions("Control/Tracklog/trackdistText", "20");
 initAndPersistOverSessions("Control/Tracklog/tracktimeText", "30");
 
-addOnEvent("Control/Tracklog/trackOffButton", "click", "disableTransect()");
 for (ref : getTransectTabGroups()) {
-  addOnEvent(ref, "create", "enableTransect()", PRECEDENCE_MID+1);
   addOnEvent(ref, "create", "saveGPSTrack(\"Start\")");
-  addOnEvent(ref, "delete", "disableTransect()");
   addOnEvent(ref, "delete", "reallyDeleteTransectUnit", new Object[] {ref});
 }
 
 for (ref : getTransectButtons()) {
   addOnEventCond(ref, "click", "canMakeTransectPoint()");
 }
+
+addOnEvent("module", "starttrack", "updateGPSDiagnostics()");
+addOnEvent("module", "stoptrack",  "updateGPSDiagnostics()");
+addOnEvent(getTabRef(REF_DIAG_REF), "show",  "updateGPSDiagnostics()");

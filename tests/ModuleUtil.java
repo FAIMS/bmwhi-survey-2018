@@ -168,6 +168,15 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: button
+        Ref:  Control/Map/Load_Highlighted_Record
+     */
+    public static View get_Control_Map_LoadHighlightedRecord(Solo solo) {
+        String ref = "Control/Map/Load_Highlighted_Record";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: button
         Ref:  Control/Map/Save_Map_Settings_1
      */
     public static View get_Control_Map_SaveMapSettings1(Solo solo) {
@@ -375,6 +384,15 @@ public class ModuleUtil extends ModuleHelper {
 
     /*
         Type: input
+        Ref:  Control/Tracklog/Diagnostics
+     */
+    public static View get_Control_Tracklog_Diagnostics(Solo solo) {
+        String ref = "Control/Tracklog/Diagnostics";
+        return (android.view.View) solo.getView((Object) ref);
+    }
+
+    /*
+        Type: input
         Ref:  Control/Tracklog/Next_Feature_ID
      */
     public static EditText get_Control_Tracklog_NextFeatureID(Solo solo) {
@@ -389,15 +407,6 @@ public class ModuleUtil extends ModuleHelper {
     public static EditText get_Control_Tracklog_refreshText(Solo solo) {
         String ref = "Control/Tracklog/refreshText";
         return (android.widget.EditText) solo.getView((Object) ref);
-    }
-
-    /*
-        Type: input
-        Ref:  Control/Tracklog/trackStatus
-     */
-    public static View get_Control_Tracklog_trackStatus(Solo solo) {
-        String ref = "Control/Tracklog/trackStatus";
-        return (android.view.View) solo.getView((Object) ref);
     }
 
     /*

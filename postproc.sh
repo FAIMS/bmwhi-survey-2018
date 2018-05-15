@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+#bash ./raw-shapes/transform-to-database.sh
+
 cd data
 tar -hcvzf ../module/data.tar.gz * >/dev/null
 cd ..
@@ -75,6 +78,9 @@ perl -0777 -i.original -pe "s/$string/$replacement/igs" ui_schema.xml
 
 cat << EOF >> english.0.properties
 Select_User=Select User
+stopped=Stopped
+time=Time
+distance=Distance
 EOF
 
 cat << EOF >> ui_styling.css

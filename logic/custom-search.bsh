@@ -71,7 +71,7 @@ void search(){
                        "                  FROM latestNonDeletedArchEntIdentifiers " +
                        "                 WHERE {feature_type} IN (-1, vocabid)" +
                        "                )  "+
-                       " ORDER BY response "+
+                       " ORDER BY substr(uuid, 7, 13) desc, response " +
                        " LIMIT ? "+
                        "OFFSET ? ";
   searchQuery = dbReplaceFirst(searchQuery, "{term}", term);

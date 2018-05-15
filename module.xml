@@ -1,11 +1,6 @@
 <!--@POSTPROC: ./postproc.sh-->
+<!--TODO: Ask Brian about identifiers in showSpatialLayer-->
 <module>
-
-<rels>
-  <RelationshipElement name="TransectSUI">
-    <description>Defines relationship between Transect and Survey Unit</description>
-  </RelationshipElement>
-</rels>
 
 <Login f="nodata">
   <User_List f="noscroll">
@@ -49,12 +44,13 @@
       <tracktimeButton t="button">Enable Tracklog and Set Time Interval</tracktimeButton>
     </cols>
     <trackOffButton t="button">Tracklog Off</trackOffButton>
-    <trackStatus f="readonly" b="string">Tracklog Status</trackStatus>
+    <Diagnostics f="readonly"/>
     <SyncOn t="button">Sync On</SyncOn>
     <SyncOff t="button">Sync Off</SyncOff>
   </Tracklog>
   <Map f="noscroll">
     <Map t="map" f="nolabel"/>
+    <Load_Highlighted_Record t="button"/>
   </Map>
   <search/>
 </Control>
@@ -75,12 +71,42 @@
     <Feature_Type f="notnull">
       <desc>Select the appropriate feature type</desc>
       <opts>
-        <opt>Artefact scatter</opt>
-        <opt>Hearth</opt>
-        <opt>Hole drilled in the rock</opt>
-        <opt>Isolated find</opt>
-        <opt>Masonry</opt>
-        <opt>Stone cluster or circle</opt>
+        <opt>
+          Artefact scatter
+          <opt>Other</opt>
+        </opt>
+        <opt>
+          Hearth
+          <opt>Other</opt>
+        </opt>
+        <opt>
+          Hole drilled in the rock
+          <opt>Other</opt>
+        </opt>
+        <opt>
+          Isolated find
+          <opt>Other</opt>
+        </opt>
+        <opt>
+          Masonry
+          <opt>Rectangular</opt>
+          <opt>Round</opt>
+          <opt>Other</opt>
+        </opt>
+        <opt>
+          Metal Feature
+          <opt>Other</opt>
+        </opt>
+        <opt>
+          Platform
+          <opt>Rectangular</opt>
+          <opt>Round</opt>
+          <opt>Other</opt>
+        </opt>
+        <opt>
+          Boulder
+          <opt>Other</opt>
+        </opt>
         <opt>Other</opt>
       </opts>
     </Feature_Type>
@@ -152,19 +178,6 @@
     <Accuracy/>
   </Tracklog>
 </Tracklog>
-
-<Transect_Point f="noui">
-  <fmt>{{TracklogTeam}} {{Timestamp}}</fmt>
-  <Transect_Point>
-    <Timestamp/>
-    <TracklogTeam/>
-    <State/>
-    <Latitude/>
-    <Longitude/>
-    <Heading/>
-    <Accuracy/>
-  </Transect_Point>
-</Transect_Point>
 
 <logic><![CDATA[
 <!--@SOURCE: logic/shared.bsh-->

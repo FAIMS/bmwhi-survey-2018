@@ -16,7 +16,72 @@ MAP_COLORS.add(Color.RED);
 MAP_COLORS.add(Color.WHITE);
 MAP_COLORS.add(Color.YELLOW);
 
-void showMapLayer(String archEntType) {
+int SHOW_DATABASE_LAYER = 0;
+int SHOW_SPATIAL_LAYER  = 1;
+
+void loadHighlightedRecord() {
+  List highlights = getGeometryHighlights(MAP_REF);
+  boolean canLoadHighlightedRecord =
+    highlights != void &&
+    highlights != null &&
+    highlights.size() == 1;
+
+  if (!canLoadHighlightedRecord) {
+    String head = "Cannot Load Record";
+    String body = "You must highlight exactly one record to load.";
+
+    showWarning(head, body);
+    return;
+  }
+
+  List highlights = getGeometryHighlights(MAP_REF);
+  Geometry geo = highlights.get(0);
+  Point pt = (Point) geo;
+  MapPos pos = pt.getMapPos();
+
+  double longitude = pos.x;
+  double latitude  = pos.y;
+
+  String q = "";
+  q += " SELECT uuid,";
+  q += "        coalesce(";
+  q += "            Distance(";
+  q += "                 geospatialcolumn,";
+  q += "                 MakePoint({longitude}, {latitude}),";
+  q += "                 0";
+  q += "            ),";
+  q += "            0";
+  q += "        ) AS dist";
+  q += "     FROM latestnondeletedarchent";
+  q += "     JOIN aenttype USING (aenttypeid)";
+  q += "    WHERE geospatialcolumn NOT NULL";
+  q += "      AND dist < 1e-2 /* One centimetre */";
+  q += "      AND aenttypename = 'Feature'";
+  q += " ORDER BY dist";
+  q += "    LIMIT 1;";
+  q = replaceFirst(q, "{longitude}", "" + longitude);
+  q = replaceFirst(q, "{latitude}",  "" + latitude);
+
+  FetchCallback callback = new FetchCallback() {
+    onFetch(result) {
+      String head  = "{err_load_entity_head}";
+      String body  =
+        "The point you selected does not correspond to a viewable record.";
+
+      if (result        == null) { showWarning(head, body); return; }
+      if (result.size() == 0   ) { showWarning(head, body); return; }
+
+      loadEntityFrom(result.get(0).get(0));
+    }
+    onError(message) {
+      Log.e(message);
+    }
+  };
+
+  fetchAll(q, callback);
+}
+
+void showMapLayer(String archEntType, int layerType) {
   int colorIdx = MAP_COLORS_IDX++ % MAP_COLORS.size();
   int color = MAP_COLORS.get(colorIdx);
 
@@ -25,8 +90,35 @@ void showMapLayer(String archEntType) {
   ps = createPointStyle(10, color, 0.2f, 0.5f);
   ls = createLineStyle(10, color, 0.05f, 0.3f, null);
   pos = createPolygonStyle(10, color, createLineStyle(10, color, 0.01f, 0.3f, null));
-  ts = createTextStyle(999, color, 30, Typeface.SANS_SERIF);
-  showDatabaseLayer(MAP_REF, archEntType + " Layer", isEntity, archEntType, querySQL, ps, ls, pos, ts);
+  ts = createTextStyle(10, color, 30, Typeface.SANS_SERIF);
+
+  if (layerType == SHOW_DATABASE_LAYER)
+    showDatabaseLayer(
+        MAP_REF,
+        archEntType + " Layer",
+        isEntity,
+        archEntType,
+        querySQL,
+        ps,
+        ls,
+        pos,
+        ts
+    );
+
+  if (layerType == SHOW_SPATIAL_LAYER)
+    showSpatialLayer(
+        MAP_REF,
+        archEntType + " (April)",
+        "files/data/shapes/shapes.sqlite",
+        archEntType.replaceAll(" ", ""),
+        "PK_UID",
+        "identifier",
+        ps,
+        ls,
+        pos,
+        ts
+    );
+
 }
 
 void initMap() {
@@ -37,9 +129,17 @@ void initMap() {
   showBaseMap(MAP_REF, "Base Layer", "files/data/maps/BM1.tif");
 
   // Tracklog
-  showMapLayer("Tracklog");
-  showMapLayer("Transect Point");
-  showMapLayer("Feature");
+  showMapLayer("Tracklog", SHOW_DATABASE_LAYER);
+  showMapLayer("Feature",  SHOW_DATABASE_LAYER);
+
+  showMapLayer("Tracklog", SHOW_SPATIAL_LAYER);
+  showMapLayer("Feature",  SHOW_SPATIAL_LAYER);
 }
 
 initMap();
+
+addOnEvent(
+    "Control/Map/Load_Highlighted_Record",
+    "click",
+    "loadHighlightedRecord()"
+);

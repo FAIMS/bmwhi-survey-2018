@@ -58,7 +58,7 @@
                 </Col_2>
               </Colgroup_3>
               <trackOffButton/>
-              <trackStatus/>
+              <Diagnostics/>
               <SyncOn/>
               <SyncOff/>
             </Tracklog>
@@ -72,6 +72,7 @@
                   <Save_Map_Settings_1/>
                 </Col_2>
               </Colgroup_1>
+              <Load_Highlighted_Record/>
             </Map>
             <Search>
               <Colgroup_0>
@@ -169,16 +170,12 @@
           <Tracklog>
             <Tracklog/>
           </Tracklog>
-          <Transect_Point>
-            <Transect_Point/>
-          </Transect_Point>
         </faims>
       </instance>
       <bind nodeset="/faims/Control/Tracklog/Next_Feature_ID" type="decimal"/>
       <bind nodeset="/faims/Control/Tracklog/Colgroup_1/Col_1/refreshText" type="decimal"/>
       <bind nodeset="/faims/Control/Tracklog/Colgroup_2/Col_1/trackdistText" type="decimal"/>
       <bind nodeset="/faims/Control/Tracklog/Colgroup_3/Col_1/tracktimeText" type="decimal"/>
-      <bind nodeset="/faims/Control/Tracklog/trackStatus" type="string"/>
       <bind nodeset="/faims/Measurement/Measurement/Measurement" type="decimal"/>
     </model>
   </h:head>
@@ -300,8 +297,8 @@
         <trigger ref="trackOffButton">
           <label>{Tracklog_Off}</label>
         </trigger>
-        <input ref="trackStatus" faims_read_only="true">
-          <label>{Tracklog_Status}</label>
+        <input ref="Diagnostics" faims_read_only="true">
+          <label>{Diagnostics}</label>
         </input>
         <trigger ref="SyncOn">
           <label>{Sync_On}</label>
@@ -330,6 +327,9 @@
             </trigger>
           </group>
         </group>
+        <trigger ref="Load_Highlighted_Record">
+          <label>{Load_Highlighted_Record}</label>
+        </trigger>
       </group>
       <group ref="Search" faims_scrollable="false">
         <label>{Search}</label>
@@ -575,12 +575,6 @@
       <label>{Tracklog}</label>
       <group ref="Tracklog">
         <label>{Tracklog}</label>
-      </group>
-    </group>
-    <group ref="Transect_Point" faims_archent_type="Transect Point">
-      <label>{Transect_Point}</label>
-      <group ref="Transect_Point">
-        <label>{Transect_Point}</label>
       </group>
     </group>
   </h:body>

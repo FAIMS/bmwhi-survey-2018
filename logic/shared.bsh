@@ -1,4 +1,23 @@
 /*********************************** SHARED ***********************************/
+CUSTOM_EVENTS.add("starttrack");
+CUSTOM_EVENTS.add("stoptrack");
+
+final String TRACKING_TYPE_STOPPED = "stopped";
+String TRACKING_TYPE = TRACKING_TYPE_STOPPED;
+
+// Overrides FAIMS' definition
+startTrackingGPS(String type, int value, String callback){
+  linker.startTrackingGPS(type, value, callback);
+  TRACKING_TYPE = type;
+  executeOnEvent("module", "starttrack");
+}
+
+// Overrides FAIMS' definition
+stopTrackingGPS(){
+  linker.stopTrackingGPS();
+  TRACKING_TYPE = TRACKING_TYPE_STOPPED;
+  executeOnEvent("module", "stoptrack");
+}
 
 int parseInt(String s) {
   try {
