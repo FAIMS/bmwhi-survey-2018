@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#bash ./raw-shapes/transform-to-database.sh
+bash ./raw-shapes/transform-to-database.sh
 
 cd data
 tar -hcvzf ../module/data.tar.gz * >/dev/null

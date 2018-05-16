@@ -56,7 +56,7 @@
 </Control>
 
 <Feature>
-  <fmt>{{Feature_ID}} {{author}} {{Feature_Type}}</fmt>
+  <fmt>{{Feature_ID}} {{Feature_Type}}</fmt>
   <Feature>
     <CHECK_FOR_MISSING_DATA t="button" c="orange"/>
     <Feature_ID f="autonum noannotation nocertainty notnull">

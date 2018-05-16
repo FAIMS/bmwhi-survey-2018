@@ -81,7 +81,11 @@ void loadHighlightedRecord() {
   fetchAll(q, callback);
 }
 
-void showMapLayer(String archEntType, int layerType) {
+void showMapLayer(String archEntType) {
+  showMapLayer(archEntType, SHOW_DATABASE_LAYER, "identifier");
+}
+
+void showMapLayer(String archEntType, int layerType, String col) {
   int colorIdx = MAP_COLORS_IDX++ % MAP_COLORS.size();
   int color = MAP_COLORS.get(colorIdx);
 
@@ -112,7 +116,7 @@ void showMapLayer(String archEntType, int layerType) {
         "files/data/shapes/shapes.sqlite",
         archEntType.replaceAll(" ", ""),
         "PK_UID",
-        "identifier",
+        col,
         ps,
         ls,
         pos,
@@ -129,11 +133,11 @@ void initMap() {
   showBaseMap(MAP_REF, "Base Layer", "files/data/maps/BM1.tif");
 
   // Tracklog
-  showMapLayer("Tracklog", SHOW_DATABASE_LAYER);
-  showMapLayer("Feature",  SHOW_DATABASE_LAYER);
+  showMapLayer("Feature");
+  showMapLayer("Tracklog");
 
-  showMapLayer("Tracklog", SHOW_SPATIAL_LAYER);
-  showMapLayer("Feature",  SHOW_SPATIAL_LAYER);
+  showMapLayer("Feature",  SHOW_SPATIAL_LAYER, "FeatureID");
+  showMapLayer("Tracklog", SHOW_SPATIAL_LAYER, "TracklogT0");
 }
 
 initMap();

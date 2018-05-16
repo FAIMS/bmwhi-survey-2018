@@ -1582,19 +1582,19 @@ void timedPopulateCursorList(String ref, String q, int limit) {
 
 void setUpTypeHierarchy() {
   //- 
-  //  - Photolog
   //  - Feature
   //    - Measurement
+  //  - Photolog
 
   n0 = Tree("", 1);
-  n1 = Tree("Photolog", 1);
-  n2 = Tree("Feature", 1);
-  n3 = Tree("Measurement", 1);
+  n1 = Tree("Feature", 1);
+  n2 = Tree("Measurement", 1);
+  n3 = Tree("Photolog", 1);
 
   n0.addChild(n1);
-  n0.addChild(n2);
+  n0.addChild(n3);
 
-  n2.addChild(n3);
+  n1.addChild(n2);
 
 
   PERF_TYPE_TREE = n0;
@@ -4861,7 +4861,11 @@ void loadHighlightedRecord() {
   fetchAll(q, callback);
 }
 
-void showMapLayer(String archEntType, int layerType) {
+void showMapLayer(String archEntType) {
+  showMapLayer(archEntType, SHOW_DATABASE_LAYER, "identifier");
+}
+
+void showMapLayer(String archEntType, int layerType, String col) {
   int colorIdx = MAP_COLORS_IDX++ % MAP_COLORS.size();
   int color = MAP_COLORS.get(colorIdx);
 
@@ -4892,7 +4896,7 @@ void showMapLayer(String archEntType, int layerType) {
         "files/data/shapes/shapes.sqlite",
         archEntType.replaceAll(" ", ""),
         "PK_UID",
-        "identifier",
+        col,
         ps,
         ls,
         pos,
@@ -4909,11 +4913,11 @@ void initMap() {
   showBaseMap(MAP_REF, "Base Layer", "files/data/maps/BM1.tif");
 
   // Tracklog
-  showMapLayer("Tracklog", SHOW_DATABASE_LAYER);
-  showMapLayer("Feature",  SHOW_DATABASE_LAYER);
+  showMapLayer("Feature");
+  showMapLayer("Tracklog");
 
-  showMapLayer("Tracklog", SHOW_SPATIAL_LAYER);
-  showMapLayer("Feature",  SHOW_SPATIAL_LAYER);
+  showMapLayer("Feature",  SHOW_SPATIAL_LAYER, "FeatureID");
+  showMapLayer("Tracklog", SHOW_SPATIAL_LAYER, "TracklogT0");
 }
 
 initMap();
