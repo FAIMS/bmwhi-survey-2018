@@ -4,7 +4,8 @@ DATA_ENTRY_LAYER_ID = 0;
 
 int  MAP_COLORS_IDX  = 0;
 List MAP_COLORS = new ArrayList();
-MAP_COLORS.add(Color.BLACK);
+//MAP_COLORS.add(Color.BLACK);
+MAP_COLORS.add(Color.RED);
 MAP_COLORS.add(Color.BLUE);
 MAP_COLORS.add(Color.CYAN);
 MAP_COLORS.add(Color.DKGRAY);
@@ -12,7 +13,6 @@ MAP_COLORS.add(Color.GRAY);
 MAP_COLORS.add(Color.GREEN);
 MAP_COLORS.add(Color.LTGRAY);
 MAP_COLORS.add(Color.MAGENTA);
-MAP_COLORS.add(Color.RED);
 MAP_COLORS.add(Color.WHITE);
 MAP_COLORS.add(Color.YELLOW);
 
@@ -128,9 +128,8 @@ void showMapLayer(String archEntType, int layerType, String col) {
 void initMap() {
   setMapZoom(MAP_REF, 15.0f);
 
-  DATA_ENTRY_LAYER_ID = createCanvasLayer(MAP_REF, DATA_ENTRY_LAYER);
-
-  showBaseMap(MAP_REF, "Base Layer", "files/data/maps/BM1.tif");
+  showBaseMap  (MAP_REF, "Base Layer 1", "files/data/maps/BM1.tif");
+  showRasterMap(MAP_REF, "Base Layer 2", "files/data/maps/BM2.tif");
 
   // Tracklog
   showMapLayer("Feature");
@@ -138,6 +137,8 @@ void initMap() {
 
   showMapLayer("Feature",  SHOW_SPATIAL_LAYER, "FeatureID");
   showMapLayer("Tracklog", SHOW_SPATIAL_LAYER, "TracklogT0");
+
+  DATA_ENTRY_LAYER_ID = createCanvasLayer(MAP_REF, DATA_ENTRY_LAYER);
 }
 
 initMap();

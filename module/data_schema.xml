@@ -20,6 +20,9 @@
         <term>{Artefact_scatter}
 <description> </description><term>{Other}
 <description> </description></term></term>
+        <term>{Boulder}
+<description> </description><term>{Other}
+<description> </description></term></term>
         <term>{Hearth}
 <description> </description><term>{Other}
 <description> </description></term></term>
@@ -41,9 +44,6 @@
 <description> </description><term>{Rectangular}
 <description> </description></term><term>{Round}
 <description> </description></term><term>{Other}
-<description> </description></term></term>
-        <term>{Boulder}
-<description> </description><term>{Other}
 <description> </description></term></term>
         <term>{Other}
 <description> </description></term>
