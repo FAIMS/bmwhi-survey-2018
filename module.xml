@@ -1,5 +1,4 @@
 <!--@POSTPROC: ./postproc.sh-->
-<!--TODO: Ask Brian about identifiers in showSpatialLayer-->
 <module>
 
 <Login f="nodata">
@@ -71,42 +70,40 @@
     <Feature_Type f="notnull">
       <desc>Select the appropriate feature type</desc>
       <opts>
-      <opt>
-        Artefact scatter
-        <opt>Other</opt>
-      </opt>
-      <opt>
-        Boulder
-        <opt>Other</opt>
-      </opt>
-      <opt>
-        Hearth
-        <opt>Other</opt>
-      </opt>
-      <opt>
-        Hole drilled in the rock
-        <opt>Other</opt>
-      </opt>
-      <opt>
-        Isolated find
-        <opt>Other</opt>
-      </opt>
-      <opt>
-        Masonry
-        <opt>Rectangular</opt>
-        <opt>Round</opt>
-        <opt>Other</opt>
-      </opt>
-      <opt>
-        Metal Feature
-        <opt>Other</opt>
-      </opt>
-      <opt>
-        Platform
-        <opt>Rectangular</opt>
-        <opt>Round</opt>
-        <opt>Other</opt>
-      </opt>
+        <opt>
+          Artefact scatter
+          <opt/>
+        </opt>
+        <opt>
+          Boulder
+          <opt/>
+        </opt>
+        <opt>
+          Hearth
+          <opt/>
+        </opt>
+        <opt>
+          Hole drilled in the rock
+          <opt/>
+        </opt>
+        <opt>
+          Isolated find
+          <opt/>
+        </opt>
+        <opt>
+          Masonry
+          <opt>Rectangular</opt>
+          <opt>Round</opt>
+        </opt>
+        <opt>
+          Metal Feature
+          <opt/>
+        </opt>
+        <opt>
+          Platform
+          <opt>Rectangular</opt>
+          <opt>Round</opt>
+        </opt>
         <opt>Other</opt>
       </opts>
     </Feature_Type>

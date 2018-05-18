@@ -1,5 +1,5 @@
 /*
- * GENERATED WITH FAIMS-TOOLS, SHA1: 67d40dffcd4dadebd7c75e5e7aab03d153121365
+ * GENERATED WITH FAIMS-TOOLS, SHA1: 9258fca4a402a065efb3e0f942cd66e496fa16b7
  */
 import android.util.Log;
 import android.os.Build.MODEL;
@@ -4796,8 +4796,8 @@ MAP_COLORS.add(Color.MAGENTA);
 MAP_COLORS.add(Color.WHITE);
 MAP_COLORS.add(Color.YELLOW);
 
-int SHOW_DATABASE_LAYER = 0;
-int SHOW_SPATIAL_LAYER  = 1;
+int DATABASE = 0;
+int SPATIAL  = 1;
 
 void loadHighlightedRecord() {
   List highlights = getGeometryHighlights(MAP_REF);
@@ -4861,22 +4861,28 @@ void loadHighlightedRecord() {
   fetchAll(q, callback);
 }
 
-void showMapLayer(String archEntType) {
-  showMapLayer(archEntType, SHOW_DATABASE_LAYER, "identifier");
+void showMapLayer(String archEntType, int layerType, int color, float ptSize) {
+  showMapLayer(archEntType, layerType, "identifier", color, ptSize);
 }
 
-void showMapLayer(String archEntType, int layerType, String col) {
-  int colorIdx = MAP_COLORS_IDX++ % MAP_COLORS.size();
-  int color = MAP_COLORS.get(colorIdx);
+void showMapLayer(
+    String archEntType,
+    int layerType,
+    String column,
+    int color,
+    float ptSize
+) {
+  //int colorIdx = MAP_COLORS_IDX++ % MAP_COLORS.size();
+  //int color = MAP_COLORS.get(colorIdx);
 
   boolean isEntity = true;
   String querySQL = "SELECT uuid, aenttimestamp FROM latestNonDeletedArchEnt join aenttype using (aenttypeid) where aenttypename = '" + archEntType + "'";
-  ps = createPointStyle(10, color, 0.2f, 0.5f);
+  ps = createPointStyle(10, color, ptSize, 0.5f);
   ls = createLineStyle(10, color, 0.05f, 0.3f, null);
   pos = createPolygonStyle(10, color, createLineStyle(10, color, 0.01f, 0.3f, null));
   ts = createTextStyle(10, color, 30, Typeface.SANS_SERIF);
 
-  if (layerType == SHOW_DATABASE_LAYER)
+  if (layerType == DATABASE)
     showDatabaseLayer(
         MAP_REF,
         archEntType + " Layer",
@@ -4889,14 +4895,14 @@ void showMapLayer(String archEntType, int layerType, String col) {
         ts
     );
 
-  if (layerType == SHOW_SPATIAL_LAYER)
+  if (layerType == SPATIAL)
     showSpatialLayer(
         MAP_REF,
         archEntType + " (April)",
         "files/data/shapes/shapes.sqlite",
         archEntType.replaceAll(" ", ""),
         "PK_UID",
-        col,
+        column,
         ps,
         ls,
         pos,
@@ -4912,11 +4918,11 @@ void initMap() {
   showRasterMap(MAP_REF, "Base Layer 2", "files/data/maps/BM2.tif");
 
   // Tracklog
-  showMapLayer("Feature");
-  showMapLayer("Tracklog");
+  showMapLayer("Feature",  DATABASE,               Color.BLUE,  0.2f);
+  showMapLayer("Tracklog", DATABASE,               Color.BLACK, 0.1f);
 
-  showMapLayer("Feature",  SHOW_SPATIAL_LAYER, "FeatureID");
-  showMapLayer("Tracklog", SHOW_SPATIAL_LAYER, "TracklogT0");
+  showMapLayer("Feature",  SPATIAL,  "FeatureID",  Color.BLUE,  0.2f);
+  showMapLayer("Tracklog", SPATIAL,  "TracklogT0", Color.BLACK, 0.1f);
 
   DATA_ENTRY_LAYER_ID = createCanvasLayer(MAP_REF, DATA_ENTRY_LAYER);
 }

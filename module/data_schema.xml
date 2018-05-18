@@ -18,32 +18,30 @@
       <appendCharacterString> - </appendCharacterString>
       <lookup>
         <term>{Artefact_scatter}
-<description> </description><term>{Other}
+<description> </description><term>
 <description> </description></term></term>
         <term>{Boulder}
-<description> </description><term>{Other}
+<description> </description><term>
 <description> </description></term></term>
         <term>{Hearth}
-<description> </description><term>{Other}
+<description> </description><term>
 <description> </description></term></term>
         <term>{Hole_drilled_in_the_rock}
-<description> </description><term>{Other}
+<description> </description><term>
 <description> </description></term></term>
         <term>{Isolated_find}
-<description> </description><term>{Other}
+<description> </description><term>
 <description> </description></term></term>
         <term>{Masonry}
 <description> </description><term>{Rectangular}
 <description> </description></term><term>{Round}
-<description> </description></term><term>{Other}
 <description> </description></term></term>
         <term>{Metal_Feature}
-<description> </description><term>{Other}
+<description> </description><term>
 <description> </description></term></term>
         <term>{Platform}
 <description> </description><term>{Rectangular}
 <description> </description></term><term>{Round}
-<description> </description></term><term>{Other}
 <description> </description></term></term>
         <term>{Other}
 <description> </description></term>
