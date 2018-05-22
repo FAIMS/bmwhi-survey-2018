@@ -1,5 +1,5 @@
 /*
- * GENERATED WITH FAIMS-TOOLS, SHA1: 9258fca4a402a065efb3e0f942cd66e496fa16b7
+ * GENERATED WITH FAIMS-TOOLS, SHA1: 9c14ae879d985b84ef13c3735df22a9623bae952
  */
 import android.util.Log;
 import android.os.Build.MODEL;
@@ -1582,19 +1582,19 @@ void timedPopulateCursorList(String ref, String q, int limit) {
 
 void setUpTypeHierarchy() {
   //- 
-  //  - Photolog
   //  - Feature
   //    - Measurement
+  //  - Photolog
 
   n0 = Tree("", 1);
-  n1 = Tree("Photolog", 1);
-  n2 = Tree("Feature", 1);
-  n3 = Tree("Measurement", 1);
+  n1 = Tree("Feature", 1);
+  n2 = Tree("Measurement", 1);
+  n3 = Tree("Photolog", 1);
 
   n0.addChild(n1);
-  n0.addChild(n2);
+  n0.addChild(n3);
 
-  n2.addChild(n3);
+  n1.addChild(n2);
 
 
   PERF_TYPE_TREE = n0;
@@ -2647,7 +2647,8 @@ void addMenuEntry(
     String attrName,
     String vocabId,
     String vocabName,
-    String picUrl
+    String picUrl,
+    String parentVocabId
 ) {
   List menuEntries = ATTRIB_NAME_TO_MENU_ENTRIES.get(attrName);
   if (menuEntries == null) {
@@ -2659,6 +2660,7 @@ void addMenuEntry(
   menuEntry.add(vocabId);
   menuEntry.add(vocabName);
   menuEntry.add(picUrl);
+  menuEntry.add(parentVocabId);
 
   menuEntries.add(menuEntry);
 }
@@ -2666,13 +2668,17 @@ void addMenuEntry(
 List getMenuEntries(String attrName) {
   List menuEntries = ATTRIB_NAME_TO_MENU_ENTRIES.get(attrName);
   if (menuEntries == null) return new ArrayList();
-  else                     return menuEntries;
+  else                     return new ArrayList(menuEntries);
+}
+
+List getMenuEntriesFromRef(String ref) {
+  return getMenuEntries(getAttributeName(ref));
 }
 
 List getVocabIdsFromAttribName(String attribName) {
   List vocabIds = ATTRIB_NAME_TO_VOCABIDS.get(attribName);
   if (vocabIds == null) return new ArrayList();
-  else                  return vocabIds;
+  else                  return new ArrayList(vocabIds);
 }
 
 List getVocabIdsFromRef(String ref) {
@@ -2686,10 +2692,10 @@ List getVocabIdsFromRef(String ref) {
  */
 void fetchMenuValues() {
   String q = "";
-  q += "   SELECT vocabid, vocabname, attributename, pictureurl";
-  q += "     FROM vocabulary";
-  q += "     JOIN attributekey USING (attributeid)";
-  q += " ORDER BY vocabcountorder";
+  q += "   SELECT VocabID, VocabName, AttributeName, PictureURL, ParentVocabID";
+  q += "     FROM Vocabulary";
+  q += "     JOIN AttributeKey USING (AttributeID)";
+  q += " ORDER BY VocabCountOrder";
 
   FetchCallback populateHashMap = new FetchCallback() {
     onFetch(List result) {
@@ -2697,10 +2703,11 @@ void fetchMenuValues() {
         result = new ArrayList();
 
       for (List row : result) {
-        String vocabId   = row.get(0);
-        String vocabName = row.get(1);
-        String attrName  = row.get(2);
-        String picUrl    = row.get(3);
+        String vocabId       = row.get(0);
+        String vocabName     = row.get(1);
+        String attrName      = row.get(2);
+        String picUrl        = row.get(3);
+        String parentVocabId = row.get(4);
 
         // Populate VOCABID_TO_VOCABNAME
         VOCABID_TO_VOCABNAME.put(vocabId, vocabName);
@@ -2712,7 +2719,7 @@ void fetchMenuValues() {
         addVocabId(attrName, vocabId);
 
         // Populate ATTRIB_NAME_TO_MENU_ENTRIES
-        addMenuEntry(attrName, vocabId, vocabName, picUrl);
+        addMenuEntry(attrName, vocabId, vocabName, picUrl, parentVocabId);
       }
 
       decAndExecIfModuleLoaded();
@@ -4355,6 +4362,29 @@ final String REF_FEATURE_FEATURE_TYPE = "Feature/Feature/Feature_Type";
 final String _REF_SEARCH_FEATURE_TYPE = REF_SEARCH_TAB + "/" +
     getGuiElementRef(REF_FEATURE_FEATURE_TYPE);
 
+Comparator MenuEntryComparator() {
+  int compare(List a, List b) {
+    String vocabNameA = a.get(1);
+    String vocabNameB = b.get(1);
+
+    vocabNameA = arch16nSubstituteValues(vocabNameA);
+    vocabNameB = arch16nSubstituteValues(vocabNameB);
+
+    // Put "All" first
+    if ("All".equals(vocabNameA)) return -1;
+    if ("All".equals(vocabNameB)) return +1;
+
+    // Put "Other" last
+    if ("Other".equals(vocabNameA)) return +1;
+    if ("Other".equals(vocabNameB)) return -1;
+
+    // Order the rest lexicographically
+    return vocabNameA.compareTo(vocabNameB);
+  }
+  boolean equals(a, b) { return compare(a, b) == 0; }
+  return this;
+}
+
 void populateSelectUser(){
   String refSearchUsers = REF_SEARCH_TAB + "/Select_User";
   String getNonDeletedUsersQuery = "SELECT userid, fname || ' ' || lname "+
@@ -4372,19 +4402,65 @@ void populateSelectUser(){
 }
 
 void populateSearchFeatureType() {
-  List menuEntries = getMenuEntries(getAttributeName(REF_FEATURE_FEATURE_TYPE));
-  menuEntries = new ArrayList(menuEntries);
+  List menuEntries = getMenuEntriesFromRef(REF_FEATURE_FEATURE_TYPE);
+  Log.d("", "" + menuEntries);
+
+  // Get top-level menuEntries
+  List topMenuEntries = new ArrayList();
+  for (List menuEntry : menuEntries) {
+    String parentVocabId = menuEntry.get(3);
+
+    if (isNull(parentVocabId))
+      topMenuEntries.add(menuEntry);
+  }
+
+  // Map a top-level VocabID to its sub-VocabIDs
+  Map topVocabIdToSubVocabIds = new HashMap();
+  for (List menuEntry : topMenuEntries) {
+    String parentVocabId = menuEntry.get(0);
+    topVocabIdToSubVocabIds.put(parentVocabId, new ArrayList());
+  }
+
+  for (List menuEntry : menuEntries) {
+    String vocabId       = menuEntry.get(0);
+    String parentVocabId = menuEntry.get(3);
+
+    if (isNull(parentVocabId))
+      continue;
+
+    topVocabIdToSubVocabIds.get(parentVocabId).add(vocabId);
+  }
+
+  // Transform the `topVocabIdToSubVocabIds` map to be in a format that
+  // `populateDropDown` can take. The parentVocabId and sub-vocabIds will be put
+  // altogether into a list and converted to an SQL snippet
+  menuEntries = new ArrayList();
+  List groupedVocabIds = new ArrayList();
+  for (String parentVocabId : topVocabIdToSubVocabIds.keySet()) {
+    List vocabIdGroup = topVocabIdToSubVocabIds.get(parentVocabId);
+    vocabIdGroup.add(parentVocabId);
+
+    String sql = listToSqlString(vocabIdGroup);
+
+    List menuEntry = new ArrayList();
+    menuEntry.add(sql);
+    menuEntry.add(VOCABID_TO_VOCABNAME.get(parentVocabId));
+
+    menuEntries.add(menuEntry);
+  }
 
   // Add 'All' option to start of list
   List menuEntry = new ArrayList();
-  menuEntry.add("-1");
-  menuEntry.add("{All}");
-  menuEntry.add("");
+  menuEntry.add("(-1)");
+  menuEntry.add("{All}"); // VocabName
 
-  menuEntries.add(0, menuEntry);
+  menuEntries.add(menuEntry);
 
+  // Order the menu entries
+  Collections.sort(menuEntries, MenuEntryComparator());
+
+  // Populate dropdown
   boolean hasNull = false;
-
   populateDropDown(
       REF_SEARCH_TAB + "/" + getGuiElementRef(REF_FEATURE_FEATURE_TYPE),
       menuEntries,
@@ -4420,7 +4496,8 @@ void search(){
                        "                )  "+
                        "   AND uuid IN (SELECT uuid "+
                        "                  FROM latestNonDeletedArchEntIdentifiers " +
-                       "                 WHERE {feature_type} IN (-1, vocabid)" +
+                       "                 WHERE vocabid IN {feature_type}" +
+                       "                    OR      -1 IN {feature_type}" +
                        "                )  "+
                        " ORDER BY substr(uuid, 7, 13) desc, response " +
                        " LIMIT ? "+
@@ -4428,6 +4505,7 @@ void search(){
   searchQuery = dbReplaceFirst(searchQuery, "{term}", term);
   searchQuery = dbReplaceFirst(searchQuery, "{type}", type);
   searchQuery =   replaceFirst(searchQuery, "{user}", user);
+  searchQuery =   replaceFirst(searchQuery, "{feature_type}", feat);
   searchQuery =   replaceFirst(searchQuery, "{feature_type}", feat);
 
   populateCursorList(refEntityList, searchQuery, 25);
