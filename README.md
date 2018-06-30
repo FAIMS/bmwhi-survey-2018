@@ -37,12 +37,13 @@ If you have any questions about the module, please contact the FAIMS team at **e
 
 ## Screenshots:
 <p align="left">
-  <img src=="https://github.com/FAIMS/bmwhi-survey-2018/blob/master/screenshots/Screenshot_20180629-221150.png" width="250"/>
+  <img src="https://github.com/FAIMS/bmwhi-survey-2018/blob/master/screenshots/Screenshot_20180629-221150.png" width="250"/>
   <img src="https://github.com/FAIMS/bmwhi-survey-2018/blob/master/screenshots/Screenshot_20180629-221345.png" width="250"/>
   <img src="https://github.com/FAIMS/bmwhi-survey-2018/blob/master/screenshots/Screenshot_20180629-221018.png" width="250"/>
 </p>
+
 <p align="left">
-  <img src=="https://github.com/FAIMS/bmwhi-survey-2018/blob/master/screenshots/Screenshot_20180629-221328.png" width="250"/>
+  <img src="https://github.com/FAIMS/bmwhi-survey-2018/blob/master/screenshots/Screenshot_20180629-221328.png" width="250"/>
   <img src="https://github.com/FAIMS/bmwhi-survey-2018/blob/master/screenshots/Screenshot_20180629-221449.png" width="250"/>
   <img src="https://github.com/FAIMS/bmwhi-survey-2018/blob/master/screenshots/Screenshot_20180629-221047.png" width="250"/>
 </p>
