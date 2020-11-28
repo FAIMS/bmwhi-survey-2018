@@ -39,10 +39,23 @@ replacement="
               <\/item>
             <\/select1>
           <\/group>
-          <group ref=\"Col_2\" faims_style=\"even\">
+        <\/group>
+        <group ref=\"Colgroup_2\" faims_style=\"orientation\">
+          <label\/>
+          <group ref=\"Col_0\" faims_style=\"even\">
             <label\/>
             <select1 ref=\"Feature_Type\">
               <label>\{Feature_Type}<\/label>
+              <item>
+                <label>Options not loaded<\/label>
+                <value>Options not loaded<\/value>
+              <\/item>
+            <\/select1>
+          <\/group>
+          <group ref=\"Col_1\" faims_style=\"even\">
+            <label\/>
+            <select1 ref=\"Date\">
+              <label>\{Date}<\/label>
               <item>
                 <label>Options not loaded<\/label>
                 <value>Options not loaded<\/value>
@@ -62,10 +75,15 @@ replacement="
                 <Col_1>
                   <Select_User\/>
                 <\/Col_1>
-                <Col_2>
+              <\/Colgroup_1>
+              <Colgroup_2>
+                <Col_0>
                   <Feature_Type\/>
-                <\/Col_2>
-              <\/Colgroup_1>"
+                <\/Col_0>
+                <Col_1>
+                  <Date\/>
+                <\/Col_1>
+              <\/Colgroup_2>"
 perl -0777 -i.original -pe "s/$string/$replacement/igs" ui_schema.xml
 
 string="ref=\"Feature_ID\" faims_style_class=\"required\""
@@ -81,6 +99,7 @@ Select_User=Select User
 stopped=Stopped
 time=Time
 distance=Distance
+Date=Date
 EOF
 
 cat << EOF >> ui_styling.css
