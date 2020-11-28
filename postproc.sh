@@ -113,9 +113,6 @@ cat << EOF >> ui_styling.css
 .required-readonly-label {
   color: red;
 }
-.fixedheightfive {
-  height: 250px;
-}
 EOF
 
 rm ui_schema.xml.original

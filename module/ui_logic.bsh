@@ -359,7 +359,7 @@ REF_TO_TYPE.put("Feature/Feature/Dimension_Annotation", "input");
 REF_TO_TYPE.put("Feature/Feature/Measurement", "input");
 REF_TO_TYPE.put("Feature/Feature/Measurement_Annotation", "input");
 REF_TO_TYPE.put("Feature/Feature/Add_Measurement", "button");
-REF_TO_TYPE.put("Feature/Feature/List_of_Measurements", "list");
+REF_TO_TYPE.put("Feature/Feature/List_of_Measurements", "dropdown");
 REF_TO_TYPE.put("Feature/Feature/Photo_of_Sketch", "camera");
 REF_TO_TYPE.put("Feature/Feature/Photo_of_Sketch_Button_1", "button");
 REF_TO_TYPE.put("Feature/Feature/Comments", "input");
@@ -4298,7 +4298,7 @@ for (m : ENTITY_MENUS) {
 }
 
 addOnEvent("Control/Control/List_of_Existing_Features", "click", "loadEntity()");
-addOnEvent("Feature/Feature/List_of_Measurements", "click", "loadEntity()");
+addOnEvent("Feature/Feature/List_of_Measurements", "click", "loadEntity(true)");
 /******************************************************************************/
 /*                             HANDWRITTEN LOGIC                              */
 /******************************************************************************/

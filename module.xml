@@ -126,7 +126,7 @@
       <Measurement_Annotation f="nodata noannotation nocertainty"/>
     </cols>
     <Add_Measurement t="button"/>
-    <List_of_Measurements ec="Measurement" c="fixedheightfive"/>
+    <List_of_Measurements t="dropdown" ec="Measurement"/>
     <Photo_of_Sketch t="camera"/>
     <Comments/>
     <Interpretation/>

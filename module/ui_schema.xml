@@ -549,7 +549,7 @@
         <trigger ref="Add_Measurement">
           <label>{Add_Measurement}</label>
         </trigger>
-        <select1 appearance="compact" ref="List_of_Measurements" faims_style_class="fixedheightfive">
+        <select1 ref="List_of_Measurements">
           <label>{List_of_Measurements}</label>
           <item>
             <label>Options not loaded</label>
