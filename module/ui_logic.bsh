@@ -364,13 +364,15 @@ REF_TO_TYPE.put("Feature/Feature/Photo_of_Sketch", "camera");
 REF_TO_TYPE.put("Feature/Feature/Photo_of_Sketch_Button_1", "button");
 REF_TO_TYPE.put("Feature/Feature/Comments", "input");
 REF_TO_TYPE.put("Feature/Feature/Interpretation", "input");
+REF_TO_TYPE.put("Feature/Detail/Feature_Identifier", "webview");
 REF_TO_TYPE.put("Feature/Detail/Material", "checkbox");
 REF_TO_TYPE.put("Feature/Detail/Asociated_Material_Notes", "input");
 REF_TO_TYPE.put("Feature/Detail/Detail_Photos", "camera");
 REF_TO_TYPE.put("Feature/Detail/Detail_Photos_Button_1", "button");
+REF_TO_TYPE.put("Feature/External_Photos/Feature_Identifier", "webview");
 REF_TO_TYPE.put("Feature/External_Photos/IDs_of_Pictures_from_External_Camera", "input");
 REF_TO_TYPE.put("Feature/External_Photos/External_Photo_Notes", "input");
-REF_TO_TYPE.put("Measurement/Measurement/Parent_Feature", "webview");
+REF_TO_TYPE.put("Measurement/Measurement/Feature_Identifier", "webview");
 REF_TO_TYPE.put("Measurement/Measurement/Dimension", "dropdown");
 REF_TO_TYPE.put("Measurement/Measurement/Measurement", "input");
 REF_TO_TYPE.put("Photolog/Photolog/Photographed_Feature_ID", "input");
@@ -5062,9 +5064,9 @@ addOnEvent(
     "click",
     "loadHighlightedRecord()"
 );
-/*************************** PARENT FEATURE WEBVIEW ***************************/
+/************************ FEATURE IDENTIFIER WEBVIEWS *************************/
 
-final String REF_PARENT_FEATURE = "Measurement/Measurement/Parent_Feature";
+final List REFS_FEATURE_IDENTIFIER = getRefsMatching("*/Feature_Identifier");
 
 void setFieldToIdentifier(String identiferType, String lotRef) {
   String uuid = getUuid(identiferType);
@@ -5091,15 +5093,15 @@ void setFieldToIdentifier(String identiferType, String lotRef) {
   fetchOne(q, cb);
 }
 
-void populateParentFeatureWebview() {
-  setFieldToIdentifier(REF_FEATURE, REF_PARENT_FEATURE);
+void populateFeatureWebview(String refFeatureIdentifier) {
+  setFieldToIdentifier(REF_FEATURE, refFeatureIdentifier);
 }
 
-addOnEvent(
-    getTabGroupRef(REF_PARENT_FEATURE),
-    "show",
-    "populateParentFeatureWebview()"
-);
+for (String ref : REFS_FEATURE_IDENTIFIER) {
+  String cb = "populateFeatureWebview(\"" + ref + "\");";
+  addOnEvent(getTabGroupRef(ref), "show", cb);
+  addOnEvent(getTabGroupRef(ref), "save", cb);
+}
 /************************* MEASUREMENT FIELDS WEBVIEW *************************/
 
 final String REF_MEASUREMENT = "Measurement";

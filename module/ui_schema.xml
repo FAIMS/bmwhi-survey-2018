@@ -163,19 +163,21 @@
               <Interpretation/>
             </Feature>
             <Detail>
+              <Feature_Identifier/>
               <Material/>
               <Asociated_Material_Notes/>
               <Detail_Photos/>
               <Detail_Photos_Button_1/>
             </Detail>
             <External_Photos>
+              <Feature_Identifier/>
               <IDs_of_Pictures_from_External_Camera/>
               <External_Photo_Notes/>
             </External_Photos>
           </Feature>
           <Measurement>
             <Measurement>
-              <Parent_Feature/>
+              <Feature_Identifier/>
               <Dimension/>
               <Measurement/>
             </Measurement>
@@ -575,6 +577,9 @@
       </group>
       <group ref="Detail">
         <label>{Detail}</label>
+        <input faims_web="true" ref="Feature_Identifier">
+          <label>{Feature_Identifier}</label>
+        </input>
         <select faims_attribute_name="Material" faims_attribute_type="vocab" ref="Material">
           <label>{Material}</label>
           <item>
@@ -598,6 +603,9 @@
       </group>
       <group ref="External_Photos">
         <label>{External_Photos}</label>
+        <input faims_web="true" ref="Feature_Identifier">
+          <label>{Feature_Identifier}</label>
+        </input>
         <input faims_attribute_name="IDs of Pictures from External Camera" faims_attribute_type="measure" ref="IDs_of_Pictures_from_External_Camera">
           <label>{IDs_of_Pictures_from_External_Camera}</label>
         </input>
@@ -610,8 +618,8 @@
       <label>{Measurement}</label>
       <group ref="Measurement">
         <label>{Measurement}</label>
-        <input faims_web="true" ref="Parent_Feature">
-          <label>{Parent_Feature}</label>
+        <input faims_web="true" ref="Feature_Identifier">
+          <label>{Feature_Identifier}</label>
         </input>
         <select1 faims_attribute_name="Dimension" faims_attribute_type="vocab" ref="Dimension">
           <label>{Dimension}</label>

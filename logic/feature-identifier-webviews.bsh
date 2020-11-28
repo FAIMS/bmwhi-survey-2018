@@ -1,6 +1,6 @@
-/*************************** PARENT FEATURE WEBVIEW ***************************/
+/************************ FEATURE IDENTIFIER WEBVIEWS *************************/
 
-final String REF_PARENT_FEATURE = "Measurement/Measurement/Parent_Feature";
+final List REFS_FEATURE_IDENTIFIER = getRefsMatching("*/Feature_Identifier");
 
 void setFieldToIdentifier(String identiferType, String lotRef) {
   String uuid = getUuid(identiferType);
@@ -27,12 +27,12 @@ void setFieldToIdentifier(String identiferType, String lotRef) {
   fetchOne(q, cb);
 }
 
-void populateParentFeatureWebview() {
-  setFieldToIdentifier(REF_FEATURE, REF_PARENT_FEATURE);
+void populateFeatureWebview(String refFeatureIdentifier) {
+  setFieldToIdentifier(REF_FEATURE, refFeatureIdentifier);
 }
 
-addOnEvent(
-    getTabGroupRef(REF_PARENT_FEATURE),
-    "show",
-    "populateParentFeatureWebview()"
-);
+for (String ref : REFS_FEATURE_IDENTIFIER) {
+  String cb = "populateFeatureWebview(\"" + ref + "\");";
+  addOnEvent(getTabGroupRef(ref), "show", cb);
+  addOnEvent(getTabGroupRef(ref), "save", cb);
+}

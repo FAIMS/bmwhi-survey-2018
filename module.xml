@@ -132,6 +132,7 @@
     <Interpretation/>
   </Feature>
   <Detail>
+    <Feature_Identifier t="webview"/>
     <Material t="checkbox">
       <opts>
         <opt>Ceramic</opt>
@@ -146,6 +147,7 @@
     <Detail_Photos t="camera"/>
   </Detail>
   <External_Photos>
+    <Feature_Identifier t="webview"/>
     <IDs_of_Pictures_from_External_Camera/>
     <External_Photo_Notes/>
   </External_Photos>
@@ -154,7 +156,7 @@
 <Measurement>
   <fmt>{{Dimension}}: {{Measurement}}</fmt>
   <Measurement>
-    <Parent_Feature t="webview"/>
+    <Feature_Identifier t="webview"/>
     <Dimension t="dropdown">
       <opts>
         <opt>Height (m)</opt>
@@ -199,7 +201,7 @@
 <!--@SOURCE: logic/tracklog.bsh-->
 <!--@SOURCE: logic/sync-disable.bsh-->
 <!--@SOURCE: logic/map.bsh-->
-<!--@SOURCE: logic/parent-feature-webview.bsh-->
+<!--@SOURCE: logic/feature-identifier-webviews.bsh-->
 <!--@SOURCE: logic/measurement-fields.bsh-->
 ]]></logic>
 
