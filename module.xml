@@ -1,6 +1,14 @@
 <!--@POSTPROC: ./postproc.sh-->
 <module>
 
+<rels>
+  <RelationshipElement name="Feature - Measurement" type="hierarchical">
+    <description>A 1-to-n relationship between the parent and its children, respectively.</description>
+    <parent>Parent Of</parent>
+    <child>Child Of</child>
+  </RelationshipElement>
+</rels>
+
 <Login f="nodata">
   <User_List f="noscroll">
     <Users f="nolabel user" l="Control"/>
@@ -108,7 +116,16 @@
       </opts>
     </Feature_Type>
     <Description/>
-    <Add_Measurement lc="Measurement"/>
+    <Measurement_Fields t="webview" f="nolabel"/>
+    <cols>
+      <Dimension t="dropdown" f="nodata noannotation nocertainty" vp="Measurement/Measurement/Dimension"/>
+      <Dimension_Annotation f="nodata noannotation nocertainty"/>
+    </cols>
+    <cols>
+      <Measurement f="nodata noannotation nocertainty" b="decimal"/>
+      <Measurement_Annotation f="nodata noannotation nocertainty"/>
+    </cols>
+    <Add_Measurement t="button"/>
     <List_of_Measurements ec="Measurement" c="fixedheightfive"/>
     <Photo_of_Sketch t="camera"/>
     <Comments/>
@@ -183,6 +200,7 @@
 <!--@SOURCE: logic/sync-disable.bsh-->
 <!--@SOURCE: logic/map.bsh-->
 <!--@SOURCE: logic/parent-feature-webview.bsh-->
+<!--@SOURCE: logic/measurement-fields.bsh-->
 ]]></logic>
 
 </module>

@@ -100,6 +100,7 @@ stopped=Stopped
 time=Time
 distance=Distance
 Date=Date
+Please_complete_the_Dimension_and_Measurement_fields=Please complete the Dimension and Measurement fields
 EOF
 
 cat << EOF >> ui_styling.css

@@ -1,4 +1,6 @@
 /*********************************** SHARED ***********************************/
+final String REF_FEATURE = "Feature";
+
 CUSTOM_EVENTS.add("starttrack");
 CUSTOM_EVENTS.add("stoptrack");
 

@@ -1,6 +1,5 @@
 /*************************** PARENT FEATURE WEBVIEW ***************************/
 
-final String REF_FEATURE = "Feature";
 final String REF_PARENT_FEATURE = "Measurement/Measurement/Parent_Feature";
 
 void setFieldToIdentifier(String identiferType, String lotRef) {

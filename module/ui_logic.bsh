@@ -353,6 +353,11 @@ REF_TO_TYPE.put("Feature/Feature/Accuracy", "input");
 REF_TO_TYPE.put("Feature/Feature/Take_From_GPS_1", "button");
 REF_TO_TYPE.put("Feature/Feature/Feature_Type", "dropdown");
 REF_TO_TYPE.put("Feature/Feature/Description", "input");
+REF_TO_TYPE.put("Feature/Feature/Measurement_Fields", "webview");
+REF_TO_TYPE.put("Feature/Feature/Dimension", "dropdown");
+REF_TO_TYPE.put("Feature/Feature/Dimension_Annotation", "input");
+REF_TO_TYPE.put("Feature/Feature/Measurement", "input");
+REF_TO_TYPE.put("Feature/Feature/Measurement_Annotation", "input");
 REF_TO_TYPE.put("Feature/Feature/Add_Measurement", "button");
 REF_TO_TYPE.put("Feature/Feature/List_of_Measurements", "list");
 REF_TO_TYPE.put("Feature/Feature/Photo_of_Sketch", "camera");
@@ -432,7 +437,7 @@ NO_UI_REFS.add("Tracklog/Tracklog/Heading");
 NO_UI_REFS.add("Tracklog/Tracklog/Accuracy");
 NO_UI_REFS.add("Tracklog");
 
-
+VP_REF_TO_REF.put("Feature/Feature/Dimension", "Measurement/Measurement/Dimension");
 
 HIER_REFS.add("Feature/Feature/Feature_Type");
 
@@ -1582,18 +1587,14 @@ void timedPopulateCursorList(String ref, String q, int limit) {
 void setUpTypeHierarchy() {
   //- 
   //  - Feature
-  //    - Measurement
   //  - Photolog
 
   n0 = Tree("", 1);
   n1 = Tree("Feature", 1);
-  n2 = Tree("Measurement", 1);
-  n3 = Tree("Photolog", 1);
+  n2 = Tree("Photolog", 1);
 
   n0.addChild(n1);
-  n0.addChild(n3);
-
-  n1.addChild(n2);
+  n0.addChild(n2);
 
 
   PERF_TYPE_TREE = n0;
@@ -3325,13 +3326,10 @@ void onClickControlNewPhotolog () {
 
 
 
-void onClickFeatureAddMeasurement () {
-  newMeasurement("Feature");
-}
+
 addOnEvent("Login/User_List/Users", "click", "onClickLoginUsers()");
 addOnEvent("Control/Control/New_Feature", "click", "onClickControlNewFeature()");
 addOnEvent("Control/Control/New_Photolog", "click", "onClickControlNewPhotolog()");
-addOnEvent("Feature/Feature/Add_Measurement", "click", "onClickFeatureAddMeasurement()");
 
 /******************************************************************************/
 /*                   AUDIO, CAMERA, FILE AND VIDEO BINDINGS                   */
@@ -4306,6 +4304,8 @@ addOnEvent("Feature/Feature/List_of_Measurements", "click", "loadEntity()");
 /******************************************************************************/
 
 /*********************************** SHARED ***********************************/
+final String REF_FEATURE = "Feature";
+
 CUSTOM_EVENTS.add("starttrack");
 CUSTOM_EVENTS.add("stoptrack");
 
@@ -5064,7 +5064,6 @@ addOnEvent(
 );
 /*************************** PARENT FEATURE WEBVIEW ***************************/
 
-final String REF_FEATURE = "Feature";
 final String REF_PARENT_FEATURE = "Measurement/Measurement/Parent_Feature";
 
 void setFieldToIdentifier(String identiferType, String lotRef) {
@@ -5100,6 +5099,142 @@ addOnEvent(
     getTabGroupRef(REF_PARENT_FEATURE),
     "show",
     "populateParentFeatureWebview()"
+);
+/************************* MEASUREMENT FIELDS WEBVIEW *************************/
+
+final String REF_MEASUREMENT = "Measurement";
+
+final String REF_LIST_OF_MEASUREMENTS = "Feature/Feature/List_of_Measurements";
+
+final String REF_MEASUREMENT_FIELDS = "Feature/Feature/Measurement_Fields";
+final String REF_ADD_MEASUREMENT = "Feature/Feature/Add_Measurement";
+
+final String REF_MEASUREMENT_DIMENSION =
+  "Feature/Feature/Dimension";
+final String REF_MEASUREMENT_DIMENSION_ANNOTATION =
+  "Feature/Feature/Dimension_Annotation";
+final String REF_MEASUREMENT_MEASUREMENT =
+  "Feature/Feature/Measurement";
+final String REF_MEASUREMENT_MEASUREMENT_ANNOTATION =
+  "Feature/Feature/Measurement_Annotation";
+
+final List REFS_MEASUREMENT_FIELDS = Arrays.asList(
+  new String[]{
+    REF_MEASUREMENT_DIMENSION,
+    REF_MEASUREMENT_DIMENSION_ANNOTATION,
+    REF_MEASUREMENT_MEASUREMENT,
+    REF_MEASUREMENT_MEASUREMENT_ANNOTATION
+  }
+);
+
+void populateMeasurementsWebView() {
+  populateWebViewHtml(REF_MEASUREMENT_FIELDS, "<hr/><b>Measurements</b>");
+}
+
+void clearFields(List refs) {
+  for (ref : refs) {
+    clearField(ref);
+  }
+}
+
+void clearMeasurementFields() {
+  clearFields(REFS_MEASUREMENT_FIELDS);
+}
+
+boolean isValidMeasurementFieldSet() {
+  Log.w("ASDF", "" + isNull(REF_MEASUREMENT_DIMENSION));
+  Log.w("ASDF", "" + isNull(REF_MEASUREMENT_MEASUREMENT));
+  return
+    !isNull(getFieldValue(REF_MEASUREMENT_DIMENSION)) &&
+    !isNull(getFieldValue(REF_MEASUREMENT_MEASUREMENT));
+}
+
+void addMeasurement() {
+  triggerAutoSave();
+  String parentUuid = getUuid(REF_FEATURE);
+  if (isNull(parentUuid)) {
+    showToast("{Please_enter_data_first}");
+    return;
+  }
+
+  if (!isValidMeasurementFieldSet()) {
+    showToast("{Please_complete_the_Dimension_and_Measurement_fields}");
+    return;
+  }
+
+  String relTypeName = "";
+  relTypeName += getArchEntType(REF_FEATURE);
+  relTypeName += " - ";
+  relTypeName += getArchEntType(REF_MEASUREMENT);
+
+  String notifyUserAndUpdateList = "";
+  notifyUserAndUpdateList += "clearMeasurementFields();";
+  notifyUserAndUpdateList += "showToast(\"{toast_saved}\");";
+  notifyUserAndUpdateList += getEntityMenuPopulationFunction(
+    new String[] {
+      REF_LIST_OF_MEASUREMENTS,
+      "getUuid(\"" + REF_FEATURE + "\")",
+      getArchEntType(REF_MEASUREMENT),
+      relTypeName
+    }
+  );
+
+
+  SaveCallback saveReln = new SaveCallback() {
+    onSave(uuid, newRecord) {
+
+      saveEntitiesToHierRel(
+        relTypeName,
+        parentUuid,
+        uuid,
+        "Parent Of",
+        "Child Of",
+        notifyUserAndUpdateList
+      );
+    }
+  };
+
+  EntityAttribute measurementDimensionAttr = createEntityAttribute(
+    getAttributeName(REF_MEASUREMENT_DIMENSION),
+    getFieldValue(REF_MEASUREMENT_DIMENSION_ANNOTATION),
+    getFieldValue(REF_MEASUREMENT_DIMENSION),
+    "",
+    "1.0"
+  );
+  EntityAttribute measurementMeasurementAttr = createEntityAttribute(
+    getAttributeName(REF_MEASUREMENT_MEASUREMENT),
+    getFieldValue(REF_MEASUREMENT_MEASUREMENT_ANNOTATION),
+    "",
+    getFieldValue(REF_MEASUREMENT_MEASUREMENT),
+    "1.0"
+  );
+
+  List attribs = Arrays.asList(
+    new EntityAttribute[]{
+      measurementDimensionAttr,
+      measurementMeasurementAttr
+    }
+  );
+
+  saveArchEnt(
+    null,
+    getArchEntType(REF_MEASUREMENT),
+    (List) null,
+    attribs,
+    saveReln
+  );
+}
+
+addOnEvent(
+    REF_ADD_MEASUREMENT,
+    "click",
+    "addMeasurement()"
+);
+
+addOnEvent(
+    REF_FEATURE,
+    "show",
+    "populateMeasurementsWebView()"
 );
 
 

@@ -138,6 +138,23 @@
               <Take_From_GPS_1/>
               <Feature_Type/>
               <Description/>
+              <Measurement_Fields/>
+              <Colgroup_4>
+                <Col_1>
+                  <Dimension/>
+                </Col_1>
+                <Col_2>
+                  <Dimension_Annotation/>
+                </Col_2>
+              </Colgroup_4>
+              <Colgroup_5>
+                <Col_1>
+                  <Measurement/>
+                </Col_1>
+                <Col_2>
+                  <Measurement_Annotation/>
+                </Col_2>
+              </Colgroup_5>
               <Add_Measurement/>
               <List_of_Measurements/>
               <Photo_of_Sketch/>
@@ -180,6 +197,7 @@
       <bind nodeset="/faims/Control/Tracklog/Colgroup_1/Col_1/refreshText" type="decimal"/>
       <bind nodeset="/faims/Control/Tracklog/Colgroup_2/Col_1/trackdistText" type="decimal"/>
       <bind nodeset="/faims/Control/Tracklog/Colgroup_3/Col_1/tracktimeText" type="decimal"/>
+      <bind nodeset="/faims/Feature/Feature/Colgroup_5/Col_1/Measurement" type="decimal"/>
       <bind nodeset="/faims/Measurement/Measurement/Measurement" type="decimal"/>
     </model>
   </h:head>
@@ -491,6 +509,43 @@
         <input faims_attribute_name="Description" faims_attribute_type="measure" ref="Description">
           <label>{Description}</label>
         </input>
+        <input faims_web="true" ref="Measurement_Fields">
+          <label/>
+        </input>
+        <group ref="Colgroup_4" faims_style="orientation">
+          <label/>
+          <group ref="Col_1" faims_style="even">
+            <label/>
+            <select1 ref="Dimension" faims_annotation="false" faims_certainty="false">
+              <label>{Dimension}</label>
+              <item>
+                <label>Options not loaded</label>
+                <value>Options not loaded</value>
+              </item>
+            </select1>
+          </group>
+          <group ref="Col_2" faims_style="even">
+            <label/>
+            <input ref="Dimension_Annotation" faims_annotation="false" faims_certainty="false">
+              <label>{Dimension_Annotation}</label>
+            </input>
+          </group>
+        </group>
+        <group ref="Colgroup_5" faims_style="orientation">
+          <label/>
+          <group ref="Col_1" faims_style="even">
+            <label/>
+            <input ref="Measurement" faims_annotation="false" faims_certainty="false">
+              <label>{Measurement}</label>
+            </input>
+          </group>
+          <group ref="Col_2" faims_style="even">
+            <label/>
+            <input ref="Measurement_Annotation" faims_annotation="false" faims_certainty="false">
+              <label>{Measurement_Annotation}</label>
+            </input>
+          </group>
+        </group>
         <trigger ref="Add_Measurement">
           <label>{Add_Measurement}</label>
         </trigger>
