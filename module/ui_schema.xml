@@ -137,7 +137,6 @@
               </Colgroup_3>
               <Take_From_GPS_1/>
               <Feature_Type/>
-              <Description/>
               <Measurement_Fields/>
               <Colgroup_4>
                 <Col_1>
@@ -157,6 +156,7 @@
               </Colgroup_5>
               <Add_Measurement/>
               <List_of_Measurements/>
+              <Description/>
               <Photo_of_Sketch/>
               <Photo_of_Sketch_Button_1/>
               <Comments/>
@@ -506,9 +506,6 @@
             <value>Options not loaded</value>
           </item>
         </select1>
-        <input faims_attribute_name="Description" faims_attribute_type="measure" ref="Description">
-          <label>{Description}</label>
-        </input>
         <input faims_web="true" ref="Measurement_Fields">
           <label/>
         </input>
@@ -556,6 +553,9 @@
             <value>Options not loaded</value>
           </item>
         </select1>
+        <input faims_attribute_name="Description" faims_attribute_type="measure" ref="Description">
+          <label>{Description}</label>
+        </input>
         <select faims_sync="true" type="camera" faims_attribute_name="Photo of Sketch" faims_attribute_type="measure" ref="Photo_of_Sketch">
           <label>{Photo_of_Sketch}</label>
           <item>

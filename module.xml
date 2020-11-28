@@ -115,7 +115,6 @@
         <opt>Other</opt>
       </opts>
     </Feature_Type>
-    <Description/>
     <Measurement_Fields t="webview" f="nolabel"/>
     <cols>
       <Dimension t="dropdown" f="nodata noannotation nocertainty" vp="Measurement/Measurement/Dimension"/>
@@ -127,6 +126,7 @@
     </cols>
     <Add_Measurement t="button"/>
     <List_of_Measurements t="dropdown" ec="Measurement"/>
+    <Description/>
     <Photo_of_Sketch t="camera"/>
     <Comments/>
     <Interpretation/>
