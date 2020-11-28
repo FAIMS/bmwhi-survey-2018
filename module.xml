@@ -108,14 +108,12 @@
       </opts>
     </Feature_Type>
     <Description/>
+    <Add_Measurement lc="Measurement"/>
+    <List_of_Measurements ec="Measurement" c="fixedheightfive"/>
     <Photo_of_Sketch t="camera"/>
     <Comments/>
     <Interpretation/>
   </Feature>
-  <Measurement f="noscroll">
-    <Add_Measurement lc="Measurement"/>
-    <List_of_Measurements ec="Measurement"/>
-  </Measurement>
   <Detail>
     <Material t="checkbox">
       <opts>

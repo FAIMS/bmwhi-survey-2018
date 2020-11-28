@@ -133,15 +133,13 @@
               <Take_From_GPS_1/>
               <Feature_Type/>
               <Description/>
+              <Add_Measurement/>
+              <List_of_Measurements/>
               <Photo_of_Sketch/>
               <Photo_of_Sketch_Button_1/>
               <Comments/>
               <Interpretation/>
             </Feature>
-            <Measurement>
-              <Add_Measurement/>
-              <List_of_Measurements/>
-            </Measurement>
             <Detail>
               <Material/>
               <Asociated_Material_Notes/>
@@ -474,6 +472,16 @@
         <input faims_attribute_name="Description" faims_attribute_type="measure" ref="Description">
           <label>{Description}</label>
         </input>
+        <trigger ref="Add_Measurement">
+          <label>{Add_Measurement}</label>
+        </trigger>
+        <select1 appearance="compact" ref="List_of_Measurements" faims_style_class="fixedheightfive">
+          <label>{List_of_Measurements}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>Options not loaded</value>
+          </item>
+        </select1>
         <select faims_sync="true" type="camera" faims_attribute_name="Photo of Sketch" faims_attribute_type="measure" ref="Photo_of_Sketch">
           <label>{Photo_of_Sketch}</label>
           <item>
@@ -490,19 +498,6 @@
         <input faims_attribute_name="Interpretation" faims_attribute_type="measure" ref="Interpretation">
           <label>{Interpretation}</label>
         </input>
-      </group>
-      <group ref="Measurement" faims_scrollable="false">
-        <label>{Measurement}</label>
-        <trigger ref="Add_Measurement">
-          <label>{Add_Measurement}</label>
-        </trigger>
-        <select1 appearance="compact" ref="List_of_Measurements">
-          <label>{List_of_Measurements}</label>
-          <item>
-            <label>Options not loaded</label>
-            <value>Options not loaded</value>
-          </item>
-        </select1>
       </group>
       <group ref="Detail">
         <label>{Detail}</label>
