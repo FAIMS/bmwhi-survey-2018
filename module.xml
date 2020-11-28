@@ -137,6 +137,7 @@
 <Measurement>
   <fmt>{{Dimension}}: {{Measurement}}</fmt>
   <Measurement>
+    <Parent_Feature t="webview"/>
     <Dimension t="dropdown">
       <opts>
         <opt>Height (m)</opt>
@@ -181,6 +182,7 @@
 <!--@SOURCE: logic/tracklog.bsh-->
 <!--@SOURCE: logic/sync-disable.bsh-->
 <!--@SOURCE: logic/map.bsh-->
+<!--@SOURCE: logic/parent-feature-webview.bsh-->
 ]]></logic>
 
 </module>

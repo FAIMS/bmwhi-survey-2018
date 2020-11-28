@@ -365,6 +365,7 @@ REF_TO_TYPE.put("Feature/Detail/Detail_Photos", "camera");
 REF_TO_TYPE.put("Feature/Detail/Detail_Photos_Button_1", "button");
 REF_TO_TYPE.put("Feature/External_Photos/IDs_of_Pictures_from_External_Camera", "input");
 REF_TO_TYPE.put("Feature/External_Photos/External_Photo_Notes", "input");
+REF_TO_TYPE.put("Measurement/Measurement/Parent_Feature", "webview");
 REF_TO_TYPE.put("Measurement/Measurement/Dimension", "dropdown");
 REF_TO_TYPE.put("Measurement/Measurement/Measurement", "input");
 REF_TO_TYPE.put("Photolog/Photolog/Photographed_Feature_ID", "input");
@@ -5009,6 +5010,45 @@ addOnEvent(
     "Control/Map/Load_Highlighted_Record",
     "click",
     "loadHighlightedRecord()"
+);
+/*************************** PARENT FEATURE WEBVIEW ***************************/
+
+final String REF_FEATURE = "Feature";
+final String REF_PARENT_FEATURE = "Measurement/Measurement/Parent_Feature";
+
+void setFieldToIdentifier(String identiferType, String lotRef) {
+  String uuid = getUuid(identiferType);
+
+  if (isNull(uuid)) {
+    populateWebViewHtml(lotRef, "&nbsp;");
+    return;
+  }
+
+  String q = "";
+  q += "SELECT uuid, response ";
+  q += "FROM latestnondeletedarchentformattedidentifiers ";
+  q += "WHERE uuid = '%s' ";
+  q  = replaceFirst(q, "%s", uuid);
+
+  FetchCallback cb = new FetchCallback() {
+    onFetch(result) {
+      String contextIdentifer = result.get(1);
+
+      populateWebViewHtml(lotRef, contextIdentifer);
+    }
+  };
+
+  fetchOne(q, cb);
+}
+
+void populateParentFeatureWebview() {
+  setFieldToIdentifier(REF_FEATURE, REF_PARENT_FEATURE);
+}
+
+addOnEvent(
+    getTabGroupRef(REF_PARENT_FEATURE),
+    "show",
+    "populateParentFeatureWebview()"
 );
 
 

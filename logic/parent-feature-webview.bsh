@@ -1,0 +1,39 @@
+/*************************** PARENT FEATURE WEBVIEW ***************************/
+
+final String REF_FEATURE = "Feature";
+final String REF_PARENT_FEATURE = "Measurement/Measurement/Parent_Feature";
+
+void setFieldToIdentifier(String identiferType, String lotRef) {
+  String uuid = getUuid(identiferType);
+
+  if (isNull(uuid)) {
+    populateWebViewHtml(lotRef, "&nbsp;");
+    return;
+  }
+
+  String q = "";
+  q += "SELECT uuid, response ";
+  q += "FROM latestnondeletedarchentformattedidentifiers ";
+  q += "WHERE uuid = '%s' ";
+  q  = replaceFirst(q, "%s", uuid);
+
+  FetchCallback cb = new FetchCallback() {
+    onFetch(result) {
+      String contextIdentifer = result.get(1);
+
+      populateWebViewHtml(lotRef, contextIdentifer);
+    }
+  };
+
+  fetchOne(q, cb);
+}
+
+void populateParentFeatureWebview() {
+  setFieldToIdentifier(REF_FEATURE, REF_PARENT_FEATURE);
+}
+
+addOnEvent(
+    getTabGroupRef(REF_PARENT_FEATURE),
+    "show",
+    "populateParentFeatureWebview()"
+);

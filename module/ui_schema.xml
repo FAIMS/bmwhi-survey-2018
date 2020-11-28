@@ -153,6 +153,7 @@
           </Feature>
           <Measurement>
             <Measurement>
+              <Parent_Feature/>
               <Dimension/>
               <Measurement/>
             </Measurement>
@@ -536,6 +537,9 @@
       <label>{Measurement}</label>
       <group ref="Measurement">
         <label>{Measurement}</label>
+        <input faims_web="true" ref="Parent_Feature">
+          <label>{Parent_Feature}</label>
+        </input>
         <select1 faims_attribute_name="Dimension" faims_attribute_type="vocab" ref="Dimension">
           <label>{Dimension}</label>
           <item>
