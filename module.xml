@@ -115,11 +115,12 @@
         <opt>Other</opt>
       </opts>
     </Feature_Type>
-    <Load_Measurements t="dropdown" ec="Measurement"/>
     <Description/>
+    <Add_Measurement t="button" l="Feature/Measurement"/>
+    <Load_Measurements t="dropdown" ec="Measurement"/>
+    <Interpretation/>
     <Photo_of_Sketch t="camera"/>
     <Comments/>
-    <Interpretation/>
   </Feature>
   <Measurement f="noscroll">
     <cols>

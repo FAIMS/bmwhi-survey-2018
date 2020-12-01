@@ -352,12 +352,13 @@ REF_TO_TYPE.put("Feature/Feature/Easting", "input");
 REF_TO_TYPE.put("Feature/Feature/Accuracy", "input");
 REF_TO_TYPE.put("Feature/Feature/Take_From_GPS_1", "button");
 REF_TO_TYPE.put("Feature/Feature/Feature_Type", "dropdown");
-REF_TO_TYPE.put("Feature/Feature/Load_Measurements", "dropdown");
 REF_TO_TYPE.put("Feature/Feature/Description", "input");
+REF_TO_TYPE.put("Feature/Feature/Add_Measurement", "button");
+REF_TO_TYPE.put("Feature/Feature/Load_Measurements", "dropdown");
+REF_TO_TYPE.put("Feature/Feature/Interpretation", "input");
 REF_TO_TYPE.put("Feature/Feature/Photo_of_Sketch", "camera");
 REF_TO_TYPE.put("Feature/Feature/Photo_of_Sketch_Button_1", "button");
 REF_TO_TYPE.put("Feature/Feature/Comments", "input");
-REF_TO_TYPE.put("Feature/Feature/Interpretation", "input");
 REF_TO_TYPE.put("Feature/Measurement/Dimension", "dropdown");
 REF_TO_TYPE.put("Feature/Measurement/Dimension_Annotation", "input");
 REF_TO_TYPE.put("Feature/Measurement/Measurement", "input");
@@ -409,9 +410,9 @@ DATA_REFS.add("Feature/Feature/Easting");
 DATA_REFS.add("Feature/Feature/Accuracy");
 DATA_REFS.add("Feature/Feature/Feature_Type");
 DATA_REFS.add("Feature/Feature/Description");
+DATA_REFS.add("Feature/Feature/Interpretation");
 DATA_REFS.add("Feature/Feature/Photo_of_Sketch");
 DATA_REFS.add("Feature/Feature/Comments");
-DATA_REFS.add("Feature/Feature/Interpretation");
 DATA_REFS.add("Feature/Detail/Material");
 DATA_REFS.add("Feature/Detail/Asociated_Material_Notes");
 DATA_REFS.add("Feature/Detail/Detail_Photos");
@@ -3314,6 +3315,10 @@ void onClickLoginUsers () {
   newTab("Control", true);
 }
 
+void onClickFeatureAddMeasurement () {
+  newTab("Feature/Measurement", true);
+}
+
 void onClickControlNewFeature () {
   parentTabgroup__ = "Control";
   newFeature();
@@ -3334,6 +3339,7 @@ void onClickControlNewPhotolog () {
 addOnEvent("Login/User_List/Users", "click", "onClickLoginUsers()");
 addOnEvent("Control/Control/New_Feature", "click", "onClickControlNewFeature()");
 addOnEvent("Control/Control/New_Photolog", "click", "onClickControlNewPhotolog()");
+addOnEvent("Feature/Feature/Add_Measurement", "click", "onClickFeatureAddMeasurement()");
 
 /******************************************************************************/
 /*                   AUDIO, CAMERA, FILE AND VIDEO BINDINGS                   */
