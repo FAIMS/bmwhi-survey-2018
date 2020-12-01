@@ -2,19 +2,18 @@
 
 final String REF_MEASUREMENT = "Measurement";
 
-final String REF_LIST_OF_MEASUREMENTS = "Feature/Feature/List_of_Measurements";
+final String REF_LIST_OF_MEASUREMENTS = "Feature/Measurement/List_of_Measurements";
 
-final String REF_MEASUREMENT_FIELDS = "Feature/Feature/Measurement_Fields";
-final String REF_ADD_MEASUREMENT = "Feature/Feature/Add_Measurement";
+final String REF_ADD_MEASUREMENT = "Feature/Measurement/Add_Measurement";
 
 final String REF_MEASUREMENT_DIMENSION =
-  "Feature/Feature/Dimension";
+  "Feature/Measurement/Dimension";
 final String REF_MEASUREMENT_DIMENSION_ANNOTATION =
-  "Feature/Feature/Dimension_Annotation";
+  "Feature/Measurement/Dimension_Annotation";
 final String REF_MEASUREMENT_MEASUREMENT =
-  "Feature/Feature/Measurement";
+  "Feature/Measurement/Measurement";
 final String REF_MEASUREMENT_MEASUREMENT_ANNOTATION =
-  "Feature/Feature/Measurement_Annotation";
+  "Feature/Measurement/Measurement_Annotation";
 
 final List REFS_MEASUREMENT_FIELDS = Arrays.asList(
   new String[]{
@@ -24,10 +23,6 @@ final List REFS_MEASUREMENT_FIELDS = Arrays.asList(
     REF_MEASUREMENT_MEASUREMENT_ANNOTATION
   }
 );
-
-void populateMeasurementsWebView() {
-  populateWebViewHtml(REF_MEASUREMENT_FIELDS, "<hr/><b>Measurements</b>");
-}
 
 void clearFields(List refs) {
   for (ref : refs) {
@@ -40,8 +35,6 @@ void clearMeasurementFields() {
 }
 
 boolean isValidMeasurementFieldSet() {
-  Log.w("ASDF", "" + isNull(REF_MEASUREMENT_DIMENSION));
-  Log.w("ASDF", "" + isNull(REF_MEASUREMENT_MEASUREMENT));
   return
     !isNull(getFieldValue(REF_MEASUREMENT_DIMENSION)) &&
     !isNull(getFieldValue(REF_MEASUREMENT_MEASUREMENT));
@@ -60,23 +53,26 @@ void addMeasurement() {
     return;
   }
 
+  String dimensionAnnotation =
+    getFieldValue(REF_MEASUREMENT_DIMENSION_ANNOTATION);
+  String dimension =
+    getFieldValue(REF_MEASUREMENT_DIMENSION);
+  String measurementAnnotation =
+    getFieldValue(REF_MEASUREMENT_MEASUREMENT_ANNOTATION);
+  String measurement =
+    getFieldValue(REF_MEASUREMENT_MEASUREMENT);
+  clearMeasurementFields();
+
   String relTypeName = "";
   relTypeName += getArchEntType(REF_FEATURE);
   relTypeName += " - ";
   relTypeName += getArchEntType(REF_MEASUREMENT);
 
   String notifyUserAndUpdateList = "";
-  notifyUserAndUpdateList += "clearMeasurementFields();";
-  notifyUserAndUpdateList += "showToast(\"{toast_saved}\");";
-  notifyUserAndUpdateList += getEntityMenuPopulationFunction(
-    new String[] {
-      REF_LIST_OF_MEASUREMENTS,
-      "getUuid(\"" + REF_FEATURE + "\")",
-      getArchEntType(REF_MEASUREMENT),
-      relTypeName
-    }
-  );
-
+  notifyUserAndUpdateList +=
+    "showToast(\"{toast_saved}\");";
+  notifyUserAndUpdateList +=
+    "populateEntityListsOfArchEnt(\"" + REF_MEASUREMENT + "\");";
 
   SaveCallback saveReln = new SaveCallback() {
     onSave(uuid, newRecord) {
@@ -94,16 +90,16 @@ void addMeasurement() {
 
   EntityAttribute measurementDimensionAttr = createEntityAttribute(
     getAttributeName(REF_MEASUREMENT_DIMENSION),
-    getFieldValue(REF_MEASUREMENT_DIMENSION_ANNOTATION),
-    getFieldValue(REF_MEASUREMENT_DIMENSION),
+    dimensionAnnotation,
+    dimension,
     "",
     "1.0"
   );
   EntityAttribute measurementMeasurementAttr = createEntityAttribute(
     getAttributeName(REF_MEASUREMENT_MEASUREMENT),
-    getFieldValue(REF_MEASUREMENT_MEASUREMENT_ANNOTATION),
+    measurementAnnotation,
     "",
-    getFieldValue(REF_MEASUREMENT_MEASUREMENT),
+    measurement,
     "1.0"
   );
 
@@ -123,14 +119,4 @@ void addMeasurement() {
   );
 }
 
-addOnEvent(
-    REF_ADD_MEASUREMENT,
-    "click",
-    "addMeasurement()"
-);
-
-addOnEvent(
-    REF_FEATURE,
-    "show",
-    "populateMeasurementsWebView()"
-);
+addOnEvent(REF_ADD_MEASUREMENT, "click", "addMeasurement()");

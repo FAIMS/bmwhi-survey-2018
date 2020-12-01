@@ -352,18 +352,18 @@ REF_TO_TYPE.put("Feature/Feature/Easting", "input");
 REF_TO_TYPE.put("Feature/Feature/Accuracy", "input");
 REF_TO_TYPE.put("Feature/Feature/Take_From_GPS_1", "button");
 REF_TO_TYPE.put("Feature/Feature/Feature_Type", "dropdown");
-REF_TO_TYPE.put("Feature/Feature/Measurement_Fields", "webview");
-REF_TO_TYPE.put("Feature/Feature/Dimension", "dropdown");
-REF_TO_TYPE.put("Feature/Feature/Dimension_Annotation", "input");
-REF_TO_TYPE.put("Feature/Feature/Measurement", "input");
-REF_TO_TYPE.put("Feature/Feature/Measurement_Annotation", "input");
-REF_TO_TYPE.put("Feature/Feature/Add_Measurement", "button");
-REF_TO_TYPE.put("Feature/Feature/List_of_Measurements", "dropdown");
+REF_TO_TYPE.put("Feature/Feature/Load_Measurements", "dropdown");
 REF_TO_TYPE.put("Feature/Feature/Description", "input");
 REF_TO_TYPE.put("Feature/Feature/Photo_of_Sketch", "camera");
 REF_TO_TYPE.put("Feature/Feature/Photo_of_Sketch_Button_1", "button");
 REF_TO_TYPE.put("Feature/Feature/Comments", "input");
 REF_TO_TYPE.put("Feature/Feature/Interpretation", "input");
+REF_TO_TYPE.put("Feature/Measurement/Dimension", "dropdown");
+REF_TO_TYPE.put("Feature/Measurement/Dimension_Annotation", "input");
+REF_TO_TYPE.put("Feature/Measurement/Measurement", "input");
+REF_TO_TYPE.put("Feature/Measurement/Measurement_Annotation", "input");
+REF_TO_TYPE.put("Feature/Measurement/Add_Measurement", "button");
+REF_TO_TYPE.put("Feature/Measurement/List_of_Measurements", "list");
 REF_TO_TYPE.put("Feature/Detail/Feature_Identifier", "webview");
 REF_TO_TYPE.put("Feature/Detail/Material", "checkbox");
 REF_TO_TYPE.put("Feature/Detail/Asociated_Material_Notes", "input");
@@ -391,6 +391,7 @@ REF_TO_TYPE.put("Control/Tracklog", "tab");
 REF_TO_TYPE.put("Control/Map", "tab");
 REF_TO_TYPE.put("Control/Search", "tab");
 REF_TO_TYPE.put("Feature/Feature", "tab");
+REF_TO_TYPE.put("Feature/Measurement", "tab");
 REF_TO_TYPE.put("Feature/Detail", "tab");
 REF_TO_TYPE.put("Feature/External_Photos", "tab");
 REF_TO_TYPE.put("Measurement/Measurement", "tab");
@@ -439,7 +440,7 @@ NO_UI_REFS.add("Tracklog/Tracklog/Heading");
 NO_UI_REFS.add("Tracklog/Tracklog/Accuracy");
 NO_UI_REFS.add("Tracklog");
 
-VP_REF_TO_REF.put("Feature/Feature/Dimension", "Measurement/Measurement/Dimension");
+VP_REF_TO_REF.put("Feature/Measurement/Dimension", "Measurement/Measurement/Dimension");
 
 HIER_REFS.add("Feature/Feature/Feature_Type");
 
@@ -456,6 +457,7 @@ TABS_AS_LIST.add("Control/Tracklog");
 TABS_AS_LIST.add("Control/Map");
 TABS_AS_LIST.add("Control/Search");
 TABS_AS_LIST.add("Feature/Feature");
+TABS_AS_LIST.add("Feature/Measurement");
 TABS_AS_LIST.add("Feature/Detail");
 TABS_AS_LIST.add("Feature/External_Photos");
 TABS_AS_LIST.add("Measurement/Measurement");
@@ -4279,7 +4281,13 @@ ENTITY_MENUS.add(new String[] {
     ""
 });
 ENTITY_MENUS.add(new String[] {
-    "Feature/Feature/List_of_Measurements",
+    "Feature/Feature/Load_Measurements",
+    "getUuid(\"Feature\")",
+    "Measurement",
+    "Feature - Measurement"
+});
+ENTITY_MENUS.add(new String[] {
+    "Feature/Measurement/List_of_Measurements",
     "getUuid(\"Feature\")",
     "Measurement",
     "Feature - Measurement"
@@ -4300,7 +4308,8 @@ for (m : ENTITY_MENUS) {
 }
 
 addOnEvent("Control/Control/List_of_Existing_Features", "click", "loadEntity()");
-addOnEvent("Feature/Feature/List_of_Measurements", "click", "loadEntity(true)");
+addOnEvent("Feature/Feature/Load_Measurements", "click", "loadEntity(true)");
+addOnEvent("Feature/Measurement/List_of_Measurements", "click", "loadEntity()");
 /******************************************************************************/
 /*                             HANDWRITTEN LOGIC                              */
 /******************************************************************************/
@@ -5106,19 +5115,18 @@ for (String ref : REFS_FEATURE_IDENTIFIER) {
 
 final String REF_MEASUREMENT = "Measurement";
 
-final String REF_LIST_OF_MEASUREMENTS = "Feature/Feature/List_of_Measurements";
+final String REF_LIST_OF_MEASUREMENTS = "Feature/Measurement/List_of_Measurements";
 
-final String REF_MEASUREMENT_FIELDS = "Feature/Feature/Measurement_Fields";
-final String REF_ADD_MEASUREMENT = "Feature/Feature/Add_Measurement";
+final String REF_ADD_MEASUREMENT = "Feature/Measurement/Add_Measurement";
 
 final String REF_MEASUREMENT_DIMENSION =
-  "Feature/Feature/Dimension";
+  "Feature/Measurement/Dimension";
 final String REF_MEASUREMENT_DIMENSION_ANNOTATION =
-  "Feature/Feature/Dimension_Annotation";
+  "Feature/Measurement/Dimension_Annotation";
 final String REF_MEASUREMENT_MEASUREMENT =
-  "Feature/Feature/Measurement";
+  "Feature/Measurement/Measurement";
 final String REF_MEASUREMENT_MEASUREMENT_ANNOTATION =
-  "Feature/Feature/Measurement_Annotation";
+  "Feature/Measurement/Measurement_Annotation";
 
 final List REFS_MEASUREMENT_FIELDS = Arrays.asList(
   new String[]{
@@ -5128,10 +5136,6 @@ final List REFS_MEASUREMENT_FIELDS = Arrays.asList(
     REF_MEASUREMENT_MEASUREMENT_ANNOTATION
   }
 );
-
-void populateMeasurementsWebView() {
-  populateWebViewHtml(REF_MEASUREMENT_FIELDS, "<hr/><b>Measurements</b>");
-}
 
 void clearFields(List refs) {
   for (ref : refs) {
@@ -5144,8 +5148,6 @@ void clearMeasurementFields() {
 }
 
 boolean isValidMeasurementFieldSet() {
-  Log.w("ASDF", "" + isNull(REF_MEASUREMENT_DIMENSION));
-  Log.w("ASDF", "" + isNull(REF_MEASUREMENT_MEASUREMENT));
   return
     !isNull(getFieldValue(REF_MEASUREMENT_DIMENSION)) &&
     !isNull(getFieldValue(REF_MEASUREMENT_MEASUREMENT));
@@ -5164,23 +5166,26 @@ void addMeasurement() {
     return;
   }
 
+  String dimensionAnnotation =
+    getFieldValue(REF_MEASUREMENT_DIMENSION_ANNOTATION);
+  String dimension =
+    getFieldValue(REF_MEASUREMENT_DIMENSION);
+  String measurementAnnotation =
+    getFieldValue(REF_MEASUREMENT_MEASUREMENT_ANNOTATION);
+  String measurement =
+    getFieldValue(REF_MEASUREMENT_MEASUREMENT);
+  clearMeasurementFields();
+
   String relTypeName = "";
   relTypeName += getArchEntType(REF_FEATURE);
   relTypeName += " - ";
   relTypeName += getArchEntType(REF_MEASUREMENT);
 
   String notifyUserAndUpdateList = "";
-  notifyUserAndUpdateList += "clearMeasurementFields();";
-  notifyUserAndUpdateList += "showToast(\"{toast_saved}\");";
-  notifyUserAndUpdateList += getEntityMenuPopulationFunction(
-    new String[] {
-      REF_LIST_OF_MEASUREMENTS,
-      "getUuid(\"" + REF_FEATURE + "\")",
-      getArchEntType(REF_MEASUREMENT),
-      relTypeName
-    }
-  );
-
+  notifyUserAndUpdateList +=
+    "showToast(\"{toast_saved}\");";
+  notifyUserAndUpdateList +=
+    "populateEntityListsOfArchEnt(\"" + REF_MEASUREMENT + "\");";
 
   SaveCallback saveReln = new SaveCallback() {
     onSave(uuid, newRecord) {
@@ -5198,16 +5203,16 @@ void addMeasurement() {
 
   EntityAttribute measurementDimensionAttr = createEntityAttribute(
     getAttributeName(REF_MEASUREMENT_DIMENSION),
-    getFieldValue(REF_MEASUREMENT_DIMENSION_ANNOTATION),
-    getFieldValue(REF_MEASUREMENT_DIMENSION),
+    dimensionAnnotation,
+    dimension,
     "",
     "1.0"
   );
   EntityAttribute measurementMeasurementAttr = createEntityAttribute(
     getAttributeName(REF_MEASUREMENT_MEASUREMENT),
-    getFieldValue(REF_MEASUREMENT_MEASUREMENT_ANNOTATION),
+    measurementAnnotation,
     "",
-    getFieldValue(REF_MEASUREMENT_MEASUREMENT),
+    measurement,
     "1.0"
   );
 
@@ -5227,17 +5232,7 @@ void addMeasurement() {
   );
 }
 
-addOnEvent(
-    REF_ADD_MEASUREMENT,
-    "click",
-    "addMeasurement()"
-);
-
-addOnEvent(
-    REF_FEATURE,
-    "show",
-    "populateMeasurementsWebView()"
-);
+addOnEvent(REF_ADD_MEASUREMENT, "click", "addMeasurement()");
 
 
 /******************************************************************************/

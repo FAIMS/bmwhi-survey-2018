@@ -115,7 +115,13 @@
         <opt>Other</opt>
       </opts>
     </Feature_Type>
-    <Measurement_Fields t="webview" f="nolabel"/>
+    <Load_Measurements t="dropdown" ec="Measurement"/>
+    <Description/>
+    <Photo_of_Sketch t="camera"/>
+    <Comments/>
+    <Interpretation/>
+  </Feature>
+  <Measurement f="noscroll">
     <cols>
       <Dimension t="dropdown" f="nodata noannotation nocertainty" vp="Measurement/Measurement/Dimension"/>
       <Dimension_Annotation f="nodata noannotation nocertainty"/>
@@ -125,12 +131,8 @@
       <Measurement_Annotation f="nodata noannotation nocertainty"/>
     </cols>
     <Add_Measurement t="button"/>
-    <List_of_Measurements t="dropdown" ec="Measurement"/>
-    <Description/>
-    <Photo_of_Sketch t="camera"/>
-    <Comments/>
-    <Interpretation/>
-  </Feature>
+    <List_of_Measurements ec="Measurement"/>
+  </Measurement>
   <Detail>
     <Feature_Identifier t="webview"/>
     <Material t="checkbox">
