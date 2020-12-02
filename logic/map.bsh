@@ -115,11 +115,11 @@ void showMapLayer(
         ts
     );
 
-  if (layerType == SPATIAL)
+  if (layerType == SPATIAL) {
     showSpatialLayer(
         MAP_REF,
         archEntType + " (April)",
-        "files/data/shapes/shapes.sqlite",
+        "files/data/shapes/spatialite.april.3857.db",
         archEntType.replaceAll(" ", ""),
         "PK_UID",
         column,
@@ -128,6 +128,19 @@ void showMapLayer(
         pos,
         ts
     );
+    showSpatialLayer(
+          MAP_REF,
+          archEntType + " (July)",
+          "files/data/shapes/spatialite.july.3857.db",
+          archEntType.replaceAll(" ", ""),
+          "PK_UID",
+          column,
+          ps,
+          ls,
+          pos,
+          ts
+      );
+  }
 
 }
 

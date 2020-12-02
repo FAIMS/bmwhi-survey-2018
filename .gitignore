@@ -3,3 +3,4 @@
 upload-config.yaml
 upload-new.py
 upload-secrets.yaml
+upload*.py

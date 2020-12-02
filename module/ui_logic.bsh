@@ -1,5 +1,5 @@
 /*
- * GENERATED WITH FAIMS-TOOLS, SHA1: 9c14ae879d985b84ef13c3735df22a9623bae952
+ * GENERATED WITH FAIMS-TOOLS, SHA1: 5df1c0c23cb4d2ea4c271a2a650454e84a06cda5
  */
 import android.util.Log;
 import android.os.Build.MODEL;
@@ -527,6 +527,9 @@ boolean hasVpRef(String ref) {
   return getVpRef(ref) != null;
 }
 
+/* Returns `true` if `ref` refers to a hierarhical menu. (e.g. a hierarchical
+ * dropdown or hierarchical picture gallery.) Returns `false` otherwise.
+ */
 boolean isHier(String ref) {
   return HIER_REFS.contains(ref);
 }
@@ -734,6 +737,10 @@ String getArch16nKey(String ref) {
   else                     return "{" + lastRefPart + "}";
 }
 
+String getArch16nVal(String ref) {
+  return arch16nSubstituteValues(getArch16nKey(ref));
+}
+
 String guessArch16nVal(String ref) {
   return guessArch16nValFromRef(ref);
 }
@@ -763,7 +770,7 @@ String guessArch16nValFromKey(String key) {
  */
 String arch16nSubstituteValues(String unSubbed) {
   if (isInUnitTestTime())
-    return "";
+    return unSubbed;
 
   List entries = new ArrayList();
   entries.add(new NameValuePair(unSubbed, ""));
@@ -1069,6 +1076,21 @@ void addOnEvent(String ref, String event, String statement, int precedence) {
   addToOnEventPriorities(ref, event, statement, precedence, ON_EVT_STMTS);
 }
 
+/* Adds a condition to be checked before any expressions bound by `addOnEvent`
+ * are evaluated. `check` is `boolean` expression which must evaluate to `true`
+ * before the bound expressions evaluate. For instance, in the following logic,
+ * `onShowMyTabGroup()` will never be evaluated:
+ *
+ * ```
+ * boolean myChecker() {
+ *   showWarning("I'm Sorry, Dave", "I'm afraid I can't do that.");
+ *   return false;
+ * }
+ *
+ * addOnEvent    ("My_Tab_Group", "show", "onShowMyTabGroup()");
+ * addOnEventCond("My_Tab_Group", "show", "myChecker()");
+ * ```
+ */
 void addOnEventCond(String ref, String event, String check) {
   addToOnEventPriorities(ref, event, check, PRECEDENCE_MID, ON_EVT_CONDS);
 }
@@ -1328,6 +1350,28 @@ int getNumDummyPhotosAtNode(tree) {
     PERF_PHOTOS_PER_FIELD;
 }
 
+int getNumSavedPhotos() {
+  String dirStr = "/sdcard/faims/modules/" + getModuleId() + "/files/server/";
+  return getNumFilesInDir(dirStr);
+}
+
+int getNumFilesInDir(String path) {
+  File file = new File(path);
+  return getNumFilesInDir(file);
+}
+
+int getNumFilesInDir(File dir) {
+  int num = 0;
+
+  File[] files = dir.listFiles();
+  if (files == null) return num;
+
+  for (File file : dir.listFiles())
+    num += file.isFile() ? 1 : getNumFilesInDir(file);
+
+  return num;
+}
+
 int getNumDummyRecords() {
   getNumDummyRecords(PERF_TYPE_TREE);
 }
@@ -1357,8 +1401,32 @@ float getFileSizeInMBytes(String path) {
   return file.length() / 1000.f / 1000.f;
 }
 
+float getDirSizeInMBytes(String path) {
+  File file = new File(path);
+  return getDirSizeInMBytes(file);
+}
+
+float getDirSizeInMBytes(File dir) {
+  float length = 0;
+
+  File[] files = dir.listFiles();
+  if (files == null) return length;
+
+  for (File file : dir.listFiles())
+    length += file.isFile()
+      ? file.length() / 1000.f / 1000.f
+      : getDirSizeInMBytes(file);
+
+  return length;
+}
+
 float getSizeDummyPhotosInMBytes() {
   return getNumDummyPhotos() * getFileSizeInMBytes(PERF_TEST_IMG);
+}
+
+float getSizeSavedPhotosInMBytes() {
+  String dirStr = "/sdcard/faims/modules/" + getModuleId() + "/files/server/";
+  return getDirSizeInMBytes(dirStr);
 }
 
 String megabytesToString(float mb) {
@@ -1371,8 +1439,16 @@ String getSizeDummyPhotosInMBytesAsString() {
   return megabytesToString(getSizeDummyPhotosInMBytes());
 }
 
+String getSizeSavedPhotosInMBytesAsString() {
+  return megabytesToString(getSizeSavedPhotosInMBytes());
+}
+
 float getFreeSpaceInMBytes() {
-  StatFs statFs = new StatFs(Environment.getRootDirectory().getAbsolutePath());
+  return getFreeSpaceInMBytes(Environment.getRootDirectory().getAbsolutePath());
+}
+
+float getFreeSpaceInMBytes(String path) {
+  StatFs statFs = new StatFs(path);
   return statFs.getBlockCount() * statFs.getBlockSize() / 1000.f / 1000.f;
 }
 
@@ -1686,6 +1762,23 @@ List getAttribsForArchEnt(String archEntType) {
   return attribs;
 }
 
+List getDummyGeometry(String archEntType) {
+  String tabGroupRef = archEntType.replaceAll(" ", "_");
+
+  if (getTakeFromGpsMappings().get(tabGroupRef) == null)
+    return null;
+
+  Double northing = 1.f;
+  Double easting  = 1.f;
+
+  MapPos mapPos = new MapPos(easting, northing);
+  Point samplePoint = new Point(mapPos, null, (PointStyle) null, null);
+  ArrayList geolist = new ArrayList();
+  geolist.add(samplePoint);
+
+  return geolist;
+}
+
 void displayRecordDigest(int numCreated) {
   String q = "";
   q += "   SELECT '{All}', count(*)";
@@ -1712,6 +1805,14 @@ void displayRecordDigest(int numCreated) {
 
         body += "\t- " + type + ": " + num + "\n";
       }
+
+      body += "\nThere are " +
+        getNumSavedPhotos() +
+        " saved files on this device. There is " +
+        getFreeSpaceInMBytesAsString() +
+        " MB of free space on this device, of which the saved files use " +
+        getSizeSavedPhotosInMBytesAsString() +
+        " MB.";
 
       if (dialog != null)
         dialog.dismiss();
@@ -1767,12 +1868,13 @@ PerfSaveCallback(tree, String parentUuid) {
 
 void saveArchEnts(tree, String parentUuid) {
   String archEntName = tree.label;
+  List   geometry    = getDummyGeometry(archEntName);
   int    numEnts     = tree.data;
   cb                 = PerfSaveCallback(tree, parentUuid);
 
   for (int i = 0; i < numEnts; i++) {
     List attribs = getAttribsForArchEnt(archEntName);
-    saveArchEnt(null, archEntName, (List) null, attribs, cb);
+    saveArchEnt(null, archEntName, geometry, attribs, cb);
   }
 }
 
@@ -1845,9 +1947,9 @@ PerfImageDownloader() {
       return;
 
     String filStr = "/sdcard/faims/modules/" + getModuleId() +
-        "/files/app/test.jpg";
-    String urlStr = "https://raw.githubusercontent.com/FAIMS/FAIMS-Tools/" +
-        "master/test-images/construction-2894x1924.jpg";
+        "/files/test.jpg";
+    String urlStr = "https://github.com/FAIMS/FAIMS-Tools/raw/master/" +
+        "generators/christian/tests/images/construction-2894x1924.jpg";
 
     if (detectFile(filStr))
       return;
@@ -3308,7 +3410,8 @@ for (String tabGroup : getTabGroups()) {
   if (isFlaggedNodata    (tabGroup)) continue;
   if (hasNoUi            (tabGroup)) continue;
   if (isFlaggedNoautosave(tabGroup)) continue;
-  addOnEvent(tabGroup, "show", "saveTabGroup", new Object[]{tabGroup});
+  String funStr = fun2str("saveTabGroup", new Object[]{tabGroup});
+  addOnEvent(tabGroup, "show", funStr);
 }
 
 void onClickLoginUsers () {
@@ -4039,15 +4142,15 @@ void takePoint(String tabgroup) {
 
   String accuracy = "" + getGPSEstimatedAccuracy();
   setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Accuracy",  accuracy);
-  setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Longitude", sLatitude);
-  setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Latitude",  sLongitude);
-  setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Easting",   sNorthing);
-  setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Northing",  sEasting);
+  setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Longitude", sLongitude);
+  setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Latitude",  sLatitude);
+  setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Easting",   sEasting);
+  setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Northing",  sNorthing);
 
   List attribs = createAttributeList();
   attribs.add(createEntityAttribute("Accuracy",  "", "", accuracy,   "1.0"));
-  attribs.add(createEntityAttribute("Longitude", "", "", sLatitude,  "1.0"));
-  attribs.add(createEntityAttribute("Latitude",  "", "", sLongitude, "1.0"));
+  attribs.add(createEntityAttribute("Longitude", "", "", sLongitude,  "1.0"));
+  attribs.add(createEntityAttribute("Latitude",  "", "", sLatitude, "1.0"));
   attribs.add(createEntityAttribute("Northing",  "", "", sNorthing,  "1.0"));
   attribs.add(createEntityAttribute("Easting",   "", "", sEasting,   "1.0"));
 
@@ -4057,6 +4160,32 @@ void takePoint(String tabgroup) {
   );
   SaveCallback saveCallback = getDefaultSaveCallback(tabgroup, showToast);
   saveArchEnt(currentUuid, archEntType, geolist, attribs, saveCallback);
+}
+
+/* Sets the value of GPS views for the given tab ref. */
+void fillInGPS(String tabgroup) {
+  Map tabgroupToTabRef = getTakeFromGpsMappings();
+  String currentUuid = getUuid(tabgroup);
+  if (isNull(currentUuid)) {
+    return;
+  }
+
+  String query = "SELECT x(transform(geospatialcolumn,                4326)) as longtiude, " +
+                 "       y(transform(geospatialcolumn,                4326)) as latitude, " +
+                 "       x(transform(geospatialcolumn, "+getModuleSrid()+")) as easting, " +
+                 "       y(transform(geospatialcolumn, "+getModuleSrid()+")) as northing " +
+                 "  FROM latestnondeletedarchent " +
+                 " WHERE uuid = '" + currentUuid + "';";
+
+  fetchOne(query, new FetchCallback() {
+    onFetch(result) {
+      print("[fillInGPS()] Fetched DB transformed geometry: " + result);
+      setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Longitude" , result.get(0));
+      setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Latitude"  , result.get(1));
+      setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Easting"   , result.get(2));
+      setFieldValue(tabgroupToTabRef.get(tabgroup) + "/Northing"  , result.get(3));
+    }
+  });
 }
 
 void clearGpsInTabGroup(String tabgroup) {
@@ -4129,9 +4258,39 @@ Integer incField(String ref, Integer defaultVal) {
     return defaultVal;
   }
 
-  Integer inc = Integer.parseInt(val) + 1;
-  setFieldValue(ref, inc);
-  insertIntoLocalSettings(ref, inc.toString());
+  Integer inc = null;
+  try {
+    inc = Integer.parseInt(val) + 1;
+  } catch (Exception e) { ; }
+
+  if (inc == null) {
+    try {
+      Double dinc = Double.parseDouble(val) + 1;
+      inc = Math.round(dinc);
+
+      String head, body;
+      head  = "{inc_field_head}";
+      body  = "{inc_field_body_1}" + getArch16nKey(ref) + "{inc_field_body_2}";
+
+      showWarning(head, body);
+    } catch (Exception e) {
+      Log.d("incField", "" + e);
+      ;
+    }
+  }
+
+  if (inc == null) {
+    String head, body;
+    head  = "{inc_field_head}";
+    body  = "{inc_field_body_1}" + getArch16nKey(ref) + "{inc_field_body_3}";
+
+    showWarning(head, body);
+  }
+
+  if (inc != null) {
+    setFieldValue(ref, inc);
+    insertIntoLocalSettings(ref, inc.toString());
+  }
 
   return inc;
 }
@@ -5040,11 +5199,11 @@ void showMapLayer(
         ts
     );
 
-  if (layerType == SPATIAL)
+  if (layerType == SPATIAL) {
     showSpatialLayer(
         MAP_REF,
         archEntType + " (April)",
-        "files/data/shapes/shapes.sqlite",
+        "files/data/shapes/spatialite.april.3857.db",
         archEntType.replaceAll(" ", ""),
         "PK_UID",
         column,
@@ -5053,6 +5212,19 @@ void showMapLayer(
         pos,
         ts
     );
+    showSpatialLayer(
+          MAP_REF,
+          archEntType + " (July)",
+          "files/data/shapes/spatialite.july.3857.db",
+          archEntType.replaceAll(" ", ""),
+          "PK_UID",
+          column,
+          ps,
+          ls,
+          pos,
+          ts
+      );
+  }
 
 }
 
