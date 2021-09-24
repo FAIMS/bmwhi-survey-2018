@@ -1,4 +1,7 @@
-# About this module:
+# Field Survey of the Blue Mountains World Heritage Area, NSW
+
+
+## About this module:
 This module was created for the field survey of the **Ruined Castle area**, located in the Blue Mountains National Park, co-organised by the Blue Mountains World Heritage Institute, Katoomba, Australia, the Lantern Heritage consultancy, and by the Macquarie University, Sydney, Australia. The module has been designed for field survey of the historic mining heritage site in the Jamison Valley, near Katoomba.
 
 ## Authorship:
