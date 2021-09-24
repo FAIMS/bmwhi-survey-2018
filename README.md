@@ -2,7 +2,7 @@
 This module was created for the field survey of the **Ruined Castle area**, located in the Blue Mountains National Park, co-organised by the Blue Mountains World Heritage Institute, Katoomba, Australia, the Lantern Heritage consultancy, and by the Macquarie University, Sydney, Australia. The module has been designed for field survey of the historic mining heritage site in the Jamison Valley, near Katoomba.
 
 ## Authorship:
-This module was co-developed by Shawn Ross and Adela Sobotkova and Petra Janouchova at the FAIMS Project, Department of Ancient History, Macquarie University.
+This module was co-developed by Shawn Ross and Adela Sobotkova and Petra Janouchova at the FAIMS Project, Department of Ancient History, Macquarie University. It was implemented by Christian Nassif-Haynes, Department of Ancient History, Macquarie University. Module modifications were authored by Penny Crook, Department of Modern History, International Relations, and Politics, Macquarie University and Brian Ballsun-Stanton, Faculty of Arts, Macquarie University.
 
 ## Funding:
 Development of this module was funded by the **Research Attraction and Acceleration Program (RAAP) NSW Department of Industry 16805/00**, aimed to support innovation and investment in the New South Wales in 2016, 2017, and 2018.

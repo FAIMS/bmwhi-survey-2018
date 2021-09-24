@@ -1,0 +1,35 @@
+# YAML 1.2
+---
+abstract: "This module was created for the field survey of the **Ruined Castle area**, located in the Blue Mountains National Park, co-organised by the Blue Mountains World Heritage Institute, Katoomba, Australia, the Lantern Heritage consultancy, and by the Macquarie University, Sydney, Australia. The module has been designed for field survey of the historic mining heritage site in the Jamison Valley, near Katoomba."
+authors: 
+  -
+    family-names: Ross
+    given-names: Shawn
+    orcid: "https://orcid.org/0000-0002-6492-9025"
+  -
+    family-names: Sobotkova
+    given-names: Adela
+    orcid: "https://orcid.org/0000-0002-4541-3963"
+  -
+    family-names: Hermankova
+    given-names: Petra
+    orcid: "https://orcid.org/0000-0002-6349-0540"
+  -
+    family-names: "Nassif-Haynes"
+    given-names: Christian
+    orcid: "https://orcid.org/0000-0002-4260-8191"
+  -
+    family-names: Crook
+    given-names: Penny
+    orcid: "https://orcid.org/0000-0001-8509-7865"
+  -
+    family-names: "Ballsun-Stanton"
+    given-names: Brian
+    orcid: "https://orcid.org/0000-0003-4932-7912"
+cff-version: "1.1.0"
+date-released: 2018-04-01
+license: "CC-BY-4.0"
+message: "If you use this software, please cite it using these metadata."
+repository-code: "https://github.com/FAIMS/bmwhi-survey-2018"
+title: "Field Survey of the Ruined Castle area, Blue Mountains, NSW"
+...
